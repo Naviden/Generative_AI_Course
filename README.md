@@ -80,4 +80,3 @@ If you have any questions or feedback, please feel free to contact the authors. 
 - The authors and contributors of the "Handbook of Generative AI"
 - The open-source community
 - Navid Nobani
-```
