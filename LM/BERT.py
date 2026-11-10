@@ -8,8 +8,8 @@
 # pre-trained BERT model and it’s being used directly without any fine-tuning.
 # For task-specific applications, you might need to fine-tune the model on your
 # specific dataset to achieve better performance. Also, the 'bert-base-uncased'
-# model outputs raw scores which are not normalized probabilities. If you need 
-# the output to be probabilities, you can apply a softmax function to the scores.
+# base model outputs hidden-state vectors, not class scores. A task-specific
+# classification head is required to obtain class logits/probabilities.
 
 
 import torch

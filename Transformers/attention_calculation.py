@@ -29,11 +29,13 @@ S_loves_cats = np.dot(Q_loves, K_cats)
 
 # Apply softmax function to the scores
 def softmax(scores):
-    e_scores = np.exp(scores)
-    return e_scores / np.sum(e_scores)
+    scores = np.asarray(scores, dtype=float)
+    e_scores = np.exp(scores - np.max(scores, axis=-1, keepdims=True))
+    return e_scores / np.sum(e_scores, axis=-1, keepdims=True)
 
 scores = np.array([S_loves_he, S_loves_loves, S_loves_cats])
-attention_weights = softmax(scores)
+# Scaled dot-product attention: d_k is the query/key feature dimension.
+attention_weights = softmax(scores / np.sqrt(Q_loves.shape[-1]))
 
 # Calculate the final attention output for "loves"
 Attention_loves = attention_weights[0] * V_he + attention_weights[1] * V_loves + attention_weights[2] * V_cats

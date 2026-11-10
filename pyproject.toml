@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "generative-ai-course"
+version = "0.2.0"
+description = "Reproducible labs for a 12-hour doctoral generative AI course"
+requires-python = ">=3.11,<3.14"
+dependencies = ["numpy>=2.0,<3", "torch>=2.6,<3"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10", "nbformat>=5.10,<6"]
+notebooks = ["jupyterlab>=4,<5", "matplotlib>=3.9,<4"]
+classical = ["scikit-learn>=1.5,<2", "scipy>=1.14,<2", "hmmlearn>=0.3.3,<0.4", "pandas>=2.2,<4", "matplotlib>=3.9,<4", "imageio>=2.36,<3", "nltk>=3.9.1,<4", "sklearn-crfsuite>=0.5,<0.6"]
+llm = ["transformers>=4.48,<6", "safetensors>=0.5,<1"]
+tensorflow = ["tensorflow>=2.18,<3", "matplotlib>=3.9,<4"]
+
+[tool.setuptools.packages.find]
+include = ["genai_course*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"

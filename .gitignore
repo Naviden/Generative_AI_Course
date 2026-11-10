@@ -138,3 +138,6 @@ Desktop.ini
 .Trashes
 ehthumbs_vista.db
 [Tt]humbs.db
+
+# Reproducible lab outputs (regenerate from recorded commands)
+runs/
