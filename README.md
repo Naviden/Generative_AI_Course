@@ -2,7 +2,7 @@
 
 **Format: three 4-hour classes.** Each 240-minute meeting includes two 10-minute breaks: 12 scheduled hours, 11 hours of active teaching. The course assumes graduate-level machine learning; it is a focused research introduction, not a substitute for a semester of generative modelling.
 
-**Curriculum reviewed: 10 November 2026.** Foundational results are taught alongside selected 2025–2026 research. New preprints are explicitly distinguished from established results. No claim of exhaustive frontier coverage is made.
+**Curriculum reviewed: 10 November 2026.** Foundational results are taught alongside selected 2025–2026 research. New preprints are explicitly distinguished from established results.
 
 ## Start here
 
