@@ -1,7 +1,8 @@
+# Legacy MNIST example: trainable-toggle behavior is not validated; see docs/repository-audit.md.
 # In this script, we first define the generator and discriminator models
 # using Keras. The generator takes a noise vector as input and produces
 # a 28x28 image, while the discriminator takes a 28x28 image as input and
-# outputs a single scalar representing the probability that the input image is real.
+# outputs a single unnormalized real/fake logit.
 
 # We then define an adversarial model that chains the generator and discriminator
 # together, and compile the models using the Adam optimizer.
@@ -65,12 +66,12 @@ def make_discriminator_model():
 discriminator = make_discriminator_model()
 
 # Compile the discriminator
-discriminator.compile(loss='binary_crossentropy', optimizer='adam')
+discriminator.compile(loss=tf.keras.losses.BinaryCrossentropy(from_logits=True), optimizer='adam')
 
 # Compile the adversarial model
 adversarial_model = Sequential([generator, discriminator])
 discriminator.trainable = False
-adversarial_model.compile(loss='binary_crossentropy', optimizer='adam')
+adversarial_model.compile(loss=tf.keras.losses.BinaryCrossentropy(from_logits=True), optimizer='adam')
 
 # Training the DCGAN
 epochs = 10000

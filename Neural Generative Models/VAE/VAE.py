@@ -1,3 +1,4 @@
+# Legacy MNIST example: see docs/repository-audit.md; use genai_course for tested labs.
 # In this script, we first define an encoder model that maps input images to a latent space,
 # a decoder model that generates images from points in the latent space, and a VAE model that
 # combines the encoder and decoder. The VAE model also includes a custom training step that
@@ -74,7 +75,8 @@ class VAE(Model):
             reconstruction_loss = tf.reduce_mean(tf.keras.losses.binary_crossentropy(data, reconstruction))
             reconstruction_loss *= 28 * 28
             kl_loss = 1 + z_log_var - tf.square(z_mean) - tf.exp(z_log_var)
-            kl_loss = tf.reduce_mean(kl_loss)
+            # Sum the latent event dimensions, then average examples.
+            kl_loss = tf.reduce_mean(tf.reduce_sum(kl_loss, axis=-1))
             kl_loss *= -0.5
             total_loss = reconstruction_loss + kl_loss
         grads = tape.gradient(total_loss, self.trainable_weights)
