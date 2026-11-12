@@ -13,3 +13,13 @@ Before accepting changes:
 7. Do not add a license for inherited third-party files without confirming rights. Link to primary sources rather than copying full papers.
 
 Before each course delivery, refresh the selected research readings, rerun the locked environment, verify external links and record the review date. Package upgrades must preserve tested behavior, not merely increase version numbers. Research outputs should disclose seeds, data/model revisions, split units, compute, uncertainty and unsuccessful runs.
+
+
+## Repository layout
+
+Keep the numbered student sequence in `lessons/`. Put historical scripts,
+notebooks, inherited reference documents, data and environment snapshots in
+`archive/`; do not reintroduce the old topic folders at the root. Shared
+supported implementations remain in `genai_course/`, with current dependencies
+in `requirements/`. When moving material, update local links and test paths,
+verify asset preservation, and record the old-to-new mapping in the archive.

@@ -67,4 +67,4 @@ For more than eight groups, pair groups for simultaneous defenses rather than ex
 
 ## Deliberate scope boundaries
 
-This course teaches selected mechanisms deeply enough to support a research discussion. It does not claim mastery of all generative AI in 12 hours. Full transformer training, distributed systems, GPU kernel engineering, image/video/audio foundation-model training, RL implementation, formal privacy guarantees and production agent deployment require additional courses. HMMs, GMMs and naive Bayes are prerequisite refreshers in the legacy folders, not extra scheduled classes.
+This course teaches selected mechanisms deeply enough to support a research discussion. It does not claim mastery of all generative AI in 12 hours. Full transformer training, distributed systems, GPU kernel engineering, image/video/audio foundation-model training, RL implementation, formal privacy guarantees and production agent deployment require additional courses. HMMs, GMMs and naive Bayes are prerequisite refreshers under `archive/`, not extra scheduled classes.

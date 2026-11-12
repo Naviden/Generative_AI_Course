@@ -66,3 +66,20 @@ Validation on the existing Apple Silicon / Python 3.12 core environment:
 
 This verifies that the guided commands and references match the implementation;
 it is not evidence that every student will complete each concept at the same pace.
+
+
+## Physical archive reorganization — 12 November 2026
+
+Moved the seven historical topic/reference/data folders and the 2023 environment
+snapshot into `archive/` (54 tracked files). All 47 non-README files were checked
+against their pre-move SHA-256 hashes and are byte-identical. The seven moved
+orientation READMEs have updated relative links. No core model implementation,
+lesson sequence, current dependency or timetable changed.
+
+Updated active documentation links and the historical-attention regression-test
+path. Validation after relocation: 26 tests passed; all four classroom CLI
+commands completed; dependency compatibility passed in the installed Python 3.12
+core environment; 193 relative file links/section anchors passed a navigation
+check; material validation passed for local links, Python syntax, notebook
+schemas and the three 240-minute agendas. Historical notebook cells and legacy
+training remain outside the executed scope.

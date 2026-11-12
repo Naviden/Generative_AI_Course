@@ -22,7 +22,7 @@ Each lesson identifies **what to read, what to predict before running, the exact
 
 ## Which folders should I open?
 
-The folder listing is not the lesson order. Use `lessons/` as the entrance.
+Open `lessons/` and follow its numbered folders. All historical topic folders are grouped under `archive/`.
 
 ```text
 lessons/                   STUDENT PATH — open these in numeric order
@@ -37,10 +37,13 @@ genai_course/              IMPLEMENTATION — open functions when a lesson asks
 labs/                      REFERENCE — compact lab instructions and output guide
 docs/                      REFERENCE — theory, readings, setup and teaching plans
 tests/                     VERIFICATION — mathematical and implementation checks
+requirements/              CURRENT ENVIRONMENT — core dependencies
+scripts/                   MAINTENANCE — material validation
+archive/                   HISTORICAL MATERIAL — outside the required lessons
 runs/                      YOUR OUTPUTS — created locally, not committed
 ```
 
-The original topic folders — `Traditional Generative Models/`, `Neural Generative Models/`, `Transformers/`, `LM/`, `other/`, `Books and Tutorials/` and `data/` — are **historical or optional reference material**. Each has an orientation note. Some examples are incomplete or require separate dependencies. They are not additional required lessons. Consult the [historical-material guide](docs/historical-material.md) before using them. Their paths are retained for existing links and notebooks.
+The old model examples, notebooks, PDFs, data and 2023 environment snapshot have been moved into [archive/](archive/README.md). Their contents are preserved. The [historical-material guide](docs/historical-material.md) explains their limitations and optional uses; they are not additional required lessons.
 
 ## Reference shelf
 

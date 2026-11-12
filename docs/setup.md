@@ -31,7 +31,7 @@ python -m genai_course.labs attention
 
 Windows: use `py -3.12 -m venv .venv` and `.venv\Scripts\activate` (Command Prompt) or `.venv\Scripts\Activate.ps1` (PowerShell). The lock selects CPU-only PyTorch wheels on Linux/Windows from the official PyTorch index and the standard macOS wheel on macOS. For other accelerators, use [PyTorch's official installation page](https://pytorch.org/get-started/locally/) in a separate environment. The package version and platform must be recorded; accelerator builds are not interchangeable bit for bit.
 
-`requirements/core.lock` is a resolved, exact-version teaching environment, not a guarantee that every version is the newest available. `python -m pip install -r requirements.txt` instead resolves current versions within the supported bounds in `pyproject.toml`; rerun tests before teaching with it. The historical freeze in `requirements/legacy-2023.txt` is archival and should not be installed as the recommended environment.
+`requirements/core.lock` is a resolved, exact-version teaching environment, not a guarantee that every version is the newest available. `python -m pip install -r requirements.txt` instead resolves current versions within the supported bounds in `pyproject.toml`; rerun tests before teaching with it. The historical freeze in `archive/requirements/legacy-2023.txt` is archival and should not be installed as the recommended environment.
 
 ## Offline classroom preparation
 

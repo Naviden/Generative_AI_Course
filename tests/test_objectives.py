@@ -117,7 +117,7 @@ def test_vae_gradients_reach_encoder_and_decoder():
 
 
 def test_original_attention_stable_and_scaled():
-    path = Path(__file__).resolve().parents[1] / "Transformers/attention_calculation.py"
+    path = Path(__file__).resolve().parents[1] / "archive/Transformers/attention_calculation.py"
     spec = importlib.util.spec_from_file_location("original_attention", path)
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
