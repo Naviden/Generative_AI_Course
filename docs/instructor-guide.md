@@ -1,5 +1,8 @@
 # Delivery notes
 
+Use [the numbered lessons](../lessons/README.md) as the student-facing entrance. After setup, send students to Lesson 01, Step 1. Keep the compact lab workbook and theory notes as linked references; do not ask students to browse every topic folder. The lesson checkpoints and learning log support the existing timed activities rather than adding homework.
+
+
 ## Before teaching
 
 Confirm students have graduate ML foundations. Run the locked environment checks and all four labs on the actual classroom machines before class. Open the pinned paper versions in the reading list and review the experiment/table selected for critique. Have the validation table and code available offline. The repository supplies Markdown notes and a workbook, not a slide deck; these can be projected directly or used as board prompts.
