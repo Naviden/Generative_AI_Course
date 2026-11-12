@@ -6,7 +6,7 @@ Before accepting changes:
 
 1. Check every new equation's assumptions, signs and reduction conventions. Add numerical reference/gradient checks when changing an objective.
 2. Run `python -m pytest`, `python scripts/check_materials.py`, `python -m pip check` and the four classroom CLI examples in a clean environment.
-3. Check the timetable still totals 3 × 240 minutes, including 20 break minutes per class.
+3. Check the timetable still totals 3 × 240 minutes.
 4. Verify new citations against primary sources. Distinguish author claims from replication, and pin versions when discussing a recent preprint.
 5. Record what was actually executed in `docs/validation.md`; do not mark legacy notebook schema validation as notebook execution.
 6. For dependency changes, regenerate `requirements/core.lock` from `pyproject.toml` with `uv pip compile pyproject.toml --extra dev --universal --python-version 3.11 --torch-backend cpu --emit-index-url --index https://download.pytorch.org/whl/cpu -o requirements/core.lock`. Use the declared Python range, test the classroom platform, and let CI exercise the supported Python versions. Record the resolver version.

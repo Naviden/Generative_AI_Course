@@ -33,17 +33,14 @@ if len(classes) != 3:
 for i, content in enumerate(classes, 1):
     rows = re.findall(r'^\| (\d+)–(\d+) \| ([^|]+)\|', content, flags=re.M)
     end = 0
-    breaks = 0
     for a, b, label in rows:
         a, b = int(a), int(b)
         if a != end or b <= a:
             errors.append(f'class {i}: gap/overlap at {a}–{b}')
         end = b
-        if label.strip() == 'Break':
-            breaks += b - a
-    if end != 240 or breaks != 20:
-        errors.append(f'class {i}: expected 240 minutes including 20 minutes of breaks')
+    if end != 240:
+        errors.append(f'class {i}: expected 240 minutes')
 if errors:
     raise SystemExit('\n'.join(errors))
-print(json.dumps({'status': 'ok', 'class_minutes': [240, 240, 240], 'break_minutes': 60,
+print(json.dumps({'status': 'ok', 'class_minutes': [240, 240, 240],
                   'checks': ['local Markdown targets', 'Python syntax', 'notebook schema', 'continuous class timing']}))

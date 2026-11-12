@@ -7,7 +7,7 @@ Validated on macOS 27.0.1, Apple Silicon, Python 3.12.16, PyTorch 2.15.0 and Num
 - **26 tests passed** in the clean locked environment (7.32 seconds). Tests cover distribution-reference KL/NLL, gradient flow, attention equivalence and causal invariance, DPO signs/stability, flow endpoints, Euler convergence, evaluation diagnostics, reproducible runs and invalid CLI inputs.
 - Dependency compatibility check passed.
 - Local Markdown targets, Python syntax and notebook schemas passed. Notebook cells were **not** executed by this check.
-- Timing check passed: three continuous 240-minute agendas, with 20 break minutes each; total 720 scheduled minutes and 660 active minutes.
+- Timing check passed: three continuous 240-minute agendas, totalling 720 scheduled minutes.
 - All eleven configurations below completed in the clean environment with finite metrics. The initial attention check had row-sum error 1.19e-7 and zero measured future leakage.
 
 ## Classroom experiment record
@@ -83,3 +83,11 @@ core environment; 193 relative file links/section anchors passed a navigation
 check; material validation passed for local links, Python syntax, notebook
 schemas and the three 240-minute agendas. Historical notebook cells and legacy
 training remain outside the executed scope.
+
+
+## Scheduling wording correction — 12 November 2026
+
+Removed the prescribed break allocation from the README, lesson overview,
+instructor guidance and syllabus. The three four-hour meetings remain;
+discussion and theory allocations fill the existing agenda. Material validation
+now checks continuous 240-minute agendas without enforcing a break policy.

@@ -16,7 +16,7 @@ Keep a [learning log](learning-log.md) in your own notes or in `runs/learning-lo
 
 ## Schedule and scope
 
-Lessons 01, 02 and 03 correspond to the three four-hour meetings. Their numbered steps group the existing activities; they do not add extra classroom assignments. Follow the [timed syllabus](../docs/syllabus.md) for the exact breaks and teaching minutes. The readiness step is preparation outside those meetings. Self-study readers can take longer and use the same sequence without a timetable.
+Lessons 01, 02 and 03 correspond to the three four-hour meetings. Their numbered steps group the existing activities; they do not add extra classroom assignments. Follow the [timed syllabus](../docs/syllabus.md) for the lesson activities and teaching sequence. The readiness step is preparation outside those meetings. Self-study readers can take longer and use the same sequence without a timetable.
 
 **Required:** the linked theory sections, four core labs, interpretation questions and in-class assessment. **Optional:** full papers, plotting extras, historical scripts and research extensions. You do not need to repair an old notebook or train every model mentioned in the reading list.
 

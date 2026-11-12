@@ -1,6 +1,6 @@
 # Generative AI: a short course
 
-**Start with the [numbered learning path](lessons/README.md).** This repository teaches how generative models learn, how to inspect their implementations, and how to evaluate their outputs. It assumes graduate-level machine learning and supports **three 4-hour classes**, including two 10-minute breaks per class.
+**Start with the [numbered learning path](lessons/README.md).** This repository teaches how generative models learn, how to inspect their implementations, and how to evaluate their outputs. It assumes graduate-level machine learning and supports **three 4-hour classes**.
 
 ## What should I do next?
 

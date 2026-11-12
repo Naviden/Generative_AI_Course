@@ -1,6 +1,6 @@
 # Three four-hour classes
 
-Total: **3 × 240 = 720 scheduled minutes**. Breaks occupy 60 minutes overall; active teaching occupies 660 minutes. Preparation is limited to setup and the prerequisite diagnostic (suggested 60–90 minutes). Reading full papers and the optional research project are not prerequisites for completing the in-class assessment and are not counted in the 12 hours.
+Total: **3 × 240 = 720 scheduled minutes**. Preparation is limited to setup and the prerequisite diagnostic (suggested 60–90 minutes). Reading full papers and the optional research project are not prerequisites for completing the in-class assessment and are not counted in the 12 hours.
 
 Students follow [the numbered lesson pages](../lessons/README.md); this document supplies the matching clock times. Lesson 01 maps to Class 1, Lesson 02 to Class 2, and Lesson 03 to Class 3. The added navigation and worksheets organize the activities below without increasing their time allocations.
 
@@ -21,12 +21,10 @@ By the end, participants should be able to:
 |---|---|---|
 | 0–15 | Diagnostic discussion; generative vs discriminative modelling | Prerequisites; O1 |
 | 15–45 | Likelihood, cross-entropy, KL, latent-variable inference | Theory §§1–2; O1 |
-| 45–75 | Guided ELBO derivation and reparameterization | Board exercise; O1–O2 |
-| 75–85 | Break | 10 min |
+| 45–85 | Guided ELBO derivation and reparameterization | Board exercise; O1–O2 |
 | 85–120 | VAE lab: event sums, KL weight, held-out diagnostics | Lab 1; O1–O2 |
 | 120–140 | GAN and exact-flow contrasts; mode coverage vs likelihood | Theory §3; O1 |
-| 140–170 | Autoregression, teacher forcing, causal scaled attention | Theory §4; O2 |
-| 170–180 | Break | 10 min |
+| 140–180 | Autoregression, teacher forcing, causal scaled attention | Theory §4; O2 |
 | 180–210 | Attention lab: masking and numerical stability | Lab 2; O2 |
 | 210–230 | Tokenization, scaling, leakage and compute budgets | Theory §4; O5 |
 | 230–240 | Individual exit ticket and feedback | Assessment A; O1–O2 |
@@ -37,13 +35,11 @@ By the end, participants should be able to:
 |---|---|---|
 | 0–15 | Retrieval practice: ELBO and attention assumptions | O1–O2 |
 | 15–50 | Forward diffusion and noise-prediction objective | Theory §5; O1–O3 |
-| 50–75 | Scores, reverse SDE, probability-flow ODE | Guided derivation; O3 |
-| 75–85 | Break | 10 min |
+| 50–85 | Scores, reverse SDE, probability-flow ODE | Guided derivation; O3 |
 | 85–120 | Conditional flow matching and marginal velocity | Theory §6; O3 |
 | 120–155 | Flow lab: train, sample, inspect held-out metrics | Lab 3; O3–O5 |
 | 155–175 | Solver-budget ablation with paired seeds | Lab 3; O3–O5 |
-| 175–185 | Break | 10 min |
-| 185–210 | Evaluation: distribution metrics, uncertainty, sample bias | Theory §7; O5 |
+| 175–210 | Evaluation: distribution metrics, uncertainty, sample bias | Theory §7; O5 |
 | 210–230 | Latent diffusion, multimodality, diffusion language models | Research comparison; O6 |
 | 230–240 | Individual exit ticket and feedback | Assessment B; O1–O3 |
 
@@ -54,11 +50,9 @@ By the end, participants should be able to:
 | 0–20 | Pretraining vs SFT; LoRA and quantization tradeoffs | Theory §8; O4 |
 | 20–55 | Reward models, KL regularization and DPO derivation | Theory §8; O4 |
 | 55–80 | DPO lab: preference, KL and missing generalization | Lab 4; O4–O5 |
-| 80–90 | Break | 10 min |
-| 90–120 | Reasoning: verifiable rewards, inference budgets and failure modes | Theory §9; O4–O6 |
+| 80–120 | Reasoning: verifiable rewards, inference budgets and failure modes | Theory §9; O4–O6 |
 | 120–145 | RAG and agents: component evaluation and trust boundaries | Theory §10; O5 |
-| 145–170 | Critique a 2026 reasoning evaluation paper | Reading packet; O6 |
-| 170–180 | Break | 10 min |
+| 145–180 | Critique a 2026 reasoning evaluation paper | Reading packet; O6 |
 | 180–215 | Group research-design exercise | Assessment C; O5–O6 |
 | 215–235 | Short group defenses and peer review | Two-minute defense per group; O5–O6 |
 | 235–240 | Individual closing reflection | Assessment C; O6 |
