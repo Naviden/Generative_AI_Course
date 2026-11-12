@@ -10,13 +10,20 @@ Install the environment using [setup](setup.md), run the attention lab and tests
 
 ## Diagnostic (15 minutes)
 
-1. Write the factorization of p(x₁,x₂,x₃). What independence assumption does a bigram model add?
-2. For z ~ N(μ, diag(σ²)), write a reparameterized sample using standard Gaussian noise. Which parameters receive gradients?
-3. If Q has shape (B,T,d) and K has shape (B,T,d), what shape does QKᵀ have? Why must an autoregressive mask remove j > i?
+1. Write the factorization of $`p(x_1,x_2,x_3)`$. What independence assumption does a bigram model add?
+2. For $`z\sim\mathcal{N}(\mu,\mathrm{diag}(\sigma^2))`$, write a reparameterized sample using standard Gaussian noise. Which parameters receive gradients?
+3. If $`Q`$ has shape $`(B,T,d)`$ and $`K`$ has shape $`(B,T,d)`$, what shape does $`QK^\top`$ have? Why must an autoregressive mask remove $`j>i`$?
 4. Explain why a lower training loss does not establish better generation on a new population.
-5. Compute KL(N(μ,I) || N(0,I)) when μ=(1,2).
+5. Compute $`D_{\mathrm{KL}}(\mathcal{N}(\mu,I)\Vert\mathcal{N}(0,I))`$ when $`\mu=(1,2)`$.
 6. Distinguish a validation set used to select hyperparameters from a final test set.
 
-Self-check: (1) p(x₁)p(x₂|x₁)p(x₃|x₁,x₂); bigrams use only the preceding token. (2) z=μ+σ⊙ε, ε~N(0,I); gradients pass through μ and σ. (3) (B,T,T); future labels must not enter predictions. (4) Generalization, overfitting and the objective/metric mismatch must be examined. (5) ½(1²+2²)=2.5. (6) A repeatedly consulted test set becomes part of model selection.
+Self-check:
+
+1. $`p(x_1)p(x_2\mid x_1)p(x_3\mid x_1,x_2)`$; bigrams use only the preceding token.
+2. $`z=\mu+\sigma\odot\epsilon`$, $`\epsilon\sim\mathcal{N}(0,I)`$; gradients pass through $`\mu`$ and $`\sigma`$.
+3. $`(B,T,T)`$; future labels must not enter predictions.
+4. Generalization, overfitting and the objective/metric mismatch must be examined.
+5. $`\frac12(1^2+2^2)=2.5`$.
+6. A repeatedly consulted test set becomes part of model selection.
 
 Aim to answer at least four questions and explain the reasoning. Use the first 15 minutes of class to address gaps; offer optional refresher material instead of silently slowing the entire course.

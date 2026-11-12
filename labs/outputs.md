@@ -25,7 +25,7 @@ Inside `metrics.json`, `metrics` contains the measured quantities. `config`, `se
 | Flow | `heldout_velocity_mse_sum` | Held-out squared velocity error, summed over coordinates and averaged over examples; not sample likelihood |
 | DPO | `loss_first`, `loss_last`, `final_probabilities`, `kl_policy_reference` | Fitting one preference versus a fixed reference; no held-out generalization measurement |
 
-`train_objective_first` and `train_objective_last` describe training objectives for VAE/flow, not interchangeable units. VAE's β-weighted training objective differs from its reported unweighted negative ELBO when β differs from one. Negative Gaussian NLL is possible because densities can exceed one.
+`train_objective_first` and `train_objective_last` describe training objectives for VAE/flow, not interchangeable units. VAE's $`\beta`$-weighted training objective differs from its reported unweighted negative ELBO when $`\beta`$ differs from one. Negative Gaussian NLL is possible because densities can exceed one.
 
 `seconds` measures the timed lab computation, including training and evaluation and excluding installation. It is **not sampler-only latency**. The CLI uses CPU execution and one torch thread. Measured times and stochastic estimates may differ across hardware or package versions; passing does not require matching every published decimal.
 

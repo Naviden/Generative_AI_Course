@@ -8,15 +8,15 @@ Previous: [01 — Objectives, VAEs and attention](../01-objectives-vae-attention
 
 ## Step 1 — Derive the noisy observation
 
-Read [theory §5](../../docs/theory.md#5-diffusion-and-scores). Start with two forward Gaussian transitions and derive the mean and variance of `x₂` given `x₀`. Combine independent noise variances, not standard deviations.
+Read [theory §5](../../docs/theory.md#5-diffusion-and-scores). Start with two forward Gaussian transitions and derive the mean and variance of $`x_2`$ given $`x_0`$. Combine independent noise variances, not standard deviations.
 
-**Worked checkpoint:** for `α₁ = 0.9` and `α₂ = 0.8`, what are the mean coefficient, variance and standard deviation of `q(x₂ | x₀)`? Then relate the injected noise to the conditional score. Check [answer 4](../checkpoints.md#4-diffusion-variance).
+**Worked checkpoint:** for $`\alpha_1=0.9`$ and $`\alpha_2=0.8`$, what are the mean coefficient, variance and standard deviation of $`q(x_2\mid x_0)`$? Then relate the injected noise to the conditional score. Check [answer 4](../checkpoints.md#4-diffusion-variance).
 
 Contrast the reverse SDE and probability-flow ODE. Mark the integration direction and explain the factor `1/2` in the ODE drift. State the exact-score/regularity assumptions; finite-step generation with an approximate model is not an exact equivalence claim.
 
 ## Step 2 — Connect a conditional path to a learned velocity
 
-Read [theory §6](../../docs/theory.md#6-conditional-flow-matching). For a noise endpoint `x₀`, data endpoint `x₁`, and time `t`, write the straight interpolation and its derivative. Explain why the network learns a conditional expectation at a position and time rather than receiving the endpoint pair at generation time.
+Read [theory §6](../../docs/theory.md#6-conditional-flow-matching). For a noise endpoint $`x_0`$, data endpoint $`x_1`$, and time $`t`$, write the straight interpolation and its derivative. Explain why the network learns a conditional expectation at a position and time rather than receiving the endpoint pair at generation time.
 
 Inspect, in order:
 

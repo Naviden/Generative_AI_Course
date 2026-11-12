@@ -11,7 +11,7 @@ Keep the derivation, lab and interpretation together. If discussion overruns, tr
 
 ## Suggested board sequence
 
-Class 1: write likelihood and KL; derive the ELBO in three steps (insert q, Jensen, posterior gap); compute Gaussian KL for μ=(1,2); trace reparameterization; contrast GAN/flow density access; draw the causal attention matrix and a single next-token prediction.
+Class 1: write likelihood and KL; derive the ELBO in three steps (insert $`q`$, Jensen, posterior gap); compute Gaussian KL for $`\mu=(1,2)`$; trace reparameterization; contrast GAN/flow density access; draw the causal attention matrix and a single next-token prediction.
 
 Class 2: compose two Gaussian noising transitions; derive the conditional score; mark reverse-time direction; compare SDE and ODE drifts; derive the straight path and velocity; interpret conditional expectation; show Euler updates; ask what a finite-sample metric can establish.
 
@@ -32,7 +32,7 @@ Class 3: distinguish pretraining, SFT and preference data; optimize a KL-regular
 
 ## Scoring anchors
 
-For the first exit ticket, expect log p(x)=ELBO+KL(q||posterior), the nonnegative gap, the sum over latent dimensions and mean over batch. For the second, expect ᾱ_t, the noise/score relation and noise-to-data flow direction. In research defenses, reward a clear falsification criterion and fair compute matching more than a fashionable model name.
+For the first exit ticket, expect $`\log p_\theta(x)=\mathcal{L}(x)+D_{\mathrm{KL}}(q_\phi(z\mid x)\Vert p_\theta(z\mid x))`$, the nonnegative gap, the sum over latent dimensions and mean over batch. For the second, expect $`\bar\alpha_t`$, the noise/score relation and noise-to-data flow direction. In research defenses, reward a clear falsification criterion and fair compute matching more than a fashionable model name.
 
 For R18, acceptable critiques include semantic changes caused by perturbations, refusal handling and correlated benchmark items. For R19, acceptable critiques include the validity of the process scoring rule and the separation between a readable trace and internal reasoning. Students may defend the design if they support their argument with evidence.
 

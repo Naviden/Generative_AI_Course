@@ -6,7 +6,7 @@ Run from the repository root after [setup](../docs/setup.md). There are four exe
 
 ## Lab 1 — Audit a VAE objective (class 1, 35 minutes)
 
-**Predict (5 min):** derive the diagonal-Gaussian KL. Predict the effect of changing the latent dimension if KL is incorrectly averaged over coordinates. Explain why β=1 has a special interpretation.
+**Predict (5 min):** derive the diagonal-Gaussian KL. Predict the effect of changing the latent dimension if KL is incorrectly averaged over coordinates. Explain why $`\beta=1`$ has a special interpretation.
 
 **Run and inspect (15 min):**
 
@@ -47,7 +47,7 @@ Explain why a causal mask is necessary but not sufficient for a full autoregress
 
 ## Lab 3 — Train a flow and control the sampling budget (class 2, 55 minutes)
 
-**Derive (10 min):** write x_t=(1−t)x₀+t x₁ and target x₁−x₀. Identify the conditional expectation learned by squared-error regression. State the time direction.
+**Derive (10 min):** write $`x_t=(1-t)x_0+tx_1`$ and target $`x_1-x_0`$. Identify the conditional expectation learned by squared-error regression. State the time direction.
 
 **Run (15 min):**
 
@@ -71,7 +71,7 @@ python -m genai_course.labs dpo --steps 100 --beta 0.1
 python -m genai_course.labs dpo --steps 100 --beta 1
 ```
 
-**Predict (5 min):** the initial policy equals the reference, so the loss is log 2. Which sign should the chosen log-probability gradient have?
+**Predict (5 min):** the initial policy equals the reference, so the loss is $`\log 2`$. Which sign should the chosen log-probability gradient have?
 
 **Inspect (10 min):** the policy has one context and three possible one-token completions. The repeated synthetic preference favors completion 0 over completion 1. Record the preferred probability, unpaired completion probability and KL to the fixed reference. A relative preference does not directly constrain every other probability.
 

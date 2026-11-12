@@ -23,7 +23,7 @@ python -m genai_course.labs dpo --steps 100 --beta 1
 
 Read `dpo_loss` in [objectives.py](../../genai_course/objectives.py), then `dpo_lab` in [labs.py](../../genai_course/labs.py). This is **one context, three one-token completions, and a repeated preference for completion 0 over completion 1**. Completion 2 is unpaired. There is no held-out context or factuality test in this toy experiment.
 
-| Record from `metrics` | β = 0.1 | β = 1 |
+| Record from `metrics` | $`\beta=0.1`$ | $`\beta=1`$ |
 |---|---|---|
 | `loss_first` | | |
 | `loss_last` | | |
@@ -32,7 +32,7 @@ Read `dpo_loss` in [objectives.py](../../genai_course/objectives.py), then `dpo_
 | `final_probabilities[2]` — unpaired | | |
 | `kl_policy_reference` | | |
 
-Record the run paths too. Initially the three probabilities are `1/3`, and the loss is approximately `0.6931`. Inspect whether the observed preference is fitted and what happens to the unpaired option. Lower training loss is not evidence of factuality, safety or generalization. Explain why finite-step β comparisons need not reproduce an exact reward-objective optimum; see [Checkpoint 8](../checkpoints.md#8-what-the-dpo-lab-establishes).
+Record the run paths too. Initially the three probabilities are `1/3`, and the loss is approximately `0.6931`. Inspect whether the observed preference is fitted and what happens to the unpaired option. Lower training loss is not evidence of factuality, safety or generalization. Explain why finite-step $`\beta`$ comparisons need not reproduce an exact reward-objective optimum; see [Checkpoint 8](../checkpoints.md#8-what-the-dpo-lab-establishes).
 
 ## Step 3 — Evaluate reasoning, retrieval and tool use
 

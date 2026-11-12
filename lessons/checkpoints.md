@@ -4,15 +4,21 @@ Attempt each question in its lesson before opening the corresponding answer. The
 
 ## 1. VAE reductions
 
-The diagonal Gaussian KL is `0.5 × sum(μ² + exp(log_variance) − 1 − log_variance)`. For `(1, 2)` with zero log variance, it is `0.5 × (1 + 4) = 2.5` nats. Duplicating the latent coordinates gives `5`: they jointly describe one event, so their KL contributions sum. Duplicating an identical example in a batch leaves the batch mean unchanged. Averaging over latent coordinates would change the KL's weight relative to reconstruction.
+For log variance $`\ell`$, the diagonal Gaussian KL is
+
+```math
+D_{\mathrm{KL}}(q\Vert p)=\frac12\sum_j\left(\mu_j^2+\exp(\ell_j)-1-\ell_j\right).
+```
+
+For $`(1,2)`$ with zero log variance, it is $`\frac12(1+4)=2.5`$ nats. Duplicating the latent coordinates gives `5`: they jointly describe one event, so their KL contributions sum. Duplicating an identical example in a batch leaves the batch mean unchanged. Averaging over latent coordinates would change the KL's weight relative to reconstruction.
 
 The ELBO gap is KL from the approximate posterior to the **true posterior**. It vanishes when those distributions agree almost everywhere under the relevant support/integrability conditions. This is different from the KL to the prior in the training objective.
 
 ## 2. Interpreting the VAE comparison
 
-At β = 1 the training objective estimates negative ELBO. With β = 0.1 the KL penalty is downweighted; the objective is modified. Both runs still report `heldout_negative_elbo_mc` as **unweighted NLL + KL**, allowing that diagnostic to be compared. The subscript `mc` indicates Monte Carlo estimation, not exact log likelihood.
+At $`\beta=1`$ the training objective estimates negative ELBO. With $`\beta=0.1`$ the KL penalty is downweighted; the objective is modified. Both runs still report `heldout_negative_elbo_mc` as **unweighted NLL + KL**, allowing that diagnostic to be compared. The subscript `mc` indicates Monte Carlo estimation, not exact log likelihood.
 
-A lower β may permit more information in the latent representation and improve reconstruction while moving the posterior farther from the prior. Generated samples come from the prior, so improved reconstructions alone do not establish improved generation. Check what actually happened in your runs rather than treating that tendency as a guarantee.
+A lower $`\beta`$ may permit more information in the latent representation and improve reconstruction while moving the posterior farther from the prior. Generated samples come from the prior, so improved reconstructions alone do not establish improved generation. Check what actually happened in your runs rather than treating that tendency as a guarantee.
 
 A Gaussian density can exceed one. Its negative log density can therefore be negative; the units and variance matter. This is not the same as assigning a discrete outcome probability greater than one. A good interpretation names the changed quantities and limits the conclusion to the measured data, model and runs.
 
@@ -26,15 +32,15 @@ The CLI performs the value perturbation. The named automated test also checks fu
 
 ## 4. Diffusion variance
 
-The product `ᾱ₂` is `0.72`. Thus the conditional mean is `sqrt(0.72) × x₀`, covariance is `0.28 I`, and standard deviation per coordinate is `sqrt(0.28)`, approximately `0.5292`.
+The product $`\bar\alpha_2`$ is `0.72`. Thus the conditional mean is $`\sqrt{0.72}\,x_0`$, covariance is $`0.28I`$, and standard deviation per coordinate is $`\sqrt{0.28}`$, approximately `0.5292`.
 
-The two noise-variance contributions are `α₂(1−α₁) + (1−α₂) = 0.08 + 0.20`. Adding their standard deviations would be wrong. The conditional score for the sampled noisy observation is `−ε / sqrt(1−ᾱ_t)`. A population squared-loss noise predictor learns a conditional expectation, which connects that conditional target to the marginal noisy-data score.
+The two noise-variance contributions are $`\alpha_2(1-\alpha_1)+(1-\alpha_2)=0.08+0.20`$. Adding their standard deviations would be wrong. The conditional score for the sampled noisy observation is $`-\epsilon/\sqrt{1-\bar\alpha_t}`$. A population squared-loss noise predictor learns a conditional expectation, which connects that conditional target to the marginal noisy-data score.
 
 ## 5. Flow path and sampling
 
-The path is `x_t = (1−t)x₀ + t x₁`, and its derivative is `x₁−x₀`. It starts at noise and ends at data. Squared-error regression learns `E[x₁−x₀ | x_t=x, t]` at its population optimum. Different endpoint pairs can pass through the same intermediate region; the network does not memorize a single supplied pair's velocity as a universal field.
+The path is $`x_t=(1-t)x_0+tx_1`$, and its derivative is $`x_1-x_0`$. It starts at noise and ends at data. Squared-error regression learns $`\mathbb{E}[x_1-x_0\mid x_t=x,t]`$ at its population optimum. Different endpoint pairs can pass through the same intermediate region; the network does not memorize a single supplied pair's velocity as a universal field.
 
-Euler uses `h=1/K` and `x_{k+1}=x_k+h v(x_k,t_k)` from time 0 to 1. This conditional-path construction is not automatically optimal-transport endpoint coupling, and straight conditional paths do not force every learned marginal trajectory to be straight.
+Euler uses $`h=1/K`$ and $`x_{k+1}=x_k+h\,v(x_k,t_k)`$ from time 0 to 1. This conditional-path construction is not automatically optimal-transport endpoint coupling, and straight conditional paths do not force every learned marginal trajectory to be straight.
 
 ## 6. A controlled flow comparison
 
@@ -46,15 +52,15 @@ Reported `seconds` includes training and evaluation. To claim a sampler-only spe
 
 ## 7. DPO at the reference policy
 
-Let `m` be the chosen-minus-rejected policy log-probability difference minus the same reference difference. At the reference policy, `m=0`, so the loss is `−log sigmoid(0)=log 2`, approximately `0.6931`.
+Let $`m`$ be the chosen-minus-rejected policy log-probability difference minus the same reference difference. At the reference policy, $`m=0`$, so the loss is $`-\log\sigma(0)=\log 2`$, approximately `0.6931`.
 
-Its derivative with respect to `m` at zero is `−β/2`. Gradient descent therefore increases the preference margin. A change to one model logit also changes normalized probabilities of other outputs; the logits are not independent log probabilities.
+Its derivative with respect to $`m`$ at zero is $`-\beta/2`$. Gradient descent therefore increases the preference margin. A change to one model logit also changes normalized probabilities of other outputs; the logits are not independent log probabilities.
 
 ## 8. What the DPO lab establishes
 
 The experiment can show that the implementation fits a repeated preference in a three-outcome policy and moves relative to a fixed reference. The unpaired option is affected by normalization even though it is absent from the pair. It provides no evidence of held-out-context generalization, factuality or reasoning ability.
 
-β changes gradient scale and the preference objective, while 100 optimization steps need not find the exact reward-objective optimum. Do not infer a universal monotonic relationship between β and the measured finite-step preferred probability or KL. A real LM experiment also needs completion log probabilities, prompt/padding masks, independent evaluation contexts and a treatment of conflicting preference labels.
+$`\beta`$ changes gradient scale and the preference objective, while 100 optimization steps need not find the exact reward-objective optimum. Do not infer a universal monotonic relationship between $`\beta`$ and the measured finite-step preferred probability or KL. A real LM experiment also needs completion log probabilities, prompt/padding masks, independent evaluation contexts and a treatment of conflicting preference labels.
 
 ## 9. A research protocol that can fail
 

@@ -37,7 +37,7 @@ python -m genai_course.labs vae --steps 300 --seed 0 --beta 0.1
 
 Use existing runs if their settings match. Open the `metrics.json` in each printed folder; the quantities below are inside its `metrics` object. See [how to inspect outputs](../../labs/outputs.md) if this is your first run.
 
-| Record | β = 1 | β = 0.1 | Why it matters |
+| Record | $`\beta=1`$ | $`\beta=0.1`$ | Why it matters |
 |---|---|---|---|
 | Run-folder name | | | Links the claim to its settings and evidence |
 | `heldout_reconstruction_nll_mc` | | | Fit of the Gaussian reconstruction distribution |
@@ -45,7 +45,7 @@ Use existing runs if their settings match. Open the `metrics.json` in each print
 | `heldout_negative_elbo_mc` | | | Comparable NLL + KL diagnostic for both runs |
 | `sample_sliced_w1` | | | Sample-distribution diagnostic; smaller is better for this metric |
 
-**Interpret:** which measurements moved together, and which disagreed? Is the β = 0.1 training objective itself a negative ELBO? Why can Gaussian NLL be negative? Write a two-sentence conclusion tied to these runs, not a universal claim about β. Consult [Checkpoint 2](../checkpoints.md#2-interpreting-the-vae-comparison) after answering. Exact recorded values are not pass/fail targets.
+**Interpret:** which measurements moved together, and which disagreed? Is the $`\beta=0.1`$ training objective itself a negative ELBO? Why can Gaussian NLL be negative? Write a two-sentence conclusion tied to these runs, not a universal claim about $`\beta`$. Consult [Checkpoint 2](../checkpoints.md#2-interpreting-the-vae-comparison) after answering. Exact recorded values are not pass/fail targets.
 
 ## Step 4 — Place the VAE among other model families
 

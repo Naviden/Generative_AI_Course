@@ -10,7 +10,7 @@ Copy this template into your notes or `runs/learning-log.md`; fill it as you fol
 
 **KL worked check:** original coordinates ___; duplicated coordinates ___; duplicated batch examples ___.
 
-| β | Run folder | Held-out reconstruction NLL | Held-out KL | Held-out negative ELBO | Sample sliced-W1 |
+| $`\beta`$ | Run folder | Held-out reconstruction NLL | Held-out KL | Held-out negative ELBO | Sample sliced-W1 |
 |---|---|---|---|---|---|
 | 1 | | | | | |
 | 0.1 | | | | | |
@@ -48,7 +48,7 @@ Use the group's pooled results for seeds 1 and 2 during class; identify which ru
 
 ## Lesson 03 — Research protocol
 
-| β | Run folder | First / last DPO loss | Final probabilities (0, 1, 2) | KL to reference |
+| $`\beta`$ | Run folder | First / last DPO loss | Final probabilities (0, 1, 2) | KL to reference |
 |---|---|---|---|---|
 | 0.1 | | | | |
 | 1 | | | | |

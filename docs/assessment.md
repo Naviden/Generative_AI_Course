@@ -12,7 +12,7 @@ Full credit requires a valid derivation with support/Jensen reasoning, correct r
 
 ## B. Class 2 exit ticket — 25 points, 10 minutes
 
-1. Write q(x_t|x₀) and relate its noise to a conditional score (10).
+1. Write $`q(x_t\mid x_0)`$ and relate its noise to a conditional score (10).
 2. Specify the flow-matching path, target and sampling direction (8).
 3. Explain how the lab isolates numerical sampling budget and name one remaining uncertainty (7).
 
