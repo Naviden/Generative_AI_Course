@@ -1,48 +1,55 @@
 # Generative AI: a short course
 
-**Format: three 4-hour classes.** Each 240-minute meeting includes two 10-minute breaks: 12 scheduled hours, 11 hours of active teaching. The course assumes graduate-level machine learning; it is a focused research introduction, not a substitute for a semester of generative modelling.
+**Start with the [numbered learning path](lessons/README.md).** This repository teaches how generative models learn, how to inspect their implementations, and how to evaluate their outputs. It assumes graduate-level machine learning and supports **three 4-hour classes**, including two 10-minute breaks per class.
 
-## Start here
+## What should I do next?
 
-1. Read the [prerequisites and diagnostic](docs/prerequisites.md).
-2. Follow the [setup guide](docs/setup.md) before the first class.
-3. Use the [three-class timetable](docs/syllabus.md), [theory notes](docs/theory.md), and [lab workbook](labs/README.md) during teaching.
-4. Consult the [reading list](docs/readings.md), [assessment](docs/assessment.md), and [instructor guide](docs/instructor-guide.md).
+- **I have not installed it:** follow [00 — Get ready](lessons/00-get-ready/README.md). This includes cloning, entering the correct folder, installation and a single smoke check.
+- **Installation works:** open [01 — Objectives, VAEs and attention](lessons/01-objectives-vae-attention/README.md). Start at Step 1 and work down the page. Running a lab is only one part of a lesson.
+- **I already ran all four commands:** use your saved outputs in `runs/` while following Lesson 1's interpretation tasks. You do not need to reinstall or repeat an unchanged run.
+- **I am teaching:** use the same lesson pages with the [timed syllabus](docs/syllabus.md) and [instructor guide](docs/instructor-guide.md).
 
-| Class | Focus | In-class evidence of learning |
-|---|---|---|
-| 1 · 4 hours | Likelihood, latent variables, VAE; autoregressive transformers | Derive the ELBO, audit a VAE objective, test causal attention |
-| 2 · 4 hours | Diffusion, scores, flow matching; sampling and evaluation | Derive a denoising target, train a 2D flow, compare solver budgets |
-| 3 · 4 hours | SFT, preference optimization, reasoning, retrieval and research evaluation | Derive DPO, run a preference experiment, defend an evaluation protocol |
+## Follow this order
 
-GANs and normalizing flows provide conceptual comparisons. Multimodality, LoRA/QLoRA, sparse attention, diffusion language models and agents receive short research discussions or optional readings; full implementations of these topics are outside the 12-hour scope.
+| Order | Lesson | What you will do | Evidence you understand it |
+|---|---|---|---|
+| 00 | [Get ready](lessons/00-get-ready/README.md) | Check prerequisites, install, run attention once | A working environment and a prerequisite self-check |
+| 01 | [Objectives, VAEs and attention](lessons/01-objectives-vae-attention/README.md) | Derive an ELBO, compare two VAE runs, inspect a causal mask | Explain the loss terms and test future-token leakage |
+| 02 | [Diffusion and flow matching](lessons/02-diffusion-flow-matching/README.md) | Derive the noise marginal, compare sampling budgets | Separate model error, solver error and evaluation noise |
+| 03 | [Post-training and research](lessons/03-post-training-research/README.md) | Inspect DPO, critique reasoning/RAG evidence, design an experiment | Make a narrow claim supported by a controlled comparison |
 
-## Run the supported labs
+Each lesson identifies **what to read, what to predict before running, the exact command, which output fields matter, which functions to inspect, and when to move on**. Checkpoint answers are available after you attempt the questions. The four labs are small, complete CPU experiments on synthetic data; no GPU, paid service, API key or pretrained-model download is needed after installation. The course does not train a full LLM or image diffusion model.
 
-Use Python 3.12 (the supported range is 3.11–3.13). From the repository root:
+## Which folders should I open?
 
-```bash
-python3.12 -m venv .venv
-source .venv/bin/activate  # Windows: .venv\Scripts\activate
-python -m pip install --upgrade pip
-python -m pip install -r requirements/core.lock
-python -m pip install --no-deps -e .
-python -m pytest
-python scripts/check_materials.py
-python -m genai_course.labs attention
-python -m genai_course.labs vae --steps 300 --beta 1
-python -m genai_course.labs flow --steps 300 --sampling-steps 50
-python -m genai_course.labs dpo --steps 100 --beta 0.1
+The folder listing is not the lesson order. Use `lessons/` as the entrance.
+
+```text
+lessons/                   STUDENT PATH — open these in numeric order
+  00-get-ready/
+  01-objectives-vae-attention/
+  02-diffusion-flow-matching/
+  03-post-training-research/
+  learning-log.md           Copyable worksheet for your own results
+  checkpoints.md            Answers and interpretation guidance
+
+genai_course/              IMPLEMENTATION — open functions when a lesson asks
+labs/                      REFERENCE — compact lab instructions and output guide
+docs/                      REFERENCE — theory, readings, setup and teaching plans
+tests/                     VERIFICATION — mathematical and implementation checks
+runs/                      YOUR OUTPUTS — created locally, not committed
 ```
 
-The four core labs run on CPU with synthetic data, without API keys, model downloads, paid services, or a GPU. Each run writes its settings, environment, source revision, metrics and arrays into a new `runs/` subfolder. See [setup](docs/setup.md) for installation alternatives and compute expectations. Smoke tests check correctness and execution, not research-level performance.
+The original topic folders — `Traditional Generative Models/`, `Neural Generative Models/`, `Transformers/`, `LM/`, `other/`, `Books and Tutorials/` and `data/` — are **historical or optional reference material**. Each has an orientation note. Some examples are incomplete or require separate dependencies. They are not additional required lessons. Consult the [historical-material guide](docs/historical-material.md) before using them. Their paths are retained for existing links and notebooks.
 
-## Repository map and support status
+## Reference shelf
 
-- `genai_course/`, `labs/`, `tests/`: the supported, automated-test teaching path.
-- `docs/`: course notes, timing, readings, assessment and reproducibility standards.
-- `Traditional Generative Models/`, `Neural Generative Models/`, `Transformers/`, `LM/`, `other/`: earlier examples, retained for reference. Some are incomplete sketches or require downloads. **Do not run all legacy files as a course setup test.** See the [file-level audit](docs/repository-audit.md).
-- `requirements/legacy-2023.txt`: historical environment snapshot, not the supported installation.
-- `Books and Tutorials/` and existing PDFs: inherited third-party resources. The core course uses linked primary sources; this refresh does not grant redistribution rights to those files or add a repository-wide license.
+Use these when a lesson links to them; you do not need to read the entire shelf before starting.
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for the release checks and refresh policy, and [validation](docs/validation.md) for what was actually executed.
+- [Theory notes](docs/theory.md) and [primary-source reading guide](docs/readings.md)
+- [Lab workbook](labs/README.md) and [how to read lab outputs](labs/outputs.md)
+- [Prerequisites](docs/prerequisites.md), [setup and troubleshooting](docs/setup.md)
+- [Three-class timetable](docs/syllabus.md), [assessment](docs/assessment.md), [instructor guide](docs/instructor-guide.md)
+- [Executed validation](docs/validation.md), [repository audit](docs/repository-audit.md), [maintenance](CONTRIBUTING.md)
+
+The book is a standalone reference; these lesson pages guide use of this repository. Existing third-party files retain their own rights; this learning path does not grant redistribution permission or introduce a repository-wide license.

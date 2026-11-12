@@ -37,3 +37,32 @@ At the tested budgets, more Euler steps reduced sample distance for all three il
 The GitHub workflow is configured for Ubuntu and Python 3.11, 3.12 and 3.13, and publishes the four lab runs as artifacts. Consult the pull request checks for actual remote run results; workflow configuration alone is not evidence of successful execution.
 
 Full historical TensorFlow training, downloaded BERT/GPT-2 models, legacy notebook execution, Windows and accelerator execution were not validated locally. See the [repository audit](repository-audit.md) for known limitations. Optional dependency groups are not covered by core tests. Primary-source pages were reviewed for the selected readings; this was not an exhaustive literature review or an independent replication of their claims. Existing third-party PDFs were not content-reviewed or relicensed.
+
+
+## Guided learning-path update — 12 November 2026
+
+This documentation update adds a numbered student path, lesson checkpoints,
+a learning-log template, an output-interpretation guide and orientation notes
+in historical folders. Core Python implementations and dependency files are
+unchanged. The historical lab heading anchors are retained for book links.
+
+Validation on the existing Apple Silicon / Python 3.12 core environment:
+
+- All 26 tests passed (4.08 seconds).
+- All 11 documented configurations completed: attention; VAE beta 1 and 0.1;
+  flow budgets 5 and 50 for seeds 0, 1 and 2; DPO beta 0.1 and 1.
+- Checked documented array shapes, initial DPO loss, attention diagnostics,
+  the VAE NLL-plus-KL identity and identical training histories/data hashes/
+  held-out velocity error for each paired flow comparison.
+- All 27 installed packages were compatible (`uv pip check` against the
+  existing environment); no dependency versions changed.
+- The material checker passed, including the unchanged three 240-minute
+  agendas. A separate navigation check validated 176 relative file links
+  and Markdown section anchors in the then-current repository documents.
+- Python inspection examples in the output guide match the generated file
+  formats. Optional plotting remains optional; its interactive display was
+  not executed for this documentation change. No legacy training was added
+  to the executed scope.
+
+This verifies that the guided commands and references match the implementation;
+it is not evidence that every student will complete each concept at the same pace.

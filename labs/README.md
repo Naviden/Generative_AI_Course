@@ -1,4 +1,6 @@
-# In-class lab workbook
+# Compact lab reference
+
+**First-time student? Follow [the numbered lessons](../lessons/README.md) for the reading order, predictions, interpretation tables and checkpoints.** This page is a compact reference for the same four labs, not an additional assignment. See [how to read outputs](outputs.md).
 
 Run from the repository root after [setup](../docs/setup.md). There are four exercises across three classes. All required code is complete; research extensions are optional. The experiments are intentionally small enough to inspect and rerun during teaching.
 

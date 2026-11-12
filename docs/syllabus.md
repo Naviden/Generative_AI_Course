@@ -2,6 +2,8 @@
 
 Total: **3 × 240 = 720 scheduled minutes**. Breaks occupy 60 minutes overall; active teaching occupies 660 minutes. Preparation is limited to setup and the prerequisite diagnostic (suggested 60–90 minutes). Reading full papers and the optional research project are not prerequisites for completing the in-class assessment and are not counted in the 12 hours.
 
+Students follow [the numbered lesson pages](../lessons/README.md); this document supplies the matching clock times. Lesson 01 maps to Class 1, Lesson 02 to Class 2, and Lesson 03 to Class 3. The added navigation and worksheets organize the activities below without increasing their time allocations.
+
 ## Learning outcomes
 
 By the end, participants should be able to:
