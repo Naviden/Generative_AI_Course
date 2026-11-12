@@ -6,7 +6,7 @@ No prior diffusion, RLHF or large-model engineering experience is required. A la
 
 ## Before class (suggested 60–90 minutes, outside contact time)
 
-Install the environment using [setup](setup.md), run the attention lab and tests, and attempt the diagnostic below. The instructor should collect anonymous confidence ratings, not grades. If several topics are unfamiliar, complete a probability/deep-learning refresher before enrolling; the 12 hours cannot also teach these prerequisites from scratch.
+Install the environment using [setup](setup.md), run the attention lab and tests, and attempt the diagnostic below. The instructor should collect anonymous confidence ratings, not grades. If several topics are unfamiliar, complete a probability/deep-learning refresher before enrolling; the lessons assume these prerequisites.
 
 ## Diagnostic (15 minutes)
 

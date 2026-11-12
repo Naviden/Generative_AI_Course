@@ -30,4 +30,4 @@ The categorical/multinomial distinction follows [hmmlearn's official documentati
 
 ## Scope and readiness
 
-This refresh supplies a research-oriented 12-hour teaching package. It does not certify every historical file as correct, execute full legacy neural-network training, or claim the course replaces a doctoral semester. The remaining legacy limitations are intentionally excluded from the required course path. Read the [validation record](validation.md) for executed checks and remaining platform limits.
+This refresh supplies research-oriented teaching material. It does not certify every historical file as correct, execute full legacy neural-network training, or claim the course replaces a doctoral semester. The remaining legacy limitations are intentionally excluded from the required course path. Read the [validation record](validation.md) for executed checks and remaining platform limits.

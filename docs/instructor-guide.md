@@ -7,7 +7,7 @@ Use [the numbered lessons](../lessons/README.md) as the student-facing entrance.
 
 Confirm students have graduate ML foundations. Run the locked environment checks and all four labs on the actual classroom machines before class. Open the pinned paper versions in the reading list and review the experiment/table selected for critique. Have the validation table and code available offline. The repository supplies Markdown notes and a workbook, not a slide deck; these can be projected directly or used as board prompts.
 
-Each meeting is a four-hour slot. Keep the derivation, lab and interpretation together. If discussion overruns, trim optional frontier examples rather than the exit ticket. No full-paper homework is needed; bring the selected excerpt/figure or show its primary-source page during the scheduled critique.
+Keep the derivation, lab and interpretation together. If discussion overruns, trim optional frontier examples rather than the exit ticket. No full-paper homework is needed; bring the selected excerpt/figure or show its primary-source page during the scheduled critique.
 
 ## Suggested board sequence
 
@@ -38,4 +38,4 @@ For R18, acceptable critiques include semantic changes caused by perturbations, 
 
 ## Classroom fallback
 
-If installation fails, pairs inspect the objective and recorded outputs, predict the result of a controlled change and explain the necessary test. Do not spend a large part of the four-hour slot installing optional frameworks. Legacy notebooks and full pretrained-model downloads are not required activities.
+If installation fails, pairs inspect the objective and recorded outputs, predict the result of a controlled change and explain the necessary test. Do not spend class time installing optional frameworks. Legacy notebooks and full pretrained-model downloads are not required activities.

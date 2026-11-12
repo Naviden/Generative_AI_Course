@@ -1,6 +1,6 @@
-# Three four-hour classes
+# Three-class teaching plan
 
-Total: **3 × 240 = 720 scheduled minutes**. Preparation is limited to setup and the prerequisite diagnostic (suggested 60–90 minutes). Reading full papers and the optional research project are not prerequisites for completing the in-class assessment and are not counted in the 12 hours.
+Preparation is limited to setup and the prerequisite diagnostic (suggested 60–90 minutes). Reading full papers and the optional research project are not prerequisites for completing the in-class assessment.
 
 Students follow [the numbered lesson pages](../lessons/README.md); this document supplies the matching clock times. Lesson 01 maps to Class 1, Lesson 02 to Class 2, and Lesson 03 to Class 3. The added navigation and worksheets organize the activities below without increasing their time allocations.
 
@@ -61,4 +61,4 @@ For more than eight groups, pair groups for simultaneous defenses rather than ex
 
 ## Deliberate scope boundaries
 
-This course teaches selected mechanisms deeply enough to support a research discussion. It does not claim mastery of all generative AI in 12 hours. Full transformer training, distributed systems, GPU kernel engineering, image/video/audio foundation-model training, RL implementation, formal privacy guarantees and production agent deployment require additional courses. HMMs, GMMs and naive Bayes are prerequisite refreshers under `archive/`, not extra scheduled classes.
+This course teaches selected mechanisms deeply enough to support a research discussion. Full transformer training, distributed systems, GPU kernel engineering, image/video/audio foundation-model training, RL implementation, formal privacy guarantees and production agent deployment require additional courses. HMMs, GMMs and naive Bayes are prerequisite refreshers under `archive/`, not extra scheduled classes.

@@ -1,4 +1,4 @@
-# Assessment within the 12 scheduled hours
+# Assessment
 
 No compulsory multi-week project or extensive homework is hidden inside this short course. The assessments below fit the syllabus. A suggested pass threshold is 60/100, subject to the institution's rules. PhD-level expectations concern reasoning, assumptions and evidence, not the size of the model trained.
 
@@ -38,4 +38,4 @@ State one conclusion your experiment could support (4), one it could not support
 
 ## Optional research extension (outside the course)
 
-For students wanting a longer project, budget 10–20 additional hours with supervisor agreement. Replicate a narrowly scoped published result or a controlled ablation. Submit a 4–6 page report, environment snapshot, all configurations, raw results including unsuccessful runs, an executable reproduction command and a statement of deviations from the paper. Use at least three seeds as a minimum exploratory check and choose a larger sample/seed count justified by the claim and resources. Neither novelty nor a favorable result is required; a credible negative result is valuable. This extension is not needed to pass the 12-hour course.
+For students wanting a longer project, budget 10–20 additional hours with supervisor agreement. Replicate a narrowly scoped published result or a controlled ablation. Submit a 4–6 page report, environment snapshot, all configurations, raw results including unsuccessful runs, an executable reproduction command and a statement of deviations from the paper. Use at least three seeds as a minimum exploratory check and choose a larger sample/seed count justified by the claim and resources. Neither novelty nor a favorable result is required; a credible negative result is valuable. This extension is not needed to pass the course.

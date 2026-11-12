@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "generative-ai-course"
 version = "0.2.0"
-description = "Reproducible labs for a 12-hour doctoral generative AI course"
+description = "Reproducible labs for a graduate generative AI course"
 requires-python = ">=3.11,<3.14"
 dependencies = ["numpy>=2.0,<3", "torch>=2.6,<3"]
 

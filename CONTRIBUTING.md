@@ -1,6 +1,6 @@
 # Maintaining the course
 
-Preserve the three four-hour format. Required content, labs and assessment must fit the timed syllabus; mark extra material as optional and outside contact time. Keep the core labs CPU-only, offline after installation, and independent of paid or gated model services.
+Preserve the three-lesson structure. Required content, labs and assessment must fit the timed syllabus; mark extra material as optional and outside contact time. Keep the core labs CPU-only, offline after installation, and independent of paid or gated model services.
 
 Before accepting changes:
 
