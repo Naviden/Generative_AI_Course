@@ -17,7 +17,7 @@ The entropy term does not depend on $`\theta`$. Thus likelihood fits a distribut
 An autoregressive model uses
 
 ```math
-p_\theta(x)=\prod_i p_\theta(x_i\mid x_{<i}).
+p_\theta(x)=\prod_i p_\theta(x_i\mid x_{\lt i}).
 ```
 
 Teacher forcing evaluates observed prefixes during training. At generation time prefixes are sampled. Perplexity is $`\exp(\text{mean token NLL})`$, with natural logarithms, and depends on the tokenizer and evaluation text. Perplexities from different tokenizers are not automatically comparable.
