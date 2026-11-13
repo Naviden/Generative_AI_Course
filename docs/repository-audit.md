@@ -2,7 +2,7 @@
 
 **Layout update, 12 November 2026:** the paths below reflect the move into `archive/`. The findings remain the original content audit; relocation does not imply that unverified examples were repaired.
 
-Base reviewed: `f90f602` (19 May 2024). The original README had one sentence; there was no syllabus, prerequisites, assessment, supported setup, test suite or CI. The old requirements were a 2023 environment freeze, including both TensorFlow and tensorflow-macos, and omitted notebook imports such as NLTK, sklearn-crfsuite and imageio.
+Base reviewed: `f90f602` (19 May 2024). The original README had one sentence; there was no syllabus, foundation explanations, assessment, supported setup, test suite or CI. The old requirements were a 2023 environment freeze, including both TensorFlow and tensorflow-macos, and omitted notebook imports such as NLTK, sklearn-crfsuite and imageio.
 
 ## Supported course path
 
@@ -22,7 +22,7 @@ The three-class syllabus, notes, reading guide, assessments and four `genai_cour
 | `archive/other/RNN.py` | IMDB sentiment classifier, not a generative model; download and training at import | Optional discriminative comparison only |
 | `archive/LM/BERT.py` | Base hidden states incorrectly described as scores that could become class probabilities | Explanation corrected. Pretrained model/pipeline downloads remain optional and untested |
 | `archive/LM/GPT2.py` | Historically useful generation demo; no controlled evaluation or pinned model revision | Optional historical example, not a current frontier model or core research lab |
-| Traditional GMM, HMM and naive Bayes scripts | Useful foundations; external libraries, plotting and uncontrolled execution paths | Optional prerequisite examples, not covered by core execution tests |
+| Traditional GMM, HMM and naive Bayes scripts | Useful foundations; external libraries, plotting and uncontrolled execution paths | Optional historical examples, not covered by core execution tests |
 | GMM GIF notebooks and assets | Exploratory/duplicate materials and local plotting conventions | Preserved as archival material; schema validation only |
 | Existing book/tutorial PDFs and `archive/data/Alice.txt` | Third-party resources; provenance and redistribution status not established by this refresh | Retained unchanged; not required by new labs. Confirm rights/provenance before redistributing course bundles |
 

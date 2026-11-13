@@ -2,11 +2,11 @@
 
 [Learning path](../README.md) · Next: [01 — Objectives, VAEs and attention](../01-objectives-vae-attention/README.md)
 
-**Purpose:** make sure the mathematical background and environment support the lessons. This is preparation, not an extra class.
+**Purpose:** introduce the concepts used in the lessons and prepare the lab environment. The foundations are part of the course material.
 
-## Step 1 — Check your starting point
+## Step 1 — Learn the foundations
 
-Attempt the six questions in [the prerequisite diagnostic](../../docs/prerequisites.md#diagnostic-15-minutes). You need conditional probability, expectations, matrix multiplication, derivatives, neural networks and basic Python. Use its answers to identify gaps; no prior diffusion or RLHF experience is assumed.
+Open [Foundations used in the lessons](../../docs/foundations.md). It explains probability, Gaussian distributions, tensor shapes, losses, gradients, neural networks, Python and data splits, with worked examples. Read unfamiliar topics now or follow the links back to them as you progress. The practice questions have explained answers and no pass mark.
 
 ## Step 2 — Install from inside the cloned repository
 
@@ -26,6 +26,6 @@ If you already ran it, use that result. Look for `output_shape: [2, 6, 4]`, `fut
 
 - The setup tests pass and the attention command completes.
 - You can find the run folder named by the command.
-- You have attempted the prerequisite questions and know which concepts to revisit.
+- You know where to find the foundation explanations and worked answers when a concept is unfamiliar.
 
 **Now open [Lesson 01, Step 1](../01-objectives-vae-attention/README.md#step-1--understand-what-a-loss-measures).** Do not run all remaining labs as an installation task.

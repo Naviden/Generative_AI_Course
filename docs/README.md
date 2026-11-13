@@ -5,7 +5,7 @@
 | Need | Open |
 |---|---|
 | Install or resolve a missing-file error | [Setup](setup.md) |
-| Check background knowledge | [Prerequisites](prerequisites.md) |
+| Learn the mathematical and coding foundations | [Foundations with worked examples](foundations.md) |
 | Read a derivation linked by a lesson | [Theory notes](theory.md) |
 | Find the paper behind a claim | [Reading guide](readings.md) |
 | Teach the three meetings | [Timed syllabus](syllabus.md), [instructor guide](instructor-guide.md) |

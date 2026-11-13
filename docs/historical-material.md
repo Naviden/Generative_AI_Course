@@ -4,7 +4,7 @@
 
 | Folder | Topic / possible use after the core path | Status and route to current material |
 |---|---|---|
-| [Traditional Generative Models](../archive/Traditional%20Generative%20Models/README.md) | Naive Bayes, HMM and GMM refreshers | Optional prerequisite illustrations; not covered by core execution tests |
+| [Traditional Generative Models](../archive/Traditional%20Generative%20Models/README.md) | Naive Bayes, HMM and GMM refreshers | Optional historical illustrations; not covered by core execution tests |
 | [Neural Generative Models](../archive/Neural%20Generative%20Models/README.md) | Original VAE and GAN scripts/notebooks | Some sketches lack complete training; use Lesson 01's tested VAE for the required experiment |
 | [Transformers](../archive/Transformers/README.md) | Small historical attention calculation | Scaling and softmax were corrected; Lesson 01 provides the guided causal-attention exercise |
 | [LM](../archive/LM/README.md) | Historical BERT/GPT-2 demos and statistical LM notebook | Downloads/optional dependencies; the HMM notebook has unresolved semantic issues |

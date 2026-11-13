@@ -1,6 +1,6 @@
 # Generative AI: a short course
 
-**Start with the [numbered learning path](lessons/README.md).** This repository teaches how generative models learn, how to inspect their implementations, and how to evaluate their outputs. It assumes graduate-level machine learning and is organized into **three lessons**.
+**Start with the [numbered learning path](lessons/README.md).** This repository teaches how generative models learn, how to inspect their implementations, and how to evaluate their outputs. It is organized into **three lessons**, with [foundations explained inside the repository](docs/foundations.md) and worked examples alongside the theory.
 
 ## What should I do next?
 
@@ -13,7 +13,7 @@
 
 | Order | Lesson | What you will do | Evidence you understand it |
 |---|---|---|---|
-| 00 | [Get ready](lessons/00-get-ready/README.md) | Check prerequisites, install, run attention once | A working environment and a prerequisite self-check |
+| 00 | [Get ready](lessons/00-get-ready/README.md) | Learn the foundations, install, run attention once | A working environment and worked foundation examples |
 | 01 | [Objectives, VAEs and attention](lessons/01-objectives-vae-attention/README.md) | Derive an ELBO, compare two VAE runs, inspect a causal mask | Explain the loss terms and test future-token leakage |
 | 02 | [Diffusion and flow matching](lessons/02-diffusion-flow-matching/README.md) | Derive the noise marginal, compare sampling budgets | Separate model error, solver error and evaluation noise |
 | 03 | [Post-training and research](lessons/03-post-training-research/README.md) | Inspect DPO, critique reasoning/RAG evidence, design an experiment | Make a narrow claim supported by a controlled comparison |
@@ -51,7 +51,7 @@ Use these when a lesson links to them; you do not need to read the entire shelf 
 
 - [Theory notes](docs/theory.md) and [primary-source reading guide](docs/readings.md)
 - [Lab workbook](labs/README.md) and [how to read lab outputs](labs/outputs.md)
-- [Prerequisites](docs/prerequisites.md), [setup and troubleshooting](docs/setup.md)
+- [Foundations](docs/foundations.md), [setup and troubleshooting](docs/setup.md)
 - [Three-class timetable](docs/syllabus.md), [assessment](docs/assessment.md), [instructor guide](docs/instructor-guide.md)
 - [Executed validation](docs/validation.md), [repository audit](docs/repository-audit.md), [maintenance](CONTRIBUTING.md)
 

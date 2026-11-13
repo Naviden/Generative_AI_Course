@@ -5,7 +5,7 @@ Use [the numbered lessons](../lessons/README.md) as the student-facing entrance.
 
 ## Before teaching
 
-Confirm students have graduate ML foundations. Run the locked environment checks and all four labs on the actual classroom machines before class. Open the pinned paper versions in the reading list and review the experiment/table selected for critique. Have the validation table and code available offline. The repository supplies Markdown notes and a workbook, not a slide deck; these can be projected directly or used as board prompts.
+Use [the in-repository foundations](foundations.md) to introduce unfamiliar concepts and work through examples with students; do not treat prior graduate ML study as an entry requirement. Run the locked environment checks and all four labs on the actual classroom machines before class. Open the pinned paper versions in the reading list and review the experiment/table selected for critique. Have the validation table and code available offline. The repository supplies Markdown notes and a workbook, not a slide deck; these can be projected directly or used as board prompts.
 
 Keep the derivation, lab and interpretation together. If discussion overruns, trim optional frontier examples rather than the exit ticket. No full-paper homework is needed; bring the selected excerpt/figure or show its primary-source page during the scheduled critique.
 

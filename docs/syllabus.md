@@ -1,6 +1,6 @@
 # Three-class teaching plan
 
-Preparation is limited to setup and the prerequisite diagnostic (suggested 60–90 minutes). Reading full papers and the optional research project are not prerequisites for completing the in-class assessment.
+The [foundations](foundations.md), theory explanations and worked examples are included in the course. Introduce unfamiliar concepts using these materials and return to them during the lessons. Full-paper reading and the research extension are optional; no external refresher or entrance diagnostic is assigned.
 
 Students follow [the numbered lesson pages](../lessons/README.md); this document supplies the matching clock times. Lesson 01 maps to Class 1, Lesson 02 to Class 2, and Lesson 03 to Class 3. The added navigation and worksheets organize the activities below without increasing their time allocations.
 
@@ -19,7 +19,7 @@ By the end, participants should be able to:
 
 | Minutes | Activity | Material / outcome |
 |---|---|---|
-| 0–15 | Diagnostic discussion; generative vs discriminative modelling | Prerequisites; O1 |
+| 0–15 | Foundations and generative vs discriminative modelling | Foundations; O1 |
 | 15–45 | Likelihood, cross-entropy, KL, latent-variable inference | Theory §§1–2; O1 |
 | 45–85 | Guided ELBO derivation and reparameterization | Board exercise; O1–O2 |
 | 85–120 | VAE lab: event sums, KL weight, held-out diagnostics | Lab 1; O1–O2 |
@@ -61,4 +61,4 @@ For more than eight groups, pair groups for simultaneous defenses rather than ex
 
 ## Deliberate scope boundaries
 
-This course teaches selected mechanisms deeply enough to support a research discussion. Full transformer training, distributed systems, GPU kernel engineering, image/video/audio foundation-model training, RL implementation, formal privacy guarantees and production agent deployment require additional courses. HMMs, GMMs and naive Bayes are prerequisite refreshers under `archive/`, not extra scheduled classes.
+This course teaches selected mechanisms deeply enough to support a research discussion. Full transformer training, distributed systems, GPU kernel engineering, image/video/audio foundation-model training, RL implementation, formal privacy guarantees and production agent deployment require additional courses. HMMs, GMMs and naive Bayes in `archive/` are optional historical examples; the core foundations are explained in the current course material.
