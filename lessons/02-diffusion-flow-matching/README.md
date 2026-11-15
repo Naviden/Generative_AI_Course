@@ -8,15 +8,29 @@ Previous: [01 — Objectives, VAEs and attention](../01-objectives-vae-attention
 
 ## Step 1 — Derive the noisy observation
 
-Read [theory §5](../../docs/theory.md#5-diffusion-and-scores). Start with two forward Gaussian transitions and derive the mean and variance of $`x_2`$ given $`x_0`$. Combine independent noise variances, not standard deviations.
+Work through the following reading and calculation **during this lesson**:
 
-**Worked checkpoint:** for $`\alpha_1=0.9`$ and $`\alpha_2=0.8`$, what are the mean coefficient, variance and standard deviation of $`q(x_2\mid x_0)`$? Then relate the injected noise to the conditional score. Check [answer 4](../checkpoints.md#4-diffusion-variance).
+1. Read [Learn to reverse a controlled corruption process](../../docs/theory.md#learn-to-reverse-a-controlled-corruption-process) and [Worked example: accumulating noise variance](../../docs/theory.md#worked-example-accumulating-noise-variance). **Stop before “A score is a direction, not a quality rating”.** These passages introduce the forward process and calculate the two-step example.
+2. Reproduce that example with $`\alpha_1=0.9`$ and $`\alpha_2=0.8`$. Start from the explicit transitions below, where the two noise draws are independent standard normals:
 
-Contrast the reverse SDE and probability-flow ODE. Mark the integration direction and explain the factor `1/2` in the ODE drift. State the exact-score/regularity assumptions; finite-step generation with an approximate model is not an exact equivalence claim.
+```math
+x_1=\sqrt{0.9}\,x_0+\sqrt{0.1}\,\epsilon_1,
+\qquad
+x_2=\sqrt{0.8}\,x_1+\sqrt{0.2}\,\epsilon_2.
+```
+
+Substitute the first expression into the second. The clean-data coefficient becomes $`\sqrt{0.72}`$; the independent noise variances are 0.08 and 0.20, giving total variance 0.28 and standard deviation about 0.5292. Record the substitution and identify why the variances add. [Answer 4](../checkpoints.md#4-diffusion-variance) provides a further explanation.
+
+3. Read [A score is a direction, not a quality rating](../../docs/theory.md#a-score-is-a-direction-not-a-quality-rating) and [Two dynamics with the same ideal marginals](../../docs/theory.md#two-dynamics-with-the-same-ideal-marginals). **Stop before “Conditioning and guidance”; Step 5 covers it.** Follow the Gaussian score explanation before comparing the reverse SDE and probability-flow ODE.
+4. Make a two-row note for those dynamics: drift, whether random increments remain, and integration direction. The supplied formulas use score coefficients 1 and 1/2 respectively; explain that the ODE transports the initial randomness without further Brownian increments. Include the stated exact-score and regularity conditions. Their origin is the continuous-time distributional construction, not the arithmetic of the two-step example.
 
 ## Step 2 — Connect a conditional path to a learned velocity
 
-Read [theory §6](../../docs/theory.md#6-conditional-flow-matching). For a noise endpoint $`x_0`$, data endpoint $`x_1`$, and time $`t`$, write the straight interpolation and its derivative. Explain why the network learns a conditional expectation at a position and time rather than receiving the endpoint pair at generation time.
+**Read the first three subsections of theory §6**, from [Prescribe a path, then learn how to move along its distribution](../../docs/theory.md#prescribe-a-path-then-learn-how-to-move-along-its-distribution), through **Worked example: the target is a velocity** and **Conservation of probability**. **Stop before “Training error and integration error are different”; Step 3 covers it.**
+
+Follow the worked path from noise endpoint −1 to data endpoint 3. Its position is $`x_t=-1+4t`$ and its velocity is 4; at time 0.25 it reaches 0. Verify the positions at times zero and one. This establishes what “path” and “velocity” mean before you inspect their implementation.
+
+Then use the supplied example of equally likely target velocities 2 and −2 to explain why squared-error prediction chooses their conditional mean, zero, despite positive residual error. Record that explanation and identify which inputs the network receives: intermediate position and time, not the endpoint pair.
 
 Inspect, in order:
 
@@ -28,7 +42,9 @@ This uses the same eight-cluster 2D data distribution as the VAE. It does not us
 
 ## Step 3 — Change the sampling budget, hold training fixed
 
-Predict what increasing the number of Euler steps might improve and what it cannot fix. Then run:
+**Read [Training error and integration error are different](../../docs/theory.md#training-error-and-integration-error-are-different), the final subsection of theory §6. Stop at “7. Evaluation and reproducibility”.** Follow the worked Euler calculation: one step gives 2, two steps give 2.25, and ten give about 2.5937, compared with the exact value about 2.7183.
+
+Use this example to state the purpose of the next experiment: compare numerical sampling budgets for the same learned field. More steps can reduce integration error, while an incorrect field can still produce incorrect samples. Then run:
 
 ```bash
 python -m genai_course.labs flow --steps 300 --sampling-steps 5 --seed 0
@@ -50,7 +66,9 @@ The two runs should have equal training histories and held-out velocity MSE on t
 
 ## Step 4 — Evaluate the claim, not just the loss
 
-Read [theory §7](../../docs/theory.md#7-evaluation-and-reproducibility). Inspect `sliced_wasserstein` in [evaluation.py](../../genai_course/evaluation.py). It averages one-dimensional projected distances; it is not exact multivariate Wasserstein distance.
+**Read all three subsections of theory §7**, from [Decide which claim a measurement is meant to support](../../docs/theory.md#decide-which-claim-a-measurement-is-meant-to-support) through **Worked example: what a projected sample distance measures** and **Paired comparisons and the unit of uncertainty**. **Stop at “8. SFT, efficient adaptation and DPO”.**
+
+First reproduce the supplied distance calculation between `(0, 2)` and `(1, 3)`: pair the sorted coordinates, take absolute differences, then average to obtain 1. Next inspect `sliced_wasserstein` in [evaluation.py](../../genai_course/evaluation.py) and identify where the code repeats this idea across projection directions. Finally use the three-seed example in the reading to interpret the repeated runs below.
 
 Pairs repeat Step 3 using `--seed 1` or `--seed 2` and pool their tables within the existing lab time. For self-study, repeat both budgets for each seed when practical. Compare the generated-vs-held-out distance with the real-vs-real reference. If plotting dependencies are already available, use the optional [plotting example](../../labs/outputs.md#optional-plotting) to examine coverage. Plotting is not required for completion.
 
@@ -58,7 +76,9 @@ Write: “For these runs, changing ___ while holding ___ fixed changed ___.” T
 
 ## Step 5 — Connect to larger systems and finish
 
-Return to the classifier-free guidance and latent-diffusion paragraphs in theory §5. Use R14 and R16 in the [reading guide](../../docs/readings.md) for the scheduled research comparison: which additional model, data and compute choices would be needed to extend a result to images or language? Full papers and new implementations are optional.
+**Read [Conditioning and guidance](../../docs/theory.md#conditioning-and-guidance), the final subsection of theory §5, including its scalar guidance example and latent-diffusion explanation. Stop at “6. Conditional flow matching”.** The earlier board exercise repeats the two-transition calculation completed in Step 1; no additional derivation is required here.
+
+For images, identify the encoder and decoder that latent diffusion adds and explain one error that can come from compression. For language, read only the two final paragraphs about LLaDA and masked diffusion in [Reading a research claim critically](../../docs/theory.md#reading-a-research-claim-critically), stopping before “Connection to the activity”. State why equal generation-step counts would not necessarily give equal computation. R14 and R16 in the [reading guide](../../docs/readings.md) are optional source readings; no additional implementation is assigned.
 
 Complete [Class 2's exit ticket](../../docs/assessment.md#b-class-2-exit-ticket--25-points-10-minutes). Move on when you can derive the noisy marginal, state the flow path and sampling direction, and explain what the budget comparison does and does not establish.
 

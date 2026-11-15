@@ -6,11 +6,11 @@ Start here instead of browsing the repository by folder name. If installation al
 
 ## How to work through a lesson
 
-1. **Read** the specific theory section linked from that step. Write down what the model represents and what its objective measures.
-2. **Predict** the result before running the code. A wrong prediction is useful if you can explain why it changed.
+1. **Learn** from the exact subsections named in the step. Each reading instruction states where to start and stop. These readings are part of the lesson, not work to complete before it.
+2. **Work through the example**, then try the stated practice or make a prediction using that explanation. Each task supplies its inputs and says what to record; keep the worked answer available while learning.
 3. **Run** only the experiment requested at that step. All commands run from the repository root with your environment active.
 4. **Inspect** the named output fields and the named implementation functions. The printed numbers are measurements, not grades.
-5. **Explain** what your result supports and what it cannot establish. Attempt the checkpoint before opening the answer.
+5. **Explain** what your result supports and what it cannot establish. Use the checkpoint explanations to resolve uncertainty; they are learning aids, not hidden answers to an entrance test.
 
 Keep a [learning log](learning-log.md) in your own notes or in `runs/learning-log.md`. Record run-folder names rather than copying only a favorable number. The [output guide](../labs/outputs.md) explains the JSON structure and saved arrays.
 

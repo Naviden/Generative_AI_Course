@@ -8,11 +8,14 @@ Previous: [02 — Diffusion and flow matching](../02-diffusion-flow-matching/REA
 
 ## Step 1 — Separate adaptation objectives
 
-Read [theory §8](../../docs/theory.md#8-sft-efficient-adaptation-and-dpo). Explain what supervised fine-tuning trains on, what LoRA changes in the parameterization, and what a preference pair supplies. LoRA is not itself a preference-learning objective.
+**Read all four subsections of theory §8**, starting at [Three different choices: data, objective and parameters](../../docs/theory.md#three-different-choices-data-objective-and-parameters) and ending with **Worked example: interpreting the DPO margin**. **Stop at “9. Reasoning and recent research”.** Work through them in this order:
 
-Derive the optimal policy for the KL-regularized reward objective, then substitute it into the pairwise preference model. Identify why the context-dependent partition function cancels and why the reference policy stays fixed.
+1. **Three different choices: data, objective and parameters.** Use the supplied examples to make three entries in your notes: SFT learns from demonstrated completions; preferences compare two completions for one context; LoRA restricts which parameter updates are learned. Explain why LoRA can be used with either objective.
+2. **Why keep a reference policy?** Follow the reward-minus-KL objective and the differentiation argument with a normalization multiplier. Reproduce the two-completion example: equal reference probabilities, reward difference $`\log 3`$ and coefficient 1 give optimal probabilities 0.75 and 0.25. Annotate the role of the normalizing factor.
+3. **From rewards to pairwise classification.** Follow the substitution into the Bradley–Terry model. Write the reward difference for a chosen and rejected completion of the **same prompt**, then cross out the identical prompt-dependent normalization terms. Keep the supplied derivation open as you explain this cancellation.
+4. **Worked example: interpreting the DPO margin.** Follow the numerical example first. Then set policy equal to reference: the adjusted log-probability margin is zero, the loss is about 0.6931, and the derivative with respect to the margin is $`-\beta/2`$. Explain why gradient descent increases the margin. [Checkpoint 7](../checkpoints.md#7-dpo-at-the-reference-policy) provides the same reasoning in compact form.
 
-**Worked checkpoint:** when policy and reference are equal, compute the DPO loss and the sign of its derivative with respect to the chosen-minus-rejected log-probability margin. Attempt [Checkpoint 7](../checkpoints.md#7-dpo-at-the-reference-policy) before running.
+These are guided calculations within the lesson. Record the annotated derivation and interpretations, then use them to understand the experiment in Step 2.
 
 ## Step 2 — Inspect a preference experiment small enough to understand
 
@@ -36,15 +39,21 @@ Record the run paths too. Initially the three probabilities are `1/3`, and the l
 
 ## Step 3 — Evaluate reasoning, retrieval and tool use
 
-Read [theory §9](../../docs/theory.md#9-reasoning-and-recent-research) and [§10](../../docs/theory.md#10-retrieval-tools-and-responsible-experiments).
+Read and discuss these specific passages in order:
 
-For reasoning, distinguish final-answer correctness, robustness to meaning-preserving perturbations, process validity and inference cost. If a system gets more attempts, a higher pass@k alone is not a fixed-compute comparison.
+| Read exactly | Worked example to follow | What to record after reading |
+|---|---|---|
+| [What would count as improved reasoning?](../../docs/theory.md#what-would-count-as-improved-reasoning) and **Worked example: more attempts versus a better attempt**; stop before **Reading a research claim critically** | A per-attempt success probability of 0.2 gives about 0.6723 for at least one success in five independent attempts | State what changed—the number of attempts—and why selecting a correct answer needs a verifier |
+| [Retrieval supplies evidence at answer time](../../docs/theory.md#retrieval-supplies-evidence-at-answer-time) and **Worked diagnosis: isolate retrieval from evidence use**; stop before **Tools change what a model can do** | The hypothetical handbook task scores 40/100 without retrieval, 55/100 with ordinary retrieval and 85/100 with sufficient evidence supplied | Name one measurement of missing evidence and one measurement of failure to use available evidence |
+| [Tools change what a model can do](../../docs/theory.md#tools-change-what-a-model-can-do) through the end of theory §10 | The simulated record-update task distinguishes successful search from a correct final update | List the conditions that establish completion: correct record, correct field change, preservation of unrelated fields and an accurate report |
 
-For retrieval, design a comparison using no retrieval, ordinary retrieval and supplied correct evidence. Explain which comparison diagnoses retrieval failure and which tests generation with adequate evidence. For tools, distinguish task completion from success of an individual action. These are design exercises; no external write access or private data is required.
+Use these supplied cases before designing a new experiment in Step 5. No tool execution or external access is needed for this step.
 
 ## Step 4 — Critique one paper with a concrete question
 
-Use the [Class 3 critique packet](../../docs/readings.md#class-3-critique-packet-no-full-paper-homework-required): R18 by default or R19 as the stated alternative. Read the selected abstract and relevant experimental setup/table in class; full-paper homework is not required.
+**First read [Reading a research claim critically](../../docs/theory.md#reading-a-research-claim-critically), the remaining subsection of theory §9. Stop at “10. Retrieval, tools and responsible experiments”.** It explains how budget, data and scoring choices can affect a headline result.
+
+Then read the complete [critique packet](../../docs/readings.md#class-3-critique-packet-no-full-paper-homework-required), stopping at **Updating this list**. Use its R18 summary as the default case and identify the claim, the perturbation being studied and one proposed control. In a taught session, examine the primary-source abstract and experimental passage supplied by the instructor. In self-study, the packet supports a preliminary critique; explicitly distinguish questions raised by that summary from conclusions supported by experiments you have actually inspected. Full-paper reading remains optional.
 
 Write five short notes: the authors' claim, the experimental unit, the baseline, one possible confound, and one experiment that could overturn your initial interpretation. Treat preprint claims as claims to examine. The core labs are not replications of these papers.
 
@@ -52,7 +61,9 @@ Write five short notes: the authors' claim, the experimental unit, the baseline,
 
 Choose one of the four topics in [Assessment C](../../docs/assessment.md#c-class-3-research-design-and-defense--40-points): fixed-compute flow sampling, noisy preferences, robustness under text perturbation, or retrieval under distracting evidence. Use the [learning-log template](../learning-log.md#lesson-03--research-protocol).
 
-Specify a falsifiable hypothesis, primary outcome, independent unit, splits, baseline, controlled budget, ablation, uncertainty method and one data/ethical issue. Defend it in two minutes within the scheduled group activity. The [worked design check](../checkpoints.md#9-a-research-protocol-that-can-fail) shows the required level of precision.
+**Read the complete [worked design check](../checkpoints.md#9-a-research-protocol-that-can-fail) first**, from its heading to the end of the checkpoint page. It develops one flow-sampling hypothesis into a matched-compute experiment. Use it as a model for your selected topic.
+
+Fill the learning-log template with a falsifiable hypothesis, primary outcome, independent unit, splits, baseline, controlled budget, ablation, uncertainty method and one data/ethical issue. For each entry, explain the choice using the examples from this lesson. In a taught session, present and discuss the protocol; in self-study, write one plausible objection and the measurement that would address it.
 
 ## Finish the course
 
