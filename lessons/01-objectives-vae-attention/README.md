@@ -121,7 +121,7 @@ Use the supplied comparison table to explain one difference in your own words fo
 
 Follow the worked calculation: allowed scores 0 and $`\log 3`$ become weights 1/4 and 3/4, and values 2 and 6 produce output 5. The future position has weight zero.
 
-Now apply the shape explanation to this lab: queries and keys have shape `(2, 6, 8)` and values `(2, 6, 4)`. Multiplying each query by each key gives weights shaped `(2, 6, 6)`; weighting the values gives output shape `(2, 6, 4)`. Mark the entries with key position $`j>i`$ as masked for query position $`i`$. Record these expected shapes and compare them with the command output:
+Now apply the shape explanation to this lab: queries and keys have shape `(2, 6, 8)` and values `(2, 6, 4)`. The query–key dot products give scores shaped `(2, 6, 6)`; masking and row-wise softmax produce weights of the same shape. Weighting the values then gives output shape `(2, 6, 4)`. Mark the entries with key position $`j>i`$ as masked for query position $`i`$. Record these expected shapes and compare them with the command output:
 
 ```bash
 python -m genai_course.labs attention
