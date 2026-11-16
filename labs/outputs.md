@@ -1,6 +1,6 @@
 # How to read a lab result
 
-[Learning path](../lessons/README.md) · [Compact lab workbook](README.md)
+[Learning path](../lessons/README.md) · [Lab workbook](README.md)
 
 Every lab command prints JSON containing a `run` path and a `metrics` object. A typical path has the form `runs/vae-seed0-<unique-suffix>`. Use the **actual path printed by your command**. New runs get new folders so earlier evidence is retained.
 
@@ -27,6 +27,8 @@ JSON stores named fields and values. In Python, loading a JSON object produces a
 
 `train_objective_first` and `train_objective_last` describe training objectives for VAE/flow, not interchangeable units. VAE's $`\beta`$-weighted training objective differs from its reported unweighted negative ELBO when $`\beta`$ differs from one. Negative Gaussian NLL is possible because densities can exceed one.
 
+Training histories contain losses evaluated **before** each parameter update. In particular, DPO’s `loss_last` precedes its final update, while `final_probabilities` describes the policy **after** that update. The workbook’s [one-update example](README.md#lab-4--understand-a-preference-update) shows why these values belong to adjacent states. Final held-out diagnostics for VAE/flow also use the model after training.
+
 `seconds` measures the timed lab computation, including training and evaluation and excluding installation. It is **not sampler-only latency**. The CLI uses CPU execution and one torch thread. Measured times and stochastic estimates may differ across hardware or package versions; passing does not require matching every published decimal.
 
 ## Inspect saved arrays
@@ -35,7 +37,7 @@ VAE and flow save `train`, `heldout`, `generated` and `train_objective`. DPO sav
 
 For VAE/flow, the data arrays have shapes `(1024, 2)`, `(256, 2)` and `(256, 2)` respectively. `train_objective` has one entry per training update. Read the actual run settings before comparing.
 
-The following is **Python code**, not a shell command. Paste it into a Python session or save it as a script and replace the run path:
+The following is **Python code**, not a shell command. Save the whole block as `runs/inspect_result.py`, replace the run path, and run `python runs/inspect_result.py` from the repository root:
 
 ```python
 from pathlib import Path
@@ -54,7 +56,7 @@ with np.load(run / "arrays.npz") as arrays:
 
 Lesson 02 asks whether the 5-step and 50-step samplers used the same training procedure. Compare **two runs with the same seed**, not seed 0 against seed 1. A data hash is a fingerprint of an array's bytes: equal hashes check that the saved data agree. Matching histories and source/settings provide additional consistency checks; a seed alone is insufficient evidence.
 
-From the repository root, launch `python` in your active environment. Paste the following Python code after replacing both paths with the actual folders printed by the two flow commands. Either absolute paths or paths beginning with `runs/` work. Use `exit()` to return to the terminal afterwards.
+Save the following block as `runs/compare_flow.py` and replace both paths with the actual folders printed by the two flow commands. Either absolute paths or paths beginning with `runs/` work. From the repository root, run `python runs/compare_flow.py` in your active environment.
 
 ```python
 from pathlib import Path
@@ -89,11 +91,14 @@ For the prescribed commands in the same environment, expect only `{'sampling_ste
 
 This requires the optional notebook/plotting environment described in [setup](../docs/setup.md#optional-environments). Do not interrupt the required lesson to install it; numeric interpretation is sufficient.
 
-For a VAE or flow run, first execute the code in [Inspect saved arrays](#inspect-saved-arrays) with your chosen path; it defines `run`. Then execute this plotting code in the same Python session:
+For a VAE or flow run, save this complete block as `runs/plot_samples.py` and replace the run path. From the repository root, run `python runs/plot_samples.py`. A window shows held-out and generated points on the same axes; close it when finished:
 
 ```python
+from pathlib import Path
+import numpy as np
 import matplotlib.pyplot as plt
 
+run = Path("runs/REPLACE_WITH_THE_PRINTED_RUN_FOLDER")
 with np.load(run / "arrays.npz") as arrays:
     heldout = arrays["heldout"]
     generated = arrays["generated"]

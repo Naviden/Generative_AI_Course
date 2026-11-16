@@ -19,6 +19,8 @@ These are guided calculations within the lesson. Record the annotated derivation
 
 ## Step 2 — Inspect a preference experiment small enough to understand
 
+First run [Lab 4, Work through one update first](../../labs/README.md#lab-4--understand-a-preference-update). It supplies exact logits, gradients and probabilities, showing how the unpaired outcome changes before you inspect a longer run. Then run these two comparisons:
+
 ```bash
 python -m genai_course.labs dpo --steps 100 --beta 0.1
 python -m genai_course.labs dpo --steps 100 --beta 1
@@ -36,6 +38,8 @@ Read `dpo_loss` in [objectives.py](../../genai_course/objectives.py), then `dpo_
 | `kl_policy_reference` | | |
 
 Record the run paths too. Initially the three probabilities are `1/3`, and the loss is approximately `0.6931`. Inspect whether the observed preference is fitted and what happens to the unpaired option. Lower training loss is not evidence of factuality, safety or generalization. Explain why finite-step $`\beta`$ comparisons need not reproduce an exact reward-objective optimum; see [Checkpoint 8](../checkpoints.md#8-what-the-dpo-lab-establishes).
+
+For an optional extension, the [conflicting-preferences experiment](../../labs/extensions.md#conflicting-preferences--fit-a-known-label-probability) specifies a 75:25 label split, derives its optimum and supplies runnable code. It is not needed to continue.
 
 ## Step 3 — Evaluate reasoning, retrieval and tool use
 

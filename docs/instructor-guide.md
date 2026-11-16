@@ -1,6 +1,6 @@
 # Delivery notes
 
-Use [the numbered lessons](../lessons/README.md) as the student-facing entrance. After setup, send students to Lesson 01, Step 1. Keep the compact lab workbook and theory notes as linked references; do not ask students to browse every topic folder. The lesson checkpoints and learning log support the existing timed activities rather than adding homework.
+Use [the numbered lessons](../lessons/README.md) as the student-facing entrance. After setup, send students to Lesson 01, Step 1. Keep the worked lab workbook and theory notes as linked references; do not ask students to browse every topic folder. The lesson checkpoints and learning log support the existing timed activities rather than adding homework.
 
 
 ## Before teaching

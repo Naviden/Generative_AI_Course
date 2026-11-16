@@ -78,6 +78,8 @@ The training prefix is `I like` and the target is `tea`. The purpose is to conne
 
 **Record:** an annotated ELBO derivation, the roles of the four distributions and the two reduction calculations. [Checkpoint 1](../checkpoints.md#1-vae-reductions) explains the same reductions if you need another pass.
 
+Use [Lab 1, Understand the calculation first](../../labs/README.md#lab-1--audit-a-vae-objective) to run the fixed-input KL, Gaussian NLL and reparameterization examples; then follow its batch-shape table. These explain the same calculations above, before the full experiment.
+
 Open these files in this order; search for the function or class name rather than reading every file:
 
 1. [objectives.py](../../genai_course/objectives.py): `diagonal_gaussian_kl` and `gaussian_nll` — which dimensions are summed?
@@ -120,6 +122,8 @@ Use the supplied comparison table to explain one difference in your own words fo
 **Read only the first two subsections of theory §4:** [What attention computes](../../docs/theory.md#what-attention-computes) and [Worked example: masking changes the distribution](../../docs/theory.md#worked-example-masking-changes-the-distribution). **Stop before “From one head to a language model”; Step 6 covers it.**
 
 Follow the worked calculation: allowed scores 0 and $`\log 3`$ become weights 1/4 and 3/4, and values 2 and 6 produce output 5. The future position has weight zero.
+
+Use [Lab 2, Understand and test one row](../../labs/README.md#lab-2--can-attention-see-the-future) for concrete key/value interventions with expected outputs, then **Work through numerical stability** for the `(1000, 1001)` softmax example. The following CLI diagnostic tests the same mechanism on larger tensors.
 
 Now apply the shape explanation to this lab: queries and keys have shape `(2, 6, 8)` and values `(2, 6, 4)`. The query–key dot products give scores shaped `(2, 6, 6)`; masking and row-wise softmax produce weights of the same shape. Weighting the values then gives output shape `(2, 6, 4)`. Mark the entries with key position $`j>i`$ as masked for query position $`i`$. Record these expected shapes and compare them with the command output:
 

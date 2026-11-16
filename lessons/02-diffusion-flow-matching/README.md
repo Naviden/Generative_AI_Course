@@ -32,6 +32,8 @@ Follow the worked path from noise endpoint −1 to data endpoint 3. Its position
 
 Then use the supplied example of equally likely target velocities 2 and −2 to explain why squared-error prediction chooses their conditional mean, zero, despite positive residual error. Record that explanation and identify which inputs the network receives: intermediate position and time, not the endpoint pair.
 
+Use [Lab 3, Follow one point before training a field](../../labs/README.md#lab-3--control-the-flow-sampling-budget) to run a two-coordinate path calculation and a known constant-velocity sampler. Its shape table connects those calculations to the training loop.
+
 Inspect, in order:
 
 1. [objectives.py](../../genai_course/objectives.py): `flow_path` — verify both endpoints and the target velocity.
@@ -91,6 +93,6 @@ For images, identify the encoder and decoder that latent diffusion adds and expl
 
 Complete [Class 2's exit ticket](../../docs/assessment.md#b-class-2-exit-ticket--25-points-10-minutes). Move on when you can derive the noisy marginal, state the flow path and sampling direction, and explain what the budget comparison does and does not establish.
 
-Optional extension, outside the required path: implement Heun sampling and compare equal **velocity evaluations**, not equal step counts.
+Optional extension, outside the required path: use the [worked Heun experiment](../../labs/extensions.md#heun--check-a-solver-before-comparing-generators). It supplies the update, a known-solution check and runnable comparison of one trained model at equal **velocity evaluations**.
 
 Next: [03 — Post-training and research](../03-post-training-research/README.md).

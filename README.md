@@ -34,7 +34,7 @@ lessons/                   STUDENT PATH — open these in numeric order
   checkpoints.md            Answers and interpretation guidance
 
 genai_course/              IMPLEMENTATION — open functions when a lesson asks
-labs/                      REFERENCE — compact lab instructions and output guide
+labs/                      REFERENCE — worked lab examples, extensions and output guide
 docs/                      REFERENCE — theory, readings, setup and teaching plans
 tests/                     VERIFICATION — mathematical and implementation checks
 requirements/              CURRENT ENVIRONMENT — core dependencies
