@@ -55,7 +55,7 @@ Use these supplied cases before designing a new experiment in Step 5. No tool ex
 
 Then read the complete [critique packet](../../docs/readings.md#class-3-critique-packet-no-full-paper-homework-required), stopping at **Updating this list**. Use its R18 summary as the default case and identify the claim, the perturbation being studied and one proposed control. In a taught session, examine the primary-source abstract and experimental passage supplied by the instructor. In self-study, the packet supports a preliminary critique; explicitly distinguish questions raised by that summary from conclusions supported by experiments you have actually inspected. Full-paper reading remains optional.
 
-Write five short notes: the authors' claim, the experimental unit, the baseline, one possible confound, and one experiment that could overturn your initial interpretation. Treat preprint claims as claims to examine. The core labs are not replications of these papers.
+Use the packet's worked five-note table as a model. For each note, distinguish what the summary reports, what it does not specify, and what you propose to test. **Do not guess the paper's experimental unit, baseline or results:** if you have only read the summary, write ‘not specified in the summary’ and propose what would be needed. Completion means one bounded critique and a proposed counter-test, not a verdict on experiments you have not inspected. Treat preprint claims as claims to examine. The core labs are not replications of these papers.
 
 ## Step 5 — Turn an observation into a research protocol
 

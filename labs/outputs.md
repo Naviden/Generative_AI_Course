@@ -13,7 +13,7 @@ In your editor or file browser, open the repository's `runs/` folder and then th
 | `metrics.json` | Configuration, scalar metrics, environment, elapsed seconds, source and data hashes | Read directly; use for your comparison tables |
 | `arrays.npz` | Numerical arrays | Open with NumPy when a lesson asks for histories or sample plots |
 
-Inside `metrics.json`, `metrics` contains the measured quantities. `config`, `seconds`, `environment`, `git_commit`, `git_dirty`, `source_sha256` and `data_sha256` are separate top-level entries. A dirty-worktree flag records local modifications; it is not itself a training failure. Preserve the relevant modifications if you want to reproduce the result.
+JSON stores named fields and values. In Python, loading a JSON object produces a dictionary: `record["metrics"]["heldout_kl"]` means open the `metrics` object and read its `heldout_kl` value. Inside `metrics.json`, `metrics` contains the measured quantities. `config`, `seconds`, `environment`, `git_commit`, `git_dirty`, `source_sha256` and `data_sha256` are separate top-level entries. A dirty-worktree flag records local modifications; it is not itself a training failure. Preserve the relevant modifications if you want to reproduce the result.
 
 ## Interpret the quantities by lab
 
@@ -49,6 +49,41 @@ print(record["metrics"])
 with np.load(run / "arrays.npz") as arrays:
     print({name: arrays[name].shape for name in arrays.files})
 ```
+
+## Check a paired flow comparison
+
+Lesson 02 asks whether the 5-step and 50-step samplers used the same training procedure. Compare **two runs with the same seed**, not seed 0 against seed 1. A data hash is a fingerprint of an array's bytes: equal hashes check that the saved data agree. Matching histories and source/settings provide additional consistency checks; a seed alone is insufficient evidence.
+
+From the repository root, launch `python` in your active environment. Paste the following Python code after replacing both paths with the actual folders printed by the two flow commands. Either absolute paths or paths beginning with `runs/` work. Use `exit()` to return to the terminal afterwards.
+
+```python
+from pathlib import Path
+import json
+import numpy as np
+
+run5 = Path("runs/REPLACE_WITH_5_STEP_RUN")
+run50 = Path("runs/REPLACE_WITH_50_STEP_RUN")
+a = json.loads((run5 / "metrics.json").read_text())
+b = json.loads((run50 / "metrics.json").read_text())
+assert a["config"]["lab"] == b["config"]["lab"] == "flow"
+assert (a["config"]["sampling_steps"], b["config"]["sampling_steps"]) == (5, 50)
+changes = {key: (a["config"][key], b["config"][key])
+           for key in a["config"] if a["config"][key] != b["config"][key]}
+with np.load(run5 / "arrays.npz") as x, np.load(run50 / "arrays.npz") as y:
+    same_history = np.array_equal(x["train_objective"], y["train_objective"])
+
+print("Changed settings:", changes)
+print("Same training history:", same_history)
+print("Same data:", a["data_sha256"] == b["data_sha256"])
+print("Same implementation:", a["source_sha256"] == b["source_sha256"])
+print("Same environment:", a["environment"] == b["environment"])
+print("Same held-out velocity MSE:",
+      a["metrics"]["heldout_velocity_mse_sum"] == b["metrics"]["heldout_velocity_mse_sum"])
+print("Sample distance (5, 50):",
+      a["metrics"]["sample_sliced_w1"], b["metrics"]["sample_sliced_w1"])
+```
+
+For the prescribed commands in the same environment, expect only `{'sampling_steps': (5, 50)}` under changed settings and `True` for all five consistency checks. Different run-folder suffixes and elapsed times are normal. If a check is false, first verify that you selected the correct two runs and used matching settings, code and environment. Do not interpret them as a controlled sampler comparison until the mismatch is understood. Record the sample distances even if 50 steps do not improve them.
 
 ## Optional plotting
 

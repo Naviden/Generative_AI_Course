@@ -13,7 +13,9 @@ If you already cloned it, enter the existing `Generative_AI_Course` folder inste
 
 ## Supported core path
 
-Use Python 3.12, a clean virtual environment, and run commands from the repository root. Python 3.11–3.13 is declared compatible; only environments listed in [validation](validation.md) have actually been executed. The newest system Python need not have compatible scientific-package wheels.
+Use Python 3.12, a clean virtual environment, and run commands from the repository root. These are terminal commands: run one line at a time and stop at the first error. If `python3.12` is not found, install Python 3.12 first; creating a virtual environment does not install Python itself. Python 3.11–3.13 is declared compatible; only environments listed in [validation](validation.md) have actually been executed. The newest system Python need not have compatible scientific-package wheels.
+
+On macOS/Linux, create and activate the environment with the first two lines below. On Windows, replace those two lines with `py -3.12 -m venv .venv` and `.venv\Scripts\activate` (Command Prompt) or `.venv\Scripts\Activate.ps1` (PowerShell); the remaining `python` commands are the same.
 
 ```bash
 python3.12 -m venv .venv
@@ -27,11 +29,17 @@ python scripts/check_materials.py
 python -m genai_course.labs attention
 ```
 
+**Check success before continuing:** `pip check` should report no broken requirements; pytest should finish with no failures; the material checker should print `"status": "ok"`. Attention should print a run path and shape `[2, 6, 4]`, zero `future_leakage`, and `row_sum_error` close to zero (typically below `1e-6`). Open the printed folder to find `metrics.json` and `arrays.npz`; you do not need to understand all their contents yet.
+
 **Setup complete? Open [Lesson 01, Step 1](../lessons/01-objectives-vae-attention/README.md#step-1--understand-what-a-loss-measures).** The attention command above is only a smoke check. The lesson explains what to read and how to interpret experiments before you run the remaining labs.
 
-Windows: use `py -3.12 -m venv .venv` and `.venv\Scripts\activate` (Command Prompt) or `.venv\Scripts\Activate.ps1` (PowerShell). The lock selects CPU-only PyTorch wheels on Linux/Windows from the official PyTorch index and the standard macOS wheel on macOS. For other accelerators, use [PyTorch's official installation page](https://pytorch.org/get-started/locally/) in a separate environment. The package version and platform must be recorded; accelerator builds are not interchangeable bit for bit.
+The lock selects CPU-only PyTorch wheels on Linux/Windows from the official PyTorch index and the standard macOS wheel on macOS. For other accelerators, use [PyTorch's official installation page](https://pytorch.org/get-started/locally/) in a separate environment. The package version and platform must be recorded; accelerator builds are not interchangeable bit for bit.
 
 `requirements/core.lock` is a resolved, exact-version teaching environment, not a guarantee that every version is the newest available. `python -m pip install -r requirements.txt` instead resolves current versions within the supported bounds in `pyproject.toml`; rerun tests before teaching with it. The historical freeze in `archive/requirements/legacy-2023.txt` is archival and should not be installed as the recommended environment.
+
+## Returning in a new terminal
+
+Enter your existing repository folder, then activate `.venv` again. On macOS/Linux use `source .venv/bin/activate`; on Windows use the activation command above. Do not recreate the environment or reinstall packages for each lesson. Resume at the step you last completed; the saved run folders remain available.
 
 ## Offline classroom preparation
 

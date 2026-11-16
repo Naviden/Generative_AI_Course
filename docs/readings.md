@@ -38,7 +38,21 @@ Choose R18 by default; use R19 as an alternative if the cohort works on process 
 
 For R18, the authors evaluate deterministic textual perturbations on mathematical benchmarks. Discuss whether the perturbations preserve the mathematical task and how to distinguish a refusal from an incorrect solution. For R19, the proposed evaluation separates answer correctness and structural reasoning; ask what evidence validates the process score itself. These summaries describe author claims; they do not endorse the benchmarks as universal measurements of reasoning.
 
-In pairs: identify the claim, experimental unit, baseline, data-selection procedure and cost budget. Name one plausible confound. Design one experiment that could overturn your initial interpretation. The class need not agree on the paper's conclusion; arguments must connect claims to evidence.
+### Worked preliminary critique from the R18 summary
+
+The summary above does not include results, effect sizes, exact baselines or the sampling design. You can still learn to ask a precise research question without guessing those details. The following is a **proposed evaluation**, not a report of how the paper was conducted.
+
+| Note | What can be written using this packet alone |
+|---|---|
+| Claim or question | The summary describes an evaluation of robustness to deterministic textual perturbations on mathematical benchmarks. It does not specify a quantitative robustness result, so I cannot conclude that a particular model succeeds or fails. |
+| Experimental unit | Not specified in the summary. For my proposed test, use the original mathematical problem as the independent unit and keep all variants of that problem together. |
+| Baseline | Not specified in the summary. I propose the same model on the original wording, with matched generation and scoring budgets. |
+| Possible confound | A perturbation might change the mathematical meaning or make the question ambiguous. Then a score change would not isolate robustness to equivalent wording. This is a possibility to check, not an established flaw in the paper. |
+| Counter-test | Have independent reviewers verify that each original/perturbed pair has the same mathematical answer before comparing the model on those pairs. Report refusals separately from attempted wrong answers. If an apparent drop disappears on verified pairs, that would weaken the robustness interpretation; persistence would support it within this design. |
+
+**Your task:** write five notes for this case, using the table's structure. You may develop the same confound or propose another, such as unmatched answer-selection budgets. Mark missing details explicitly; if you inspect the primary source, replace a missing detail only with a fact you can locate there. Finish by stating one measurement that could change your interpretation. No paper download is required to complete this summary-based exercise.
+
+In a taught session, compare these proposed controls with the actual experimental passage supplied by the instructor. Check the data-selection procedure and cost budget there. Agreement with the paper's conclusion is not required; arguments must connect claims to the evidence actually available.
 
 ## Updating this list
 

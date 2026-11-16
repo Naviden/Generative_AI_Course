@@ -12,13 +12,13 @@ Start here instead of browsing the repository by folder name. If installation al
 4. **Inspect** the named output fields and the named implementation functions. The printed numbers are measurements, not grades.
 5. **Explain** what your result supports and what it cannot establish. Use the checkpoint explanations to resolve uncertainty; they are learning aids, not hidden answers to an entrance test.
 
-Keep a [learning log](learning-log.md) in your own notes or in `runs/learning-log.md`. Record run-folder names rather than copying only a favorable number. The [output guide](../labs/outputs.md) explains the JSON structure and saved arrays.
+Keep a [learning log](learning-log.md) in your own notes or copy that file into `runs/` as `learning-log.md` after setup creates the folder. Open it in a text editor and fill the tables as you go; there is nothing to submit unless your instructor requests it. Record run-folder names rather than copying only a favorable number. The [output guide](../labs/outputs.md) explains the JSON structure and saved arrays.
 
 ## Schedule and scope
 
 Lessons 01, 02 and 03 correspond to the three meetings. Their numbered steps group the existing activities; they do not add extra classroom assignments. Follow the [timed syllabus](../docs/syllabus.md) for the lesson activities and teaching sequence. The foundation explanations are part of the learning path and can be introduced alongside the relevant theory. Self-study readers can take longer and use the same sequence without a timetable.
 
-**Required:** the linked theory sections, four core labs, interpretation questions and in-class assessment. **Optional:** full papers, plotting extras, historical scripts and research extensions. You do not need to repair an old notebook or train every model mentioned in the reading list.
+**Core learning path:** the named theory passages, four core labs with the comparisons specified in each lesson, interpretation questions and a research protocol. For self-study, use the assessment questions as untimed consolidation with worked answers available; no group, instructor or submission is needed. In a taught course, the instructor sets assessment arrangements. **Optional:** full papers, plotting extras, historical scripts and research extensions. You do not need to repair an old notebook or train every model mentioned in the reading list.
 
 ## If you get stuck
 

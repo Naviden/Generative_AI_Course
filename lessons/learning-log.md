@@ -1,6 +1,6 @@
 # My learning log
 
-Copy this template into your notes or `runs/learning-log.md`; fill it as you follow [the lessons](README.md). The `runs/` folder is ignored by Git. This is a worksheet for the existing activities, not extra homework.
+Copy this template into your notes or `runs/learning-log.md`; fill it as you follow [the lessons](https://github.com/Naviden/Generative_AI_Course/tree/main/lessons). The `runs/` folder is ignored by Git. This is a worksheet for the existing activities, not extra homework.
 
 ## Lesson 01 — Objectives and attention
 
@@ -40,7 +40,7 @@ Copy this template into your notes or `runs/learning-log.md`; fill it as you fol
 | 2 | 5 | | | | | |
 | 2 | 50 | | | | | |
 
-Use the group's pooled results for seeds 1 and 2 during class; identify which runs you executed yourself.
+In class, use the group's pooled results for seeds 1 and 2 and identify which runs you executed yourself. In self-study, run those additional pairs if practical; otherwise leave them blank and limit your conclusion to seed 0.
 
 **What was held fixed; how I checked it:**
 
@@ -55,7 +55,7 @@ Use the group's pooled results for seeds 1 and 2 during class; identify which ru
 
 **Preference interpretation and missing generalization evidence:**
 
-**Paper critique:** claim ___; experimental unit ___; baseline ___; confound ___; proposed counter-test ___.
+**Paper critique:** claim or question described in the summary ___; experimental unit ___; baseline ___; possible confound ___; proposed counter-test ___. Label each item as reported, not specified in the summary, or your proposed design; do not invent missing paper details.
 
 **Research question and falsifiable hypothesis:**
 

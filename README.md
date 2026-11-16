@@ -6,7 +6,7 @@
 
 - **I have not installed it:** follow [00 — Get ready](lessons/00-get-ready/README.md). This includes cloning, entering the correct folder, installation and a single smoke check.
 - **Installation works:** open [01 — Objectives, VAEs and attention](lessons/01-objectives-vae-attention/README.md). Start at Step 1 and work down the page. Running a lab is only one part of a lesson.
-- **I already ran all four commands:** use your saved outputs in `runs/` while following Lesson 1's interpretation tasks. You do not need to reinstall or repeat an unchanged run.
+- **I already ran the attention, VAE, flow and DPO labs:** start at Lesson 01, Step 1. Reuse saved outputs in `runs/` wherever their `config` matches the requested settings; run only the missing comparisons. You do not need to reinstall.
 - **I am teaching:** use the same lesson pages with the [timed syllabus](docs/syllabus.md) and [instructor guide](docs/instructor-guide.md).
 
 ## Follow this order
@@ -18,7 +18,7 @@
 | 02 | [Diffusion and flow matching](lessons/02-diffusion-flow-matching/README.md) | Derive the noise marginal, compare sampling budgets | Separate model error, solver error and evaluation noise |
 | 03 | [Post-training and research](lessons/03-post-training-research/README.md) | Inspect DPO, critique reasoning/RAG evidence, design an experiment | Make a narrow claim supported by a controlled comparison |
 
-Each lesson identifies **what to read, what to predict before running, the exact command, which output fields matter, which functions to inspect, and when to move on**. Checkpoint answers are available after you attempt the questions. The four labs are small, complete CPU experiments on synthetic data; no GPU, paid service, API key or pretrained-model download is needed after installation. The course does not train a full LLM or image diffusion model.
+Each lesson identifies **what to read, what to predict before running, the exact command, which output fields matter, which functions to inspect, and when to move on**. Worked checkpoint answers are available throughout; use them alongside the explanations, then try explaining the reasoning in your own words. The four labs are small, complete CPU experiments on synthetic data; no GPU, paid service, API key or pretrained-model download is needed after installation. The course does not train a full LLM or image diffusion model.
 
 ## Which folders should I open?
 

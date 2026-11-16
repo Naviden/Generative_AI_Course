@@ -60,7 +60,7 @@ Record values from each `metrics.json`:
 | 0 | 5 | | | | |
 | 0 | 50 | | | | |
 
-`seconds` is at the JSON top level and covers the lab computation, including training and evaluation; it is **not a sampler-only latency measurement**. The other listed values are inside `metrics`. Also record the run paths and verify equal configuration except the sampling budget and equal data hashes. See the [output guide](../../labs/outputs.md).
+`seconds` is at the JSON top level and covers the lab computation, including training and evaluation; it is **not a sampler-only latency measurement**. The other listed values are inside `metrics`. Also record the run paths and verify equal configuration except the sampling budget and equal data hashes. Use the [paired-comparison example](../../labs/outputs.md#check-a-paired-flow-comparison) to check the settings, hashes and complete training histories. It gives executable Python code and explains the expected output.
 
 The two runs should have equal training histories and held-out velocity MSE on the same deterministic environment. A difference in these quantities is a reason to check settings before interpreting sample quality. The sample metric need not improve monotonically: a more accurate solver still follows an imperfect velocity field, and the metric uses finite samples.
 
@@ -70,7 +70,16 @@ The two runs should have equal training histories and held-out velocity MSE on t
 
 First reproduce the supplied distance calculation between `(0, 2)` and `(1, 3)`: pair the sorted coordinates, take absolute differences, then average to obtain 1. Next inspect `sliced_wasserstein` in [evaluation.py](../../genai_course/evaluation.py) and identify where the code repeats this idea across projection directions. Finally use the three-seed example in the reading to interpret the repeated runs below.
 
-Pairs repeat Step 3 using `--seed 1` or `--seed 2` and pool their tables within the existing lab time. For self-study, repeat both budgets for each seed when practical. Compare the generated-vs-held-out distance with the real-vs-real reference. If plotting dependencies are already available, use the optional [plotting example](../../labs/outputs.md#optional-plotting) to examine coverage. Plotting is not required for completion.
+Pairs repeat Step 3 using `--seed 1` or `--seed 2` and pool their tables within the existing lab time. For self-study, repeat both budgets for each seed when practical, using the commands below. If you stop after seed 0, leave the other rows blank and state that you have not measured variation across training runs.
+
+```bash
+python -m genai_course.labs flow --steps 300 --sampling-steps 5 --seed 1
+python -m genai_course.labs flow --steps 300 --sampling-steps 50 --seed 1
+python -m genai_course.labs flow --steps 300 --sampling-steps 5 --seed 2
+python -m genai_course.labs flow --steps 300 --sampling-steps 50 --seed 2
+```
+
+For each seed, repeat the paired consistency check before comparing sample distances. Compare the generated-vs-held-out distance with the real-vs-real reference. If plotting dependencies are already available, use the optional [plotting example](../../labs/outputs.md#optional-plotting) to examine coverage. Plotting is not required for completion.
 
 Write: “For these runs, changing ___ while holding ___ fixed changed ___.” Then name two limits of that conclusion. Do not compare the numeric flow training loss with the VAE ELBO. Consult [Checkpoint 6](../checkpoints.md#6-a-controlled-flow-comparison).
 

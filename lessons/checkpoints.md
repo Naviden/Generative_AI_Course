@@ -1,6 +1,6 @@
 # Checkpoint answers and interpretation guidance
 
-Attempt each question in its lesson before opening the corresponding answer. These are checks of reasoning, not numerical targets for every machine. [Return to the learning path](README.md).
+Keep these worked answers available while following each lesson. Use them to understand an example, then explain the reasoning in your own words. These are checks of reasoning, not numerical targets for every machine. [Return to the learning path](README.md).
 
 ## 1. VAE reductions
 

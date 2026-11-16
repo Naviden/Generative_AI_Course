@@ -2,6 +2,8 @@
 
 No compulsory multi-week project or extensive homework is hidden inside this short course. The assessments below fit the syllabus. A suggested pass threshold is 60/100, subject to the institution's rules. PhD-level expectations concern reasoning, assumptions and evidence, not the size of the model trained.
 
+For **self-study**, treat A and B as untimed explanation checks, C as an individual one-page design, and D as a short written reflection. Keep the theory and [worked checkpoints](../lessons/checkpoints.md) open. For C's defense, write one plausible objection and how you would test it. The classroom points and time limits below do not impose a self-study pass mark or require a partner. Designing the experiment is sufficient; implementing the proposed extension is optional.
+
 ## A. Class 1 exit ticket — 25 points, 10 minutes
 
 1. Derive the ELBO and state when equality holds (10).
