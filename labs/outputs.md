@@ -104,7 +104,7 @@ with np.load(run / "arrays.npz") as arrays:
     generated = arrays["generated"]
 plt.scatter(*heldout.T, s=8, alpha=0.4, label="held-out")
 plt.scatter(*generated.T, s=8, alpha=0.4, label="generated")
-plt.axis("equal")
+plt.gca().set_aspect("equal", adjustable="box")
 plt.xlim(-3, 3)
 plt.ylim(-3, 3)
 plt.legend()
