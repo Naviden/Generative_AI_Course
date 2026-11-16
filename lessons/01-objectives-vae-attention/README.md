@@ -22,7 +22,7 @@ The frequency example illustrates the objective: probabilities 0.8 and 0.2 fit t
 
 ### B. Work through a specific three-token sequence
 
-**Now read only [Autoregression: generating a joint outcome one part at a time](../../docs/theory.md#autoregression-generating-a-joint-outcome-one-part-at-a-time)**, including its numerical example. Stop at the heading “2. Latent variables, the ELBO and the VAE”. The board prompt at the end is explained by the frequency example you just read; it is not an additional assignment at this step.
+**Now read only [Autoregression: generating a joint outcome one part at a time](../../docs/theory.md#autoregression-generating-a-joint-outcome-one-part-at-a-time)**, including its numerical example. Stop at the heading “2. Latent variables, the ELBO and the VAE”. The worked categorical exercise at the end extends the frequency example you just read; it includes a complete solution and is not an additional assignment at this step.
 
 Use the toy sequence **“the cat sleeps”**, treating each word as one token. We consider exactly three positions and omit start/end tokens for this calculation. Real tokenizers can split words differently.
 

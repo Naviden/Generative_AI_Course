@@ -85,7 +85,7 @@ Write: “For these runs, changing ___ while holding ___ fixed changed ___.” T
 
 ## Step 5 — Connect to larger systems and finish
 
-**Read [Conditioning and guidance](../../docs/theory.md#conditioning-and-guidance), the final subsection of theory §5, including its scalar guidance example and latent-diffusion explanation. Stop at “6. Conditional flow matching”.** The earlier board exercise repeats the two-transition calculation completed in Step 1; no additional derivation is required here.
+**Read [Conditioning and guidance](../../docs/theory.md#conditioning-and-guidance), the final subsection of theory §5, including its scalar guidance example and latent-diffusion explanation. Stop at “6. Conditional flow matching”.** The worked two-transition exercise repeats the calculation completed in Step 1; no additional derivation is required here.
 
 For images, identify the encoder and decoder that latent diffusion adds and explain one error that can come from compression. For language, read only the two final paragraphs about LLaDA and masked diffusion in [Reading a research claim critically](../../docs/theory.md#reading-a-research-claim-critically), stopping before “Connection to the activity”. State why equal generation-step counts would not necessarily give equal computation. R14 and R16 in the [reading guide](../../docs/readings.md) are optional source readings; no additional implementation is assigned.
 
