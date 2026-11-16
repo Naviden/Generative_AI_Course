@@ -66,6 +66,18 @@ These are fitted **sample** frequencies. With only ten observations they need no
 
 Entropy is the average uncertainty of a distribution about its own outcomes. Cross-entropy is the average log-loss incurred when outcomes come from one distribution but probabilities are supplied by another. **Kullback–Leibler (KL) divergence** measures the extra log-loss relative to using the true distribution itself. It is nonnegative, but it is not a distance metric: exchanging its arguments usually changes its value.
 
+For a finite set of outcomes indexed by $`k`$, let $`p_k`$ be the population probabilities and $`q_k`$ the model probabilities. The definitions are
+
+```math
+\begin{aligned}
+H(p)&=-\sum_k p_k\log p_k,\\
+C(p,q)&=-\sum_k p_k\log q_k,\\
+D_{\mathrm{KL}}(p\Vert q)&=\sum_k p_k\log(p_k/q_k)=C(p,q)-H(p).
+\end{aligned}
+```
+
+Here $`C(p,q)`$ names cross-entropy. Subtracting the first sum from the second creates $`\log p_k-\log q_k=\log(p_k/q_k)`$ term by term. Terms with zero $`p_k`$ contribute zero by continuity; positive $`p_k`$ with zero $`q_k`$ gives infinite loss. This convention will also matter for the support conditions in §2.
+
 In the identity below, expectation means “average over observations drawn from the population.” To derive it, add and subtract the average of $`\log p_{\mathrm{data}}(x)`$ inside the loss. The term involving only the data distribution is entropy; the remaining log ratio is KL. If the model assigns zero probability to a region with positive data probability, this KL can be infinite.
 
 Maximum likelihood minimizes $`\mathbb{E}_{x\sim p_{\mathrm{data}}}[-\log p_\theta(x)]`$. When densities and integrals are well defined,
@@ -104,7 +116,7 @@ During teacher forcing, the prediction of “sleeps” receives the observed pre
 
 **Worked exercise — fit a categorical distribution.** A categorical variable chooses one of finitely many labels. Suppose ten observations contain 6 A, 3 B and 1 C. Fit probabilities $`p_A,p_B,p_C`$ that sum to one, and explain what the fitted values do not establish.
 
-For general positive counts $`n_k`$ summing to $`N`$, maximize $`\sum_k n_k\log p_k`$ subject to $`\sum_kp_k=1`$. A **Lagrange multiplier** adds the constraint to the objective so it can be differentiated with the probabilities:
+A **concave** objective has value at an average at least as large as the average of its values. For such an objective, a stationary point under these linear normalization constraints is a global maximum. For general positive counts $`n_k`$ summing to $`N`$, maximize $`\sum_k n_k\log p_k`$ subject to $`\sum_kp_k=1`$. A **Lagrange multiplier** adds the constraint to the objective so it can be differentiated with the probabilities:
 
 ```math
 F(p,\lambda)=\sum_k n_k\log p_k+\lambda\left(1-\sum_kp_k\right),
@@ -112,7 +124,7 @@ F(p,\lambda)=\sum_k n_k\log p_k+\lambda\left(1-\sum_kp_k\right),
 \frac{\partial F}{\partial p_k}=\frac{n_k}{p_k}-\lambda=0.
 ```
 
-Here $`\partial/\partial p_k`$ changes just that probability while the other variables are held fixed. Thus $`p_k=n_k/\lambda`$; summing gives $`\lambda=N`$ and $`p_k=n_k/N`$. The answer is `(0.6, 0.3, 0.1)`, with average NLL about 0.8979 nats. The log objective is concave on positive probabilities, so this stationary point is a maximum. A zero-count category can receive zero mass at a boundary optimum; smoothing would change the estimation problem.
+Here $`\partial/\partial p_k`$ changes just that probability while the other variables are held fixed. Thus $`p_k=n_k/\lambda`$; summing gives $`\lambda=N`$ and $`p_k=n_k/N`$. The answer is `(0.6, 0.3, 0.1)`, with average NLL about 0.8979 nats. The log objective is concave on positive probabilities, so this stationary point is a maximum. A zero-count category can receive zero mass at a boundary optimum; adding extra counts to avoid zero fitted probabilities would change the estimation problem.
 
 **Interpretation:** these are training frequencies. If new observations instead have frequencies `(0.2, 0.3, 0.5)`, their average NLL under the fitted model is about 1.6146 nats. Good fit to the original counts did not establish generalization. For open-ended data, giving zero mass to every unseen outcome is an even sharper memorization failure.
 
@@ -197,7 +209,7 @@ The KL in the **gap identity** instead compares the encoder with the **true post
 
 ### A differentiable random sample
 
-A **Gaussian** is the normal distribution, with a mean setting its centre and a variance measuring average squared deviation. Standard deviation is the square root of variance. In several dimensions, the covariance matrix contains variances on its diagonal and cross-coordinate dependence off the diagonal. A diagonal Gaussian has independent coordinates; $`I`$ is the identity matrix with unit diagonal. The notation $`\mathrm{diag}(v)`$ puts the entries of vector $`v`$ on a diagonal. In one dimension the Gaussian density is $`(2\pi\sigma^2)^{-1/2}\exp(-(z-\mu)^2/(2\sigma^2))`$; for independent coordinates the joint density is the product of their scalar densities. These are the objects used in the next formulas.
+A **Gaussian** is the normal distribution, with mean $`\mu`$ setting its centre and variance $`\sigma^2`$ measuring average squared deviation. A standard normal has mean zero and variance one. Standard deviation is the square root of variance. In several dimensions, the covariance matrix contains variances on its diagonal and cross-coordinate dependence off the diagonal. A diagonal Gaussian has independent coordinates; $`I`$ is the identity matrix with unit diagonal. The notation $`\mathrm{diag}(v)`$ puts the entries of vector $`v`$ on a diagonal. In one dimension the Gaussian density is $`(2\pi\sigma^2)^{-1/2}\exp(-(z-\mu)^2/(2\sigma^2))`$; for independent coordinates the joint density is the product of their scalar densities. These are the objects used in the next formulas.
 
 A diagonal Gaussian encoder predicts a mean vector and one log variance per latent coordinate. Here $`\ell_j=\log\sigma_j^2`$; therefore its standard deviation is $`\exp(\ell_j/2)`$, not $`\exp(\ell_j)`$. Predicting log variance allows an unconstrained network output while keeping the resulting variance positive. The diagonal assumption makes computation simple but excludes posterior correlations in these coordinates.
 
@@ -581,7 +593,7 @@ x_{k+1}=x_k+h\,v_\theta(x_k,t_k),\qquad h=\frac1K.
 
 Even with a perfect model, finite $`K`$ introduces numerical error. Under standard smoothness and stability assumptions, Euler has first-order global error: at fixed final time, halving a sufficiently small step size roughly halves the leading numerical error. This statement concerns solver error for the given field, not a guaranteed halving of a sample-quality metric. Comparing $`K=5`$ with $`K=50`$ at fixed trained weights tests numerical budget; retraining with different seeds confounds the comparison. Our CLI fixes training/evaluation randomness per seed, so rerunning with only `--sampling-steps` changed holds training fixed.
 
-For a numerical illustration, consider the unrelated scalar ODE $`\mathrm{d}x/\mathrm{d}t=x`$ with initial value 1. Its exact value at time one is $`e\approx2.7183`$. One Euler step gives 2; two half-steps give $`1.5^2=2.25`$; ten steps give $`1.1^{10}\approx2.5937`$. The field is exact in this example, so the remaining error is entirely numerical. In a learned flow, field error and integration error both contribute to the final samples.
+For a numerical illustration, consider the unrelated scalar ODE $`\mathrm{d}x/\mathrm{d}t=x`$ with initial value 1. Its exact solution is $`x(t)=\exp(t)`$: the derivative equals the function itself and $`\exp(0)=1`$ satisfies the initial condition. At time one this is $`e=\exp(1)\approx2.7183`$. One Euler step gives 2; two half-steps give $`1.5^2=2.25`$; ten steps give $`1.1^{10}\approx2.5937`$. The field is exact in this example, so the remaining error is entirely numerical. In a learned flow, field error and integration error both contribute to the final samples.
 
 **Optional solver used in the research-design example.** Heun's method evaluates the velocity once to predict an endpoint and again there to correct the step:
 
@@ -626,7 +638,7 @@ Pairing asks both methods the same questions under matched conditions. Suppose t
 
 A **bootstrap** approximates the variability of a statistic by repeatedly sampling the observed independent units **with replacement** and recalculating the statistic. “With replacement” means a unit can be selected more than once. For paired methods, resample whole pairs, equivalently their differences, so the matching is preserved. An uncertainty interval summarizes the spread of that estimated statistic; it does not certify correctness of the model or of the independence assumptions.
 
-**Worked resampling step.** For the three illustrative differences `(-0.04, -0.01, +0.02)`, one bootstrap draw of unit indices `(1, 1, 3)` gives `(-0.04, -0.04, +0.02)`, whose mean is −0.02. Another draw `(2, 3, 3)` gives mean +0.01. Repeating many draws forms a bootstrap distribution; for a percentile interval one takes selected lower and upper quantiles of those means. Two draws are not enough to estimate an interval, and three original units give very weak uncertainty evidence. Resampling many times cannot manufacture independent information absent from the original experiment.
+**Worked resampling step.** For the three illustrative differences `(-0.04, -0.01, +0.02)`, one bootstrap draw of unit indices `(1, 1, 3)` gives `(-0.04, -0.04, +0.02)`, whose mean is −0.02. Another draw `(2, 3, 3)` gives mean +0.01. Repeating many draws forms a bootstrap distribution; for a percentile interval one sorts those means and takes selected lower and upper percentiles. For example, the 2.5th percentile has approximately 2.5% of the bootstrap means below it; pairing it with the 97.5th percentile retains the middle 95% of the bootstrap distribution. This interval is an approximation under the sampling assumptions, not a guarantee of 95% coverage in every setting. Two draws are not enough to estimate an interval, and three original units give very weak uncertainty evidence. Resampling many times cannot manufacture independent information absent from the original experiment.
 
 If the claim concerns sensitivity to training randomness, the seed-level run is the unit of replication. Generating 10,000 samples from one trained model does not create 10,000 independent training runs. If the claim concerns performance on new users, independent users—not each correlated response from the same user—are the relevant units. Bootstrap intervals must resample at the level that matches the claim; pairing should be retained when the comparison is paired.
 
