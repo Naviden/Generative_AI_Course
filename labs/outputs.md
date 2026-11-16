@@ -89,7 +89,7 @@ For the prescribed commands in the same environment, expect only `{'sampling_ste
 
 This requires the optional notebook/plotting environment described in [setup](../docs/setup.md#optional-environments). Do not interrupt the required lesson to install it; numeric interpretation is sufficient.
 
-For a VAE or flow run, execute this Python code after the preceding snippet:
+For a VAE or flow run, first execute the code in [Inspect saved arrays](#inspect-saved-arrays) with your chosen path; it defines `run`. Then execute this plotting code in the same Python session:
 
 ```python
 import matplotlib.pyplot as plt
