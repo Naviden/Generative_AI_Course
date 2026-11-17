@@ -53,7 +53,7 @@ For generation, this means that about two thirds of samples conditioned on “la
 
 The four probabilities in our table were fitted to observed frequencies. Why prefer them to 0.25 for every row? Learning needs a way to compare candidate distributions against the examples. **Likelihood** holds the observed data fixed and asks how probable those data are under each model. For independent records, their probabilities multiply. A model that assigns very small probabilities to the kinds of records that occur often will have poor likelihood.
 
-**Log-loss** turns this comparison into a quantity to minimize. The natural logarithm turns products into sums without changing which likelihood is largest. Negating it makes larger likelihood correspond to smaller loss. For one observed record, the negative log likelihood is $`-\log p_\theta(x)`$. You can read this as a penalty for how unlikely the model considered that record.
+**Log-loss** turns this comparison into a quantity to minimize. The natural logarithm turns products into sums without changing which likelihood is largest. Negating it makes larger likelihood correspond to smaller loss. For one observed record, the negative log likelihood (NLL), also called log-loss, is $`-\log p_\theta(x)`$. You can read this as a penalty for how unlikely the model considered that record.
 
 | Probability assigned to the observed outcome | Negative log likelihood | Interpretation |
 |---|---|---|
