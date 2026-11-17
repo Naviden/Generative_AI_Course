@@ -126,3 +126,26 @@ not decrease. Material and PDF freshness checks pass. Rebuilt all three PDFs
 (13, 18 and 13 pages), visually inspected their rendered pages, and checked
 worked-answer labels and page margins. Lab implementations were unchanged;
 this review concerns explanations and generated documents, not new lab runs.
+
+## Reading-group format and introductory scope — 17 November 2026
+
+Limited Lesson 01 to four core topics: generative distributions and sampling,
+joint/conditional probability, learning through likelihood/log-loss, and
+held-out evaluation with fidelity/coverage. Moved the detailed probability
+identities, continuous models, optimization, entropy/KL and sequence/attention
+material into an explicitly optional further-reading page. Preserved every
+previous display derivation across the core and optional pages, together with
+the worked examples. The introductory PDF is now four pages.
+
+Lessons 02 and 03 now start with precise, version-pinned advance-reading
+boundaries and six paper-specific questions with expandable worked responses.
+Checked the assigned sections, algorithms, equations and reported result
+values against AEVB v11, DDPM v2, DPO v3 and RAG v4 on arXiv. Distinguished
+DPO Figure 2's reference-summary baseline from Table 2's PPO baseline.
+The overview explicitly assigns no advance reading for Lesson 01. Optional
+extensions are separated from the two required papers for each later meeting.
+
+Material checks, new numerical checks and PDF freshness checks passed.
+Regenerated the PDFs (4, 20 and 15 pages), inspected the rendered pages,
+checked text bounds and verified that worked responses are expanded in print.
+The original course path, lab implementations and dependency files are unchanged.

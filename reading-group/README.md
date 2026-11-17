@@ -1,13 +1,15 @@
 # PhD reading group — three lessons
 
-Generative modelling connects probability, optimization and empirical evaluation. These lessons develop the basic concepts, examine how different objectives produce generative models, and distinguish mathematical results from claims supported by experiments.
+The first meeting introduces the essential concepts without advance reading. The second and third meetings discuss selected research-paper excerpts, connecting their methods to their evidence.
 
-| Lesson | Topics |
-|---|---|
-| [01 — Shared foundations](01-foundations.md) | Probability, conditioning, sampling, loss, gradients, representations and attention |
-| [02 — How generative models work](02-generative-models.md) | Latent-variable inference, the ELBO, diffusion, flow matching and sample evaluation |
-| [03 — Preferences and research evidence](03-preferences-and-evidence.md) | Preference learning, DPO, reasoning and retrieval evaluation, experimental design |
+| Lesson | Preparation | Discussion focus |
+|---|---|---|
+| [01 — Shared foundations](01-foundations.md) | No advance reading | Generative distributions, conditioning, learning from examples and evaluating outputs |
+| [02 — How generative models work](02-generative-models.md) | Specified AEVB and DDPM excerpts, listed at the top of the lesson | Hidden variables, training objectives, sampling and what the reported comparisons establish |
+| [03 — Preferences and research evidence](03-preferences-and-evidence.md) | Specified DPO and RAG excerpts, listed at the top of the lesson | Preference labels, conditional generation, evaluator choices and retrieval ablations |
 
-Each lesson includes explanations, worked examples and questions with answers. Primary sources appear under **Further reading**. Numerical examples labelled illustrative or hypothetical are calculations for analysis, not measured results from the cited papers.
+For Lessons 2 and 3, the preparation lists give fixed paper versions and exact reading boundaries. They are the complete required reading; the rest of each lesson is supporting explanation and optional extension. Discussion questions name the relevant paper section, equation, algorithm or result and include expandable worked reasoning. The PDFs include those worked responses in full.
 
-[Installation for the optional computational examples](../docs/setup.md) · [Existing course path](../lessons/README.md)
+Numerical examples labelled illustrative or hypothetical are calculations for discussion, not reported paper results. Repository labs are optional demonstrations, not reproductions of the papers' full experiments.
+
+[Installation for optional computational examples](../docs/setup.md) · [Existing course path](../lessons/README.md)

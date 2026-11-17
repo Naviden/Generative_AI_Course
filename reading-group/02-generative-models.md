@@ -4,9 +4,90 @@
 
 Previous: [01 — Shared foundations](01-foundations.md) · [Reading-group home](README.md) · Next: [03 — Preferences and research evidence](03-preferences-and-evidence.md)
 
-Lesson 1 connected probabilities, loss and sampling in a small table and a token predictor. A complex generator must make the same connection, but its observation probabilities may be hard to calculate. This lesson follows three constructions: a VAE learns a distribution through hidden variables; diffusion learns how to reverse corruption; flow matching learns how to move random points. In each case, the network's training target is an intermediate quantity. The sampling procedure explains how that quantity produces new observations.
+## Reading before the meeting
 
-**Notation reminder:** $`x`$ is an observation, $`z`$ an unobserved variable, $`\theta`$ generative-model parameters and $`\phi`$ encoder parameters. Expectation is a probability-weighted average. A Gaussian’s mean gives its centre and its variance its squared spread; a standard normal has mean zero and variance one. KL is an expected log ratio comparing distributions and is generally asymmetric.
+**Required preparation is limited to the two excerpts below, in this order.** Read the specified sections, including their equations and captions; stop at the stated boundary. The remaining paper sections, appendices and repository explanations are optional reference. Mark one passage you cannot yet explain. The discussion questions below are for the meeting, not a written assignment.
+
+1. **Kingma and Welling — [Auto-Encoding Variational Bayes, v11](https://arxiv.org/pdf/1312.6114v11).** Read the abstract and **§§2–3**, including Algorithm 1; stop before §4. Focus on what is sampled, what is learned, and why the observation likelihood needs a bound. The key comparison is between equations (1) and (3).
+2. **Ho, Jain and Abbeel — [Denoising Diffusion Probabilistic Models, v2](https://arxiv.org/pdf/2006.11239v2).** Read the abstract and **§2 through §4.2 inclusive**; stop before §4.3. Include Algorithms 1–2 and Tables 1–2. Compare equations (12) and (14), then inspect whether the empirical metrics favour the same objective.
+
+A difficult equation is a discussion point, not a reason to read the entire appendix. The explanations on this page unpack the required mathematics. Flow matching, continuous-time dynamics and the computational demonstrations are optional extensions, not additional preparation.
+
+## Discussion of the papers
+
+### 1. Does a tighter bound mean a better generator?
+
+**Passage:** AEVB §2.2, equations (1) and (3). Which KL measures the inference gap, and which compares against the prior? If only the encoder improves, what can change?
+
+<details>
+<summary>Worked reasoning</summary>
+
+The gap compares the encoder with the true posterior; the objective's other KL compares it with the prior. Hold log evidence at −3. Shrinking the gap from 0.7 to 0.2 raises the ELBO from −3.7 to −3.2 without changing the generator. This is an illustrative calculation, not a reported experiment.
+
+</details>
+
+### 2. How can a sampled value carry a gradient?
+
+**Passage:** AEVB §§2.3–2.4, Algorithm 1 and §3. Identify the parameter-free randomness and explain what changes when the encoder mean changes. Which distributions are used to generate a new observation afterward?
+
+<details>
+<summary>Worked reasoning</summary>
+
+Write the draw as $`z=\mu+\sigma\epsilon`$. With $`\mu=1,\sigma=2,\epsilon=0.5`$, it is 2; changing only the mean to 1.1 makes it 2.1. Holding the noise fixed exposes the parameter dependence. Unconditional generation draws from the prior, then the decoder; it does not encode a training observation.
+
+</details>
+
+### 3. What distinguishes diffusion training from sampling?
+
+**Passage:** DDPM §2, §3.1 and Algorithms 1–2. Identify the fixed process, learned prediction, available training target and sampling starting point. Why does knowing the injected noise during training not make generation trivial?
+
+<details>
+<summary>Worked reasoning</summary>
+
+Training constructs a noisy example with known noise and fits its prediction. Sampling starts from fresh noise without a clean example; learned reverse transitions supply the missing information. The paper fixes the forward schedule. Its Algorithms 1 and 2 perform different tasks.
+
+</details>
+
+### 4. Is the practical loss the likelihood bound?
+
+**Passage:** DDPM §3.2 equation (12) and §3.4 equation (14). What changes between them? Why could this affect which noise levels receive useful learning effort?
+
+<details>
+<summary>Worked reasoning</summary>
+
+The simplified loss removes the time-dependent weighting of the noise-prediction errors. It therefore changes their relative importance; a smaller value is not automatically a better likelihood bound.
+
+</details>
+
+### 5. What do the experiments actually establish?
+
+**Passage:** DDPM §§4.1–4.2, Tables 1–2. Compare the two reported fixed-variance objectives in Table 1. Do FID and the reported NLL bounds agree on the preferred row? Use Table 2 to distinguish changing a prediction parameterization from changing its loss.
+
+<details>
+<summary>Worked reasoning</summary>
+
+Table 1 changes FID from 13.51 to 3.17 but the test NLL upper bound from 3.70 to 3.75 bits/dimension. Lower is preferable for each measure, so they favour different rows. This supports a metric-specific comparison in that experiment, not universal superiority.
+
+</details>
+
+### 6. What would count as evidence for the next claim?
+
+**Passages:** AEVB §2.2 and DDPM Tables 1–2. Consider the hypothetical claim “our method has a lower training loss, therefore it is the better generator”. Give a supported reformulation and one measurement still needed.
+
+<details>
+<summary>Worked response</summary>
+
+A supported statement is “the method fits its specified training objective better on these observations”. For a claim about generalization, compare an appropriate held-out measure. For a claim about generated outputs, compare samples with the same evaluation procedure and report sampling cost. Values from two different losses need not be directly comparable. This is a proposed critique, not a finding attributed to either paper.
+
+</details>
+
+## Explanations and worked examples
+
+The numbered sections below support the paper discussion. They retain the derivations and numerical examples so that unclear steps can be resolved on this page. Section 3, the expandable continuous-time derivation and the optional demonstrations extend beyond the required reading.
+
+Lesson 1 connected probabilities, loss and sampling in a small record table. A complex generator must make the same connection, but its observation probabilities may be hard to calculate. This lesson follows three constructions: a VAE learns a distribution through hidden variables; diffusion learns how to reverse corruption; flow matching learns how to move random points. In each case, the network's training target is an intermediate quantity. The sampling procedure explains how that quantity produces new observations.
+
+**Notation used in the explanations:** $`x`$ is an observation, $`z`$ an unobserved variable, $`\theta`$ generative-model parameters and $`\phi`$ encoder parameters. Expectation is a probability-weighted average. A Gaussian’s mean gives its centre and its variance its squared spread; a standard normal has mean zero and variance one. KL is an expected log ratio comparing distributions and is generally asymmetric.
 
 ## 1. A latent variable makes generation easy and inference hard
 
@@ -566,12 +647,8 @@ For the prescribed commands in the same environment, expect only `{'sampling_ste
 
 The held-out error sums squared velocity error over coordinates and averages examples; it is not likelihood. This single pair does not measure training-run variability. To measure variation across training runs, repeat both commands with `--seed 1`, then both with `--seed 2`, and rerun the same matching checks separately for each pair. Three seeds still provide weak uncertainty evidence. Keep measured results distinct from the hypothetical examples in the discussion.
 
-## Further reading
+## Optional further reading
 
-| Source | Focus for a paper-based discussion |
-|---|---|
-| [Auto-Encoding Variational Bayes — Kingma and Welling, v11](https://arxiv.org/abs/1312.6114v11) | Identify the inference approximation and why the reparameterized estimator can be differentiated. Keep inference error separate from model fit. |
-| [Denoising Diffusion Probabilistic Models — Ho et al., v2](https://arxiv.org/abs/2006.11239v2) | Compare the forward marginal, reverse model and noise-prediction objective. Which weighting choices separate the practical objective from a likelihood bound? |
-| [Flow Matching for Generative Modeling — Lipman et al., v2](https://arxiv.org/abs/2210.02747v2) | Distinguish conditional paths, marginal velocity and numerical sampling. The repository uses independent endpoint pairing; it does not replicate every path construction or experiment in the paper. |
+The AEVB and DDPM excerpts assigned at the top are the required papers. For an optional extension to the flow-matching explanation, see [Flow Matching for Generative Modeling — Lipman et al., v2](https://arxiv.org/abs/2210.02747v2). No part of this additional paper is required before the meeting.
 
 The reading-group examples are explanatory calculations and small diagnostics, not reproductions of the papers’ reported large-scale results. Continue with [Lesson 03 — Preferences and research evidence](03-preferences-and-evidence.md).

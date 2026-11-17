@@ -4,6 +4,89 @@
 
 Previous: [02 — How generative models work](02-generative-models.md) · [Reading-group home](README.md)
 
+## Reading before the meeting
+
+**Read only the specified excerpts, in this order.** Other sections and appendices are optional. Mark one uncertain passage and one result whose interpretation you want to challenge. The questions below are for discussion; the explanations afterward are reference material, not an additional reading assignment.
+
+1. **Rafailov et al. — [Direct Preference Optimization: Your Language Model is Secretly a Reward Model, v3](https://arxiv.org/pdf/2305.18290v3).** Read the abstract, **§§3–4**, the opening of **§6** up to §6.1, then **§6.2 and §6.4**. Include Figure 2's right panel and Table 2. Skip §§5, 6.1 and 6.3 for this meeting. Identify the preference objective, the comparison baseline and the evaluator.
+2. **Lewis et al. — [Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks, v4](https://arxiv.org/pdf/2005.11401v4).** Read the abstract, **Figure 1 and §§2–2.4**; stop before §2.5. Then read only **“Retrieval Ablations” within §4.5 and Table 6**; stop before the following index-replacement subsection. Compare document conditioning, marginalization and the retrieval ablation.
+
+The required discussion concerns these two papers. LoRA, quantization, reasoning benchmarks, tool use and solver experiments remain optional extensions in the reference explanations. Definitions needed for the equations are provided on this page; no code run is required beforehand.
+
+## Discussion of the papers
+
+### 1. What observation supplies the DPO learning signal?
+
+**Passage:** DPO §§3–4. What is one training example? Why can the prompt-dependent normalization cancel? Does the resulting pair-preference probability equal the probability of generating the preferred response?
+
+<details>
+<summary>Worked reasoning</summary>
+
+An example contains a prompt and an ordered response pair. The shared prompt gives both rewards the same normalization term. The pair sigmoid predicts a preference label, whereas the policy generates responses. For a uniform three-outcome reference, policy probabilities `(0.5, 0.25, 0.25)` and beta 1, the preference probability for outcome 0 over 1 is two thirds, although outcome 0 has generation probability 0.5.
+
+</details>
+
+### 2. What does the reported win rate measure?
+
+**Passage:** DPO §6's setup, §6.2 and Figure 2's right panel. Identify the summarization baseline and evaluator. Then inspect §6.4 and Table 2: what changes when the judge prompt changes?
+
+<details>
+<summary>Worked reasoning</summary>
+
+Figure 2 compares against test-set reference summaries using GPT-4 judgments. Table 2 instead compares against PPO at temperature 0: DPO win rates are 47% and 54% under the two judge prompts, versus 58% for humans. Evaluator choice matters; a win rate is not a direct factual-accuracy measurement.
+
+</details>
+
+### 3. How does a retrieved document enter the generative model?
+
+**Passage:** RAG Figure 1 and §§2.1–2.4. What is the latent variable? Where does the sum over documents occur for RAG-Sequence and RAG-Token? What distribution is trained by the likelihood objective?
+
+<details>
+<summary>Worked reasoning</summary>
+
+The document is latent. RAG-Sequence mixes complete-sequence probabilities; RAG-Token mixes document-conditioned probabilities at each token. Training scores the target output after this marginalization, not merely whether retrieval found a plausible passage.
+
+**Illustrative calculation:** use two documents with weights 0.5 each. For a specified two-token answer, let its conditional token probabilities be `(0.8, 0.2)` under document A and `(0.2, 0.8)` under B. RAG-Sequence gives $`0.5(0.8\times0.2)+0.5(0.2\times0.8)=0.16`$. RAG-Token gives $`(0.5\times0.8+0.5\times0.2)(0.5\times0.2+0.5\times0.8)=0.25`$. Both account for the same two documents but define different output distributions. These numbers are constructed for this discussion.
+
+</details>
+
+### 4. What does the retrieval ablation isolate?
+
+**Passage:** RAG §4.5's retrieval ablation and Table 6. Compare RAG-Sequence with RAG-Sequence-Frozen on NQ. State the measured difference and one conclusion that the comparison does not justify.
+
+<details>
+<summary>Worked reasoning</summary>
+
+NQ development-set exact match rises from 41.2 to 44.0, a 2.8 percentage-point difference. This comparison supports learning retrieval in that setup. It does not imply that every generated claim is supported by evidence or that retrieval always helps every task.
+
+</details>
+
+### 5. Which change would explain an improved answer?
+
+**Passages:** DPO §4 and RAG §2.4. Both papers involve training; distinguish that from supplying different retrieved evidence to an already trained model. Design a comparison that separates preference adaptation from evidence access.
+
+<details>
+<summary>Worked design</summary>
+
+Use the same held-out questions in four conditions: before/after preference adaptation, each with/without the same retrieval system. Hold decoding and evaluation rules fixed. Score answer correctness and evidence support separately. Compare adaptation within each retrieval condition and retrieval within each model condition; report whether their effects interact. This is a proposed experiment, not a reported result from either paper.
+
+</details>
+
+### 6. What experiment follows from a limitation?
+
+**Passage:** choose either DPO Table 2 or RAG Table 6. State one bounded claim, one alternative explanation and a measurement that could distinguish them.
+
+<details>
+<summary>Worked proposal</summary>
+
+For evaluator sensitivity, hold generated answers fixed and compare blinded human judgments with two predeclared automated-judge prompts on fresh examples. Record paired judgments, disagreements and uncertainty across independent examples. If rankings depend strongly on the judge, report that dependence rather than claiming universal response quality. Another valid proposal can target retrieval failures using sufficient-evidence and distractor controls. These are research designs to test, not established findings.
+
+</details>
+
+## Explanations and worked examples
+
+The sections below supply the mathematical details and examples behind the discussion. The broader evaluation topics and research-design exercises are available for extending a question from the papers; they do not enlarge the required advance reading.
+
 **Vocabulary reminder:** a model assigns a normalized distribution to outcomes. A loss is minimized during learning. A gradient gives local derivatives, and gradient descent moves opposite that gradient. Training observations fit parameters; validation selects settings; final test observations assess the chosen procedure. A seed fixes pseudorandom choices. A held-out result and a training result answer different questions.
 
 ## 1. What changes during post-training?
@@ -332,9 +415,8 @@ Read these fields inside `metrics`. `loss_last` is evaluated before the final up
 
 **Worked interpretation:** after the single update above, the pair loss fell and the preferred outcome became more probable; the unpaired probability also changed. This says nothing about factual correctness or another prompt. For the 100-step comparison, report the measured probabilities and KL rather than assuming which beta must produce the larger divergence.
 
-## Further reading
+## Returning to the papers
 
-- [Direct Preference Optimization — Rafailov et al., v3](https://arxiv.org/abs/2305.18290v3): follow the connection between the regularized reward optimum and the preference objective. In an experimental result, distinguish the measured task from broader claims about alignment.
-- [Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks — Lewis et al., v4](https://arxiv.org/abs/2005.11401v4): inspect what information retrieval adds and which evidence would separate retrieval quality from generation quality. The handbook example here is an explanatory diagnostic, not a reported result from that paper.
+The DPO and RAG excerpts assigned at the top are the required readings. Their remaining sections and appendices provide optional depth for a question that emerged in discussion.
 
 [Reading-group home](README.md).
