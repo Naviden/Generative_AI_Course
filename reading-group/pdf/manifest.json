@@ -2,7 +2,7 @@
   "sources": {
     "scripts/build_reading_group_pdfs.py": "8503c46cab52acd09ac6f92d04d71f74bb86556db3deecf3f1f1430e81c9dc7f",
     "scripts/pdf/lesson-header.tex": "e3063987d8f09e6c658bdd2457bfa28fb71dd3c552ad78692eafc98e20668d4b",
-    "reading-group/01-foundations.md": "beb156d8eb7a70681d7a0b57c10761187fc027767c16a08a8342e955c4fae566",
+    "reading-group/01-foundations.md": "e94ae0cdcfad70f74db9d1f2dc8d9d8a17f52dea22ec10fd2b3cb98ee9fa49d2",
     "reading-group/02-generative-models.md": "d2cf6f55d109658ca0e934ec911919b428e5a0d356e2421a5c4388314af8ff45",
     "reading-group/03-preferences-and-evidence.md": "ed4cf5654ccf4d135526277467997d56dafb2053a3953a74d595f0898ac1e592",
     "reading-group/images/conditional-probability.png": "3c12663cfe164062c1288ae15c98cfad488590c4dfe8dfdf8813739f02d4e06e",
@@ -11,7 +11,7 @@
     "reading-group/images/fidelity-coverage.svg": "991e76f9d9e50232bcae0e4766b187b00cb13e991d5a94d20365b681a1b3ec25"
   },
   "pdfs": {
-    "01-foundations.pdf": "fbfb6735c2b8cd52a097511a020339f5c5d83ac7ee76f34df7d875da4c9641d1",
+    "01-foundations.pdf": "58344ef11733247b5a3b0eacc3862a5d59b0e261f593d3a2f1c97d4d127012f8",
     "02-generative-models.pdf": "53be349759281d5007b6486af32d73abfa22d3317123173a703322fd6be3e1c7",
     "03-preferences-and-evidence.pdf": "be95a761ca6d57a22ce36c6549f16c7fa09fcec9a4d797c941b6514fcfc46911"
   }
