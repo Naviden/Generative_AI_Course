@@ -1,5 +1,7 @@
 # 03 — Preferences and research evidence
 
+[Download as PDF](https://github.com/Naviden/Generative_AI_Course/raw/refs/heads/main/reading-group/pdf/03-preferences-and-evidence.pdf)
+
 Previous: [02 — How generative models work](02-generative-models.md) · [Reading-group home](README.md)
 
 **Vocabulary reminder:** a model assigns a normalized distribution to outcomes. A loss is minimized during learning. A gradient gives local derivatives, and gradient descent moves opposite that gradient. Training observations fit parameters; validation selects settings; final test observations assess the chosen procedure. A seed fixes pseudorandom choices. A held-out result and a training result answer different questions.

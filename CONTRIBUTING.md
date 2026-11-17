@@ -23,3 +23,21 @@ notebooks, inherited reference documents, data and environment snapshots in
 supported implementations remain in `genai_course/`, with current dependencies
 in `requirements/`. When moving material, update local links and test paths,
 verify asset preservation, and record the old-to-new mapping in the archive.
+
+## Reading-group PDFs
+
+Each reading-group lesson links to a complete PDF in `reading-group/pdf/`.
+After editing these lessons, their images or the PDF builder, regenerate all
+three downloads with `python scripts/build_reading_group_pdfs.py`. This requires
+Pandoc 3 or newer and XeLaTeX with `fvextra` (TeX Live's `texlive-latex-extra`
+package on Ubuntu; MacTeX on macOS). Student installation requirements do not change.
+
+The builder reads the lesson Markdown directly, preserves GitHub math, expands
+optional derivations, and turns repository links into clickable web links.
+Review the resulting PDFs for equation, table and code layout, then commit the
+PDFs and `manifest.json` with the source changes. Run
+`python scripts/build_reading_group_pdfs.py --check` to verify freshness without
+installing any PDF tools; this check also runs in CI. The editable probability
+diagram is an SVG; regenerate its PNG with `rsvg-convert -w 2400
+reading-group/images/conditional-probability.svg -o
+reading-group/images/conditional-probability.png` after an image edit.

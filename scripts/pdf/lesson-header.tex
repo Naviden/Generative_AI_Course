@@ -1,0 +1,19 @@
+\usepackage{fvextra}
+% MathJax aliases used in GitHub Markdown.
+\providecommand{\lt}{<}
+\providecommand{\gt}{>}
+\DefineVerbatimEnvironment{verbatim}{Verbatim}{breaklines=true,breakanywhere=true,fontsize=\small}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small Generative AI · PhD reading group}
+\fancyfoot[C]{\thepage}
+\setlength{\headheight}{14pt}
+\setlength{\emergencystretch}{3em}
+\makeatletter
+\renewcommand{\maketitle}{%
+  \begingroup\raggedright\LARGE\bfseries\@title\par\endgroup
+  \vspace{1em}\thispagestyle{plain}}
+\makeatother
+\AtBeginEnvironment{longtable}{\small}
+\AtBeginDocument{\hypersetup{pdfauthor={Navid Nobani}}}

@@ -1,5 +1,7 @@
 # 01 — Shared foundations for generative AI
 
+[Download as PDF](https://github.com/Naviden/Generative_AI_Course/raw/refs/heads/main/reading-group/pdf/01-foundations.pdf)
+
 [Reading-group home](README.md) · Next: [02 — How generative models work](02-generative-models.md)
 
 ## 1. What a generative model describes
@@ -25,6 +27,8 @@ Write the unknown population distribution as $`p_{\mathrm{data}}`$ and the model
 The **likelihood** treats the observed data as fixed and asks how their probability changes with the parameters. A **loss** is a scalar we minimize; here it is negative log likelihood. A **held-out** set is kept out of parameter fitting so that it can reveal errors on fresh observations. Training data fit parameters; validation data choose settings; a final test assesses the chosen procedure after those choices are fixed.
 
 **Exercise:** among 100 records, 40 are blue, 30 are large and 20 are both. What is the probability of blue given large, and is it the same as large given blue?
+
+![Among 100 records: 20 are both blue and large, 20 blue only, 10 large only, and 50 neither. Conditioning on large gives 20/30; conditioning on blue gives 20/40.](images/conditional-probability.png)
 
 **Worked answer:** restrict the denominator to the known group. The first is `20/30 = 2/3`; the second is `20/40 = 1/2`. Conditioning changes the question. Knowing either answer does not show that size causes colour.
 

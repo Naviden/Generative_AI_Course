@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+<title id="title">Conditioning changes the denominator</title>
+<desc id="desc">100 records: 20 both blue and large, 20 blue only, 10 large only, and 50 neither. Among 30 large records, 20 are blue: two thirds. Among 40 blue records, 20 are large: one half.</desc>
+<rect width="1200" height="720" rx="20" fill="#f7f9fc"/>
+<text x="40" y="54" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#17263c">Conditioning changes the denominator</text>
+<text x="40" y="91" font-family="Arial, sans-serif" font-size="23" font-weight="400" fill="#485770">Same overlap. A different group to count within.</text>
+<rect x="30" y="120" width="470" height="490" rx="10" fill="#ffffff"/>
+<text x="55" y="159" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#17263c">100 records</text>
+<text x="55" y="190" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#485770">Each dot represents one record.</text>
+<circle cx="72" cy="225" r="10" fill="#1479bc" stroke="#8b3e93" stroke-width="4"/>
+<circle cx="113" cy="225" r="10" fill="#1479bc" stroke="#8b3e93" stroke-width="4"/>
+<circle cx="154" cy="225" r="10" fill="#1479bc" stroke="#8b3e93" stroke-width="4"/>
+<circle cx="195" cy="225" r="10" fill="#1479bc" stroke="#8b3e93" stroke-width="4"/>
+<circle cx="236" cy="225" r="10" fill="#1479bc" stroke="#8b3e93" stroke-width="4"/>
+<circle cx="277" cy="225" r="10" fill="#1479bc" stroke="#8b3e93" stroke-width="4"/>
+<circle cx="318" cy="225" r="10" fill="#1479bc" stroke="#8b3e93" stroke-width="4"/>
+<circle cx="359" cy="225" r="10" fill="#1479bc" stroke="#8b3e93" stroke-width="4"/>
+<circle cx="400" cy="225" r="10" fill="#1479bc" stroke="#8b3e93" stroke-width="4"/>
+<circle cx="441" cy="225" r="10" fill="#1479bc" stroke="#8b3e93" stroke-width="4"/>
+<circle cx="72" cy="254" r="10" fill="#1479bc" stroke="#8b3e93" stroke-width="4"/>
+<circle cx="113" cy="254" r="10" fill="#1479bc" stroke="#8b3e93" stroke-width="4"/>
+<circle cx="154" cy="254" r="10" fill="#1479bc" stroke="#8b3e93" stroke-width="4"/>
+<circle cx="195" cy="254" r="10" fill="#1479bc" stroke="#8b3e93" stroke-width="4"/>
+<circle cx="236" cy="254" r="10" fill="#1479bc" stroke="#8b3e93" stroke-width="4"/>
+<circle cx="277" cy="254" r="10" fill="#1479bc" stroke="#8b3e93" stroke-width="4"/>
+<circle cx="318" cy="254" r="10" fill="#1479bc" stroke="#8b3e93" stroke-width="4"/>
+<circle cx="359" cy="254" r="10" fill="#1479bc" stroke="#8b3e93" stroke-width="4"/>
+<circle cx="400" cy="254" r="10" fill="#1479bc" stroke="#8b3e93" stroke-width="4"/>
+<circle cx="441" cy="254" r="10" fill="#1479bc" stroke="#8b3e93" stroke-width="4"/>
+<circle cx="72" cy="283" r="10" fill="#e1e5eb" stroke="#8b3e93" stroke-width="4"/>
+<circle cx="113" cy="283" r="10" fill="#e1e5eb" stroke="#8b3e93" stroke-width="4"/>
+<circle cx="154" cy="283" r="10" fill="#e1e5eb" stroke="#8b3e93" stroke-width="4"/>
+<circle cx="195" cy="283" r="10" fill="#e1e5eb" stroke="#8b3e93" stroke-width="4"/>
+<circle cx="236" cy="283" r="10" fill="#e1e5eb" stroke="#8b3e93" stroke-width="4"/>
+<circle cx="277" cy="283" r="10" fill="#e1e5eb" stroke="#8b3e93" stroke-width="4"/>
+<circle cx="318" cy="283" r="10" fill="#e1e5eb" stroke="#8b3e93" stroke-width="4"/>
+<circle cx="359" cy="283" r="10" fill="#e1e5eb" stroke="#8b3e93" stroke-width="4"/>
+<circle cx="400" cy="283" r="10" fill="#e1e5eb" stroke="#8b3e93" stroke-width="4"/>
+<circle cx="441" cy="283" r="10" fill="#e1e5eb" stroke="#8b3e93" stroke-width="4"/>
+<circle cx="72" cy="312" r="10" fill="#1479bc" stroke="#ffffff" stroke-width="1"/>
+<circle cx="113" cy="312" r="10" fill="#1479bc" stroke="#ffffff" stroke-width="1"/>
+<circle cx="154" cy="312" r="10" fill="#1479bc" stroke="#ffffff" stroke-width="1"/>
+<circle cx="195" cy="312" r="10" fill="#1479bc" stroke="#ffffff" stroke-width="1"/>
+<circle cx="236" cy="312" r="10" fill="#1479bc" stroke="#ffffff" stroke-width="1"/>
+<circle cx="277" cy="312" r="10" fill="#1479bc" stroke="#ffffff" stroke-width="1"/>
+<circle cx="318" cy="312" r="10" fill="#1479bc" stroke="#ffffff" stroke-width="1"/>
+<circle cx="359" cy="312" r="10" fill="#1479bc" stroke="#ffffff" stroke-width="1"/>
+<circle cx="400" cy="312" r="10" fill="#1479bc" stroke="#ffffff" stroke-width="1"/>
+<circle cx="441" cy="312" r="10" fill="#1479bc" stroke="#ffffff" stroke-width="1"/>
+<circle cx="72" cy="341" r="10" fill="#1479bc" stroke="#ffffff" stroke-width="1"/>
+<circle cx="113" cy="341" r="10" fill="#1479bc" stroke="#ffffff" stroke-width="1"/>
+<circle cx="154" cy="341" r="10" fill="#1479bc" stroke="#ffffff" stroke-width="1"/>
+<circle cx="195" cy="341" r="10" fill="#1479bc" stroke="#ffffff" stroke-width="1"/>
+<circle cx="236" cy="341" r="10" fill="#1479bc" stroke="#ffffff" stroke-width="1"/>
+<circle cx="277" cy="341" r="10" fill="#1479bc" stroke="#ffffff" stroke-width="1"/>
+<circle cx="318" cy="341" r="10" fill="#1479bc" stroke="#ffffff" stroke-width="1"/>
+<circle cx="359" cy="341" r="10" fill="#1479bc" stroke="#ffffff" stroke-width="1"/>
+<circle cx="400" cy="341" r="10" fill="#1479bc" stroke="#ffffff" stroke-width="1"/>
+<circle cx="441" cy="341" r="10" fill="#1479bc" stroke="#ffffff" stroke-width="1"/>
+<circle cx="72" cy="370" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="113" cy="370" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="154" cy="370" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="195" cy="370" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="236" cy="370" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="277" cy="370" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="318" cy="370" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="359" cy="370" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="400" cy="370" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="441" cy="370" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="72" cy="399" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="113" cy="399" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="154" cy="399" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="195" cy="399" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="236" cy="399" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="277" cy="399" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="318" cy="399" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="359" cy="399" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="400" cy="399" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="441" cy="399" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="72" cy="428" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="113" cy="428" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="154" cy="428" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="195" cy="428" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="236" cy="428" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="277" cy="428" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="318" cy="428" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="359" cy="428" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="400" cy="428" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="441" cy="428" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="72" cy="457" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="113" cy="457" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="154" cy="457" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="195" cy="457" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="236" cy="457" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="277" cy="457" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="318" cy="457" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="359" cy="457" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="400" cy="457" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="441" cy="457" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="72" cy="486" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="113" cy="486" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="154" cy="486" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="195" cy="486" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="236" cy="486" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="277" cy="486" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="318" cy="486" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="359" cy="486" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="400" cy="486" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<circle cx="441" cy="486" r="10" fill="#e1e5eb" stroke="#ffffff" stroke-width="1"/>
+<text x="55" y="530" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#17263c">Blue fill: blue   •   Purple ring: large</text>
+<text x="55" y="561" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#17263c">20 both  +  20 blue only</text>
+<text x="55" y="590" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#17263c">10 large only  +  50 neither</text>
+<rect x="525" y="120" width="645" height="235" rx="10" fill="#ffffff"/>
+<text x="550" y="158" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#17263c">Given LARGE</text>
+<text x="550" y="193" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#485770">Restrict attention to the 30 large records.</text>
+<rect x="550" y="213" width="570" height="52" rx="0" fill="#e1e5eb"/>
+<rect x="550" y="213" width="380" height="52" rx="0" fill="#1479bc"/>
+<text x="562" y="246" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#ffffff">20 also blue</text>
+<text x="942" y="246" font-family="Arial, sans-serif" font-size="19" font-weight="700" fill="#17263c">10 not blue</text>
+<text x="550" y="315" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#17263c">P(blue | large) = 20/30 = 2/3</text>
+<rect x="525" y="375" width="645" height="235" rx="10" fill="#ffffff"/>
+<text x="550" y="413" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#17263c">Given BLUE</text>
+<text x="550" y="448" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#485770">Restrict attention to the 40 blue records.</text>
+<rect x="550" y="468" width="570" height="52" rx="0" fill="#e1e5eb"/>
+<rect x="550" y="468" width="285" height="52" rx="0" fill="#8b3e93"/>
+<text x="562" y="501" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#ffffff">20 also large</text>
+<text x="847" y="501" font-family="Arial, sans-serif" font-size="19" font-weight="700" fill="#17263c">20 not large</text>
+<text x="550" y="570" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#17263c">P(large | blue) = 20/40 = 1/2</text>
+<rect x="30" y="633" width="1140" height="58" rx="10" fill="#e8eef7"/>
+<text x="55" y="670" font-family="Arial, sans-serif" font-size="25" font-weight="700" fill="#17263c">Same numerator: 20 both. Different denominators: 30 large and 40 blue.</text>
+</svg>

@@ -91,3 +91,19 @@ Removed the prescribed break allocation from the README, lesson overview,
 instructor guidance and syllabus. The three-lesson structure remains;
 discussion and theory allocations fill the existing agenda. Material validation
 now checks continuous 240-minute agendas without enforcing a break policy.
+
+## Reading-group PDF downloads and conditioning diagram — 17 November 2026
+
+Added full PDF exports of the three reading-group lessons (9, 17 and 12 pages),
+with clickable source links and the optional derivation expanded. Built with
+Pandoc 3.13 and XeLaTeX (TeX Live 2026). Rendered and visually reviewed every
+page; checked text bounds, worked-answer labels and PDF link destinations.
+Corrected table wrapping and long code-field names in the PDF export without
+changing the lesson explanations. The SVG diagram contains exactly 100 dots:
+40 blue, 30 large and 20 both; its PNG appears beside the conditioning exercise.
+
+Executed: all 26 existing tests, material checks and PDF freshness checks.
+Verified that changing a lesson makes the freshness check fail, then restored
+its source and confirmed the check passes. The source manifest includes all
+three lessons, both image formats, the builder and its layout header; CI checks
+that committed downloads match those sources. No model or lab code changed.

@@ -1,5 +1,7 @@
 # 02 — How generative models work
 
+[Download as PDF](https://github.com/Naviden/Generative_AI_Course/raw/refs/heads/main/reading-group/pdf/02-generative-models.pdf)
+
 Previous: [01 — Shared foundations](01-foundations.md) · [Reading-group home](README.md) · Next: [03 — Preferences and research evidence](03-preferences-and-evidence.md)
 
 **Notation reminder:** $`x`$ is an observation, $`z`$ an unobserved variable, $`\theta`$ generative-model parameters and $`\phi`$ encoder parameters. Expectation is a probability-weighted average. A Gaussian’s mean gives its centre and its variance its squared spread; a standard normal has mean zero and variance one. KL is an expected log ratio comparing distributions and is generally asymmetric.

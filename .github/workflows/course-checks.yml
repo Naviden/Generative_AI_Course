@@ -26,6 +26,7 @@ jobs:
           python -m pip check
       - run: python -m pytest
       - run: python scripts/check_materials.py
+      - run: python scripts/build_reading_group_pdfs.py --check
       - name: Run classroom examples
         run: |
           python -m genai_course.labs attention
