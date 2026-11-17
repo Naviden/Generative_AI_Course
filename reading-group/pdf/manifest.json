@@ -2,14 +2,16 @@
   "sources": {
     "scripts/build_reading_group_pdfs.py": "8503c46cab52acd09ac6f92d04d71f74bb86556db3deecf3f1f1430e81c9dc7f",
     "scripts/pdf/lesson-header.tex": "e3063987d8f09e6c658bdd2457bfa28fb71dd3c552ad78692eafc98e20668d4b",
-    "reading-group/01-foundations.md": "1cba765219475156c34a43b5b9c6cf329bcd8c98ca726206823e5c1dd689f413",
+    "reading-group/01-foundations.md": "beb156d8eb7a70681d7a0b57c10761187fc027767c16a08a8342e955c4fae566",
     "reading-group/02-generative-models.md": "95c04fb61b7c17f37a8594f42bd1fcaf1675994b3a294e12f6e9334eef9494f3",
     "reading-group/03-preferences-and-evidence.md": "6686e50d056ac836924a086bd97926b3b8d46d478353e51493514e38e4afb939",
     "reading-group/images/conditional-probability.png": "3c12663cfe164062c1288ae15c98cfad488590c4dfe8dfdf8813739f02d4e06e",
-    "reading-group/images/conditional-probability.svg": "6f9067b270739e116766308300ae91dd02103d2a3bf9cb67352b0e32be0f63f4"
+    "reading-group/images/conditional-probability.svg": "6f9067b270739e116766308300ae91dd02103d2a3bf9cb67352b0e32be0f63f4",
+    "reading-group/images/fidelity-coverage.png": "dc92589351ddd9035e608f962e1483fd6ca0ffdd276310b1d2c148bd615d3c55",
+    "reading-group/images/fidelity-coverage.svg": "991e76f9d9e50232bcae0e4766b187b00cb13e991d5a94d20365b681a1b3ec25"
   },
   "pdfs": {
-    "01-foundations.pdf": "e3762b65029716ac17404a075e64f161398b084152ed06c27731b6e38ae829b5",
+    "01-foundations.pdf": "fbfb6735c2b8cd52a097511a020339f5c5d83ac7ee76f34df7d875da4c9641d1",
     "02-generative-models.pdf": "f849b48a10c47e9ed1ac13394fd1278969a9b715de589a9d0fee3ac412092215",
     "03-preferences-and-evidence.pdf": "1064905b929ed56a5a073360ebdbb1f7b07b6f5a413d74993e8bed3b3e359c90"
   }
