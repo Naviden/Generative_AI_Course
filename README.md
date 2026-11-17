@@ -2,6 +2,8 @@
 
 **Start with the [numbered learning path](lessons/README.md).** This repository teaches how generative models learn, how to inspect their implementations, and how to evaluate their outputs. It is organized into **three lessons**, with [foundations explained inside the repository](docs/foundations.md) and worked examples alongside the theory.
 
+**For the PhD reading group:** use the separate [three-lesson discussion path](reading-group/README.md). Its first meeting introduces the basics with no advance reading; explanations and worked examples are included on each lesson page.
+
 ## What should I do next?
 
 - **I have not installed it:** follow [00 — Get ready](lessons/00-get-ready/README.md). This includes cloning, entering the correct folder, installation and a single smoke check.
