@@ -8,6 +8,8 @@ Previous: [02 — How generative models work](02-generative-models.md) · [Readi
 
 ## 1. What changes during post-training?
 
+A language generator already assigns probabilities to possible completions and samples tokens from them. Post-training changes those probabilities using a new source of supervision. The basic loop is unchanged: examples define a loss, gradients change model parameters, and the changed model generates a different distribution of responses. What differs is the evidence about which responses should become more likely: demonstrations provide target responses, whereas preferences compare alternatives.
+
 ### Three different choices: data, objective and parameters
 
 Pretraining learns statistical structure from a broad dataset. Post-training changes a pretrained model toward a desired behaviour using more targeted data and objectives. Supervised fine-tuning (SFT) supplies examples of desired completions: given a prompt, increase the probability of the demonstrated answer. Preference learning instead supplies comparisons: for this prompt, one completion was judged preferable to another. A comparison gives a relative signal, not an absolute quality score or proof of truth.
@@ -17,6 +19,8 @@ Pretraining learns statistical structure from a broad dataset. Post-training cha
 Parameter-efficient adaptation answers a separate question: **which model parameters may change?** **Low-rank adaptation (LoRA)** can be used with SFT or a preference objective. Matrix **rank** is the number of independent directions its columns span. Instead of learning every entry of a large update, LoRA learns two smaller factors whose product has rank at most a chosen value. It changes the allowed update to a weight matrix, not the meaning of the training labels. For a square 1,000-by-1,000 weight matrix $`W`$, choose $`B`$ with shape `(1000, 8)` and $`A`$ with shape `(8, 1000)`. Their product $`\Delta W=BA`$ has the required `(1000, 1000)` shape, using $`1000(8)+8(1000)=16{,}000`$ trainable entries instead of one million. This reduces trainable parameters for that matrix. **Frozen** means held fixed during updates; the frozen million-entry base matrix is still needed during computation.
 
 SFT fits demonstrations with conditional token cross-entropy. Prompt tokens and padding should be excluded when the objective is completion likelihood. LoRA uses $`\Delta W=BA`$ with low rank $`r`$, keeping the base weights frozen; trainable parameter savings do not remove base-model memory or all activations. **Quantization** represents numbers with a smaller set of permitted values, usually using fewer bits. Rounding a weight 0.83 to 0.8 illustrates the introduced error, although practical quantizers use more elaborate scales and codes. **QLoRA** combines a quantized frozen base model with trainable low-rank adapters and associated memory/numerical choices. Quantization and low-rank restriction can affect quality; rank and bit width require controlled comparisons.
+
+The low-rank matrices enter the same network computations that determine next-token scores. An update to them can therefore change completion probabilities even though the base weights are frozen. LoRA specifies where the learning update is allowed to occur; SFT or a preference objective specifies which update directions the loss rewards. At generation time the resulting network is used to sample tokens, just as before adaptation.
 
 ### Why keep a reference policy?
 
@@ -70,6 +74,8 @@ r(x,y)=\beta\log\frac{\pi^*(y\mid x)}{\pi_{\mathrm{ref}}(y\mid x)}
 
 ### From rewards to pairwise classification
 
+The reward formulation describes how we would like to redistribute probability across completions. In a preference dataset, however, we observe which of two completions was chosen rather than a numerical reward for every possible completion. We therefore need a bridge from the generator's completion probabilities to the probability of the observed choice. The preference model and cancellation below provide that bridge, making the pair label usable as a training signal for the generator.
+
 The Bradley–Terry model turns a reward difference into a preference probability through the sigmoid $`\sigma(a)=1/(1+\exp(-a))`$. Equal rewards predict a one-half preference probability; a reward difference of $`\log 3`$ predicts three quarters. This is a statistical model of labels, not an assumption that annotators always agree.
 
 Substitute the reward expression above for each completion in the pair. Both completions share the same prompt, so their $`\beta\log Z(x)`$ terms cancel. This cancellation lets the objective be expressed using policy and reference log probabilities without estimating that normalizer or fitting a separate reward network.
@@ -109,6 +115,8 @@ To see the update direction, rewrite the pair loss as $`L(m)=\log(1+\exp(-\beta 
 
 At $`m=0`$, the loss is $`\log 2\approx0.6931`$, and its derivative with respect to the margin is $`-\beta/2`$. Gradient descent therefore pushes the margin upward. For a uniform three-outcome reference and a policy with probabilities $`(0.5,0.25,0.25)`$, preferring outcome zero over outcome one gives margin $`\log 2`$. At $`\beta=1`$, the implied pair preference probability is two thirds and the loss is $`\log(3/2)\approx0.4055`$.
 
+There are two probabilities here. In the three-outcome example, the generator assigns outcome zero probability 0.5. The preference model assigns probability two thirds to the label “zero is preferred to one”. The DPO loss scores the latter, then updates parameters of the former. It does not sample a completion from the pair-preference sigmoid at generation time. After training, the language model still generates using its token probabilities.
+
 This shows what has improved: the model fits the given relative preference more strongly.
 
 **Worked one-update check, including the unpaired outcome.** Start with three logits `(0, 0, 0)`, hence probabilities `(1/3, 1/3, 1/3)`, and a uniform reference. Prefer outcome 0 to outcome 1 with $`\beta=1`$. In their log-probability difference, the shared softmax normalizer cancels, leaving margin equal to logit 0 minus logit 1. At initialization the loss gradients for the three logits are `(-0.5, +0.5, 0)`. A gradient-descent step of size 0.5 gives logits `(0.25, −0.25, 0)` and probabilities approximately `(0.4192, 0.2543, 0.3265)`. The unpaired logit did not change, but its probability did because the normalizing sum changed. The margin is now 0.5 and the pair loss approximately 0.4741, down from 0.6931. This is one specified update, not the output of the 100-step lab.
@@ -124,6 +132,8 @@ It does not demonstrate correctness, broader usefulness or generalization. Becau
 **Concrete counterexample:** the one-step calculation changes the unpaired outcome’s probability from 1/3 to about 0.3265 even though its logit gradient is zero. Normalization couples probabilities. A preference on one pair does not specify a desirable probability for every other outcome.
 
 ## 2. Evaluate the claim and the complete system
+
+A response can change because we changed the model's weights, because we sampled more attempts, or because we supplied different context. These are different changes to a generative system. Preference learning changes the model; repeated sampling changes the procedure applied to a fixed model; retrieval changes the information on which it conditions. The following comparisons separate those mechanisms so that an improvement in observed answers is attributed to the component actually changed.
 
 ### Decide which claim a measurement is meant to support
 
@@ -150,6 +160,8 @@ Suppose a fixed model succeeds with probability 0.2 on each independent attempt 
 Moreover, “one of the attempts was correct” assumes a way to recognize that success. A deployable system must select an output using an available checker or selection rule. An oracle pass@k measurement can be much better than the accuracy of the answer a user actually receives. Report attempts, token usage, selection procedure and verifier cost alongside success.
 
 ### Retrieval supplies evidence at answer time
+
+For a prompt-only generator, each next-token distribution is conditioned on the prompt and already generated tokens. Retrieval adds selected passages to that context. Even with identical weights, the model can then assign different probabilities to candidate answers because its input has changed. This is conditional generation using additional evidence, rather than a parameter update or an assurance that the evidence will be used correctly.
 
 A model's parameters store learned statistical regularities; they are not an editable database of guaranteed facts. Retrieval augments a request with external material selected at answer time. A typical pipeline turns a query into a search, ranks candidate passages, supplies selected passages to the generator and asks for an answer grounded in them. Updating the source collection can update available evidence without retraining all model weights, but only if the relevant material is actually retrieved and used correctly.
 
@@ -217,6 +229,8 @@ Write one additional control for one row. For example, give the same generator s
 Record five notes: claim, available evidence, baseline, possible confound and counter-test. The table above supplies a complete worked model. Agreement with the authors is not the goal; an argument tied to inspected evidence is.
 
 ## 4. Turn one question into a research proposal
+
+A useful experiment connects a specific mechanism to an observable consequence. For example, changing the numerical solver at fixed learned velocity changes the approximation used to generate points. The resulting sample distribution may change even though training did not. Comparing matched runs tests that mechanism; uncertainty estimates ask how stable the measured change is across the independent units relevant to the claim. This is why the experimental-design concepts below belong to the study of a generator rather than to a disconnected statistics checklist.
 
 ### Paired comparisons and the unit of uncertainty
 

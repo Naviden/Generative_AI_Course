@@ -2,15 +2,15 @@
   "sources": {
     "scripts/build_reading_group_pdfs.py": "8503c46cab52acd09ac6f92d04d71f74bb86556db3deecf3f1f1430e81c9dc7f",
     "scripts/pdf/lesson-header.tex": "e3063987d8f09e6c658bdd2457bfa28fb71dd3c552ad78692eafc98e20668d4b",
-    "reading-group/01-foundations.md": "1a530b628abf00c658c8977a81b6abfe556b6b356e2a1ae6c5a884b3da750b64",
-    "reading-group/02-generative-models.md": "86d5d6cd6a035b517bc79d106ae60ee8287e4a988dfe815484af3a99da64c2a8",
-    "reading-group/03-preferences-and-evidence.md": "11afd07518ac5396df6ae39a3e0de03b28160a56a3c25da5700895c41b026ccf",
+    "reading-group/01-foundations.md": "0fb91a38595beb4b4c02a4ac5357c883d14695d52e19ba238d2cfc48a076e844",
+    "reading-group/02-generative-models.md": "ff1350ef00ca5560deaace403beadab28b8a9a44d1261551ad5079bc6c7bc14b",
+    "reading-group/03-preferences-and-evidence.md": "45f3c66df8297b5122c1af0fccde13e87c63ff795905c92fd1f8cb372e6d06f8",
     "reading-group/images/conditional-probability.png": "3c12663cfe164062c1288ae15c98cfad488590c4dfe8dfdf8813739f02d4e06e",
     "reading-group/images/conditional-probability.svg": "6f9067b270739e116766308300ae91dd02103d2a3bf9cb67352b0e32be0f63f4"
   },
   "pdfs": {
-    "01-foundations.pdf": "a350cbb4b31c57f75d9405c80231fe86f8a7ee59c9da9cb4dc5ad171e0f3bd28",
-    "02-generative-models.pdf": "0941a31a394950bd88b50784e4671ca6446746a837361df0b2eb1f6186159572",
-    "03-preferences-and-evidence.pdf": "b74bcadcbc159690bd9ff107a33593680dbc990452e8ccc52b4e8bc413514ac7"
+    "01-foundations.pdf": "82cc9334d2564fb86cb0f926bf2f4acd0ab1ffae4e90c3d79ab5d96bce9ebf35",
+    "02-generative-models.pdf": "6d309a0365c8d9de151dfc57b7993cff22c5660b866e2a1e9f9b95d7b785f56e",
+    "03-preferences-and-evidence.pdf": "142eb17554e3965bc6fb72b3e73e14db41bca3663383ac9734629ce7e67df67e"
   }
 }

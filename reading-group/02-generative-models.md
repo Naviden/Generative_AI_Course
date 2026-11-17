@@ -4,6 +4,8 @@
 
 Previous: [01 — Shared foundations](01-foundations.md) · [Reading-group home](README.md) · Next: [03 — Preferences and research evidence](03-preferences-and-evidence.md)
 
+Lesson 1 connected probabilities, loss and sampling in a small table and a token predictor. A complex generator must make the same connection, but its observation probabilities may be hard to calculate. This lesson follows three constructions: a VAE learns a distribution through hidden variables; diffusion learns how to reverse corruption; flow matching learns how to move random points. In each case, the network's training target is an intermediate quantity. The sampling procedure explains how that quantity produces new observations.
+
 **Notation reminder:** $`x`$ is an observation, $`z`$ an unobserved variable, $`\theta`$ generative-model parameters and $`\phi`$ encoder parameters. Expectation is a probability-weighted average. A Gaussian’s mean gives its centre and its variance its squared spread; a standard normal has mean zero and variance one. KL is an expected log ratio comparing distributions and is generally asymmetric.
 
 ## 1. A latent variable makes generation easy and inference hard
@@ -32,6 +34,8 @@ That integral is generally hard for a nonlinear neural decoder. Bayes' rule defi
 | Encoder $`q_\phi(z\mid x)`$ | What tractable distribution approximates that inference? | Used in training and reconstruction |
 
 ### Why the lower bound exists
+
+We want to increase the probability of observed data, just as in Lesson 1. The obstacle is the sum over hidden explanations inside that probability: evaluating it exactly would require accounting for every possible latent value. The encoder offers plausible latent draws for each observation, and the ELBO turns these draws into a computable training objective. The derivation below establishes the relation between that objective and the observation likelihood; it is not a separate goal unrelated to generation.
 
 The **support** is the region where a distribution can place probability. To divide by the encoder density, it must be positive wherever the joint density contributes to the integral. For continuous variables, “almost everywhere” allows exceptions on sets of probability zero. We also need the expectations used below to exist; writing a formal difference of two infinite quantities is not a valid derivation.
 
@@ -89,6 +93,8 @@ The KL in the **gap identity** instead compares the encoder with the **true post
 
 ### A differentiable random sample
 
+The encoder chooses a distribution, we sample a latent value from it, and the decoder scores the observed example using that value. To learn the encoder, the loss must tell us how changing the encoder's mean or spread would change this score. Reparameterization exposes that dependence: encoder parameters → mean and scale → sampled latent value → decoder likelihood → loss. The Gaussian formulas below make the sampling and the prior-KL penalty computationally explicit.
+
 A **Gaussian** is the normal distribution, with mean $`\mu`$ setting its centre and variance $`\sigma^2`$ measuring average squared deviation. A standard normal has mean zero and variance one. Standard deviation is the square root of variance. In several dimensions, the covariance matrix contains variances on its diagonal and cross-coordinate dependence off the diagonal. A diagonal Gaussian has independent coordinates; $`I`$ is the identity matrix with unit diagonal. The notation $`\mathrm{diag}(v)`$ puts the entries of vector $`v`$ on a diagonal. In one dimension the Gaussian density is $`(2\pi\sigma^2)^{-1/2}\exp(-(z-\mu)^2/(2\sigma^2))`$; for independent coordinates the joint density is the product of their scalar densities. These are the objects used in the next formulas.
 
 A diagonal Gaussian encoder predicts a mean vector and one log variance per latent coordinate. Here $`\ell_j=\log\sigma_j^2`$; therefore its standard deviation is $`\exp(\ell_j/2)`$, not $`\exp(\ell_j)`$. Predicting log variance allows an unconstrained network output while keeping the resulting variance positive. The diagonal assumption makes computation simple but excludes posterior correlations in these coordinates.
@@ -119,6 +125,8 @@ Reparameterization means drawing standard noise first, then stretching and shift
 
 ### The likelihood determines what reconstruction means
 
+A decoder does not merely try to draw something visually similar to its input. It defines a distribution of possible observations for each latent value. The reconstruction term asks how much probability or density that distribution assigns to the actual observation. Choosing a Gaussian or Bernoulli likelihood therefore changes both how errors are penalized during training and what randomness the decoder uses when generating an observation.
+
 For a scalar observation with decoder mean $`m`$ and variance $`v>0`$, the Gaussian density is $`(2\pi v)^{-1/2}\exp(-(x-m)^2/(2v))`$. Taking its negative logarithm gives $`(x-m)^2/(2v)+\tfrac12\log(2\pi v)`$. This calculation explains both the squared-error term and the normalizing constant below; $`m_j`$ denotes the decoder mean for observation coordinate $`j`$.
 
 A **Bernoulli** distribution instead describes a binary observation: $`p(x=1)=a`$, $`p(x=0)=1-a`$. Its negative log likelihood is $`-x\log a-(1-x)\log(1-a)`$, called binary cross-entropy. For $`x=1,a=0.8`$ it is $`-\log0.8\approx0.2231`$. A continuous coordinate and a binary event require different likelihood models.
@@ -138,6 +146,12 @@ A beta-VAE optimizes $`\text{reconstruction NLL}+\beta D_{\mathrm{KL}}(q\Vert p)
 **Worked check:** $`\mu=(1,2)`$, $`\ell=(0,0)`$ yields $`D_{\mathrm{KL}}=2.5`$. Duplicating latent coordinates doubles KL. Averaging two identical examples leaves the batch mean unchanged.
 
 With unit variance, the variance terms in each coordinate cancel, leaving half the squared mean. Thus the two coordinates contribute 0.5 and 2 nats. A per-example reconstruction NLL of 1.2 would give negative ELBO 3.7; a KL weight of 0.1 would instead give training objective 1.45. The reported unweighted negative ELBO remains 3.7. These arithmetic values illustrate why comparing differently weighted training objectives can be misleading.
+
+### From the training loss to a new observation
+
+During training, an observed example passes through the encoder; a latent draw passes through the decoder; reconstruction NLL and prior KL supply gradients for their parameters. To generate an unconditional new observation afterward, draw from the **prior** and then from the **decoder**, with the learned weights held fixed. There is no observed input to encode.
+
+**Worked generation from the binary model above:** choose A or B with prior probability 0.5 each. If the latent draw selects A, generate 1 with probability 0.36 and otherwise 0; if it selects B, generate 1 with probability 0.04 and otherwise 0. Across many repetitions the probability of generating 1 is $`0.5(0.36)+0.5(0.04)=0.20`$. The encoder is absent from this procedure. Changing only the encoder can tighten the bound without changing that 0.20; changing the decoder probabilities can change the generator. For the lab's Gaussian decoder, the analogous final draw uses its predicted mean and fixed observation variance. Returning only that mean would omit the decoder's observation noise.
 
 ### Discuss the two different KL terms
 
@@ -198,7 +212,15 @@ The simple noise-prediction loss is
 
 A **surrogate** is a tractable training quantity used in place of the quantity ultimately of interest. This simple loss reweights the noise-prediction terms that arise in a variational likelihood calculation; it is not numerically identical to the full bound. In particular, changing time-dependent weights changes the objective even if the same network predicts noise. Time sampling and loss weights change which noise levels receive emphasis. Predicting $`x_0`$, $`\epsilon`$ or a velocity parameterization requires matching the sampler's conventions.
 
+### From noise prediction to a generated observation
+
+A predictor of injected noise is not by itself a sampler. After training, generation starts with a fresh Gaussian draw at the high-noise end of the schedule. At each reverse step, the fitted network predicts noise from the current state and time; the chosen reverse transition uses that prediction to compute a less-noisy state. A stochastic reverse transition also adds its prescribed random noise. Repeating the transitions produces an observation at the data end of the schedule. The weights stay fixed throughout this process.
+
+The connection is visible by rearranging the forward expression. For a time with $`\bar\alpha_t=0.64`$, the expression is $`x_t=0.8x_0+0.6\epsilon`$. Given $`x_t=1.4`$ and a predicted noise value of 1, an estimate of the clean value is $`(1.4-0.6)/0.8=1`$. Predicting 0.5 instead changes that estimate to $`(1.4-0.3)/0.8=1.375`$. Thus a changed noise predictor changes the values used by the reverse process and ultimately its samples. This rearrangement is a clean-value estimate, not a complete reverse sampler or a guarantee of recovering the original training example.
+
 ### A score is a direction, not a quality rating
+
+The next question is why noise prediction supplies useful information for a reverse transition. The score links the learned noise estimate to the shape of the noisy-data distribution. Its direction helps determine how probability should move as noise is removed; it is not a rating of an image's aesthetic quality.
 
 The **spatial gradient** differentiates with respect to the observation coordinates while keeping time and model parameters fixed; in one dimension it is an ordinary derivative. The notation $`\nabla_x`$ records which variable is being changed. This differs from $`\nabla_\theta`$, the parameter gradient used for learning.
 
@@ -252,6 +274,8 @@ Both are integrated toward earlier time and, in the exact continuous dynamics, p
 </details>
 
 ### Conditioning and guidance
+
+An unconditional reverse process produces samples without a specified category or prompt. To generate a requested kind of observation, the reverse prediction must depend on that request as well as on the current noisy state. Conditioning therefore changes the distribution sampled by the reverse procedure, just as restricting the colour–size table changed the probabilities in Lesson 1.
 
 An unconditional model learns what observations look like overall. A conditional model also receives information such as a text prompt or class label. Classifier-free guidance uses predictions with and without that condition. Their difference identifies how the condition changes the denoising prediction; multiplying that difference strengthens or weakens the conditioning effect. It is an extrapolation rule, not a proof that the resulting samples have higher likelihood or better quality.
 
@@ -323,6 +347,8 @@ The conditional mean velocity combines all the paths passing through a position 
 
 ### Conservation of probability
 
+Why should fitting a velocity teach a distribution? A velocity determines where every random starting point moves; moving the whole random cloud changes how much probability lies in each region. For example, a constant one-dimensional velocity 2 over one unit of time turns a standard-normal starting value $`z`$ into $`z+2`$. The final distribution is therefore $`\mathcal{N}(2,1)`$. No density table was directly predicted, yet a new distribution was defined by the learned motion. More complex target distributions require a position- and time-dependent field. The equation below formalizes that connection between motion and density.
+
 The continuity equation below says that probability changes in a small region only because probability flows through its boundary. Its divergence term measures net outward flow. If a region loses more probability than it receives, its density decreases. Under regularity and suitable boundary conditions, integrating this equation preserves total probability. This is the link between a local velocity prediction and the evolution of an entire distribution.
 
 Here $`p_t(x)`$ is the density of the whole moving cloud, after averaging over endpoint pairs. For a vector field $`J`$, its **divergence** is $`\nabla\cdot J=\sum_j\partial J_j/\partial x_j`$, the sum of spatial rates of change of its coordinate currents. In one dimension it is simply the derivative of the current. It differs from KL divergence, which compares distributions; the same word denotes two different mathematical objects.
@@ -373,6 +399,8 @@ It uses two velocity evaluations per step, so Heun with 25 steps and Euler with 
 ## 4. Compare evidence before declaring a winner
 
 ### Decide which claim a measurement is meant to support
+
+The three training losses refer to different intermediate tasks: explaining an observation through a latent value, predicting noise, or predicting a velocity. Their numerical values are not a common ranking of generators. To compare the distributions they actually generate, run their sampling procedures and measure the resulting observations; to compare likelihood, use a valid likelihood measure or bound with its limitations stated. This is why the next examples distinguish loss, sample distance and computational cost.
 
 “Better generation” could mean better density estimation, more realistic individual samples, better coverage, greater task success or lower cost. These are different properties. Choose a primary claim before selecting a metric; otherwise it is easy to report whichever number improved after an experiment.
 

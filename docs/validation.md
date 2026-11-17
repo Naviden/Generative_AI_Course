@@ -107,3 +107,22 @@ Verified that changing a lesson makes the freshness check fail, then restored
 its source and confirmed the check passes. The source manifest includes all
 three lessons, both image formats, the builder and its layout header; CI checks
 that committed downloads match those sources. No model or lab code changed.
+
+## Concept-to-generation connections — 17 November 2026
+
+Reviewed all three reading-group lessons for definitions and calculations whose
+purpose in generative modelling was unclear. Rebuilt the opening around the
+colour/size generator: complete observations, sampling, conditional requests,
+likelihood and NLL now refer to the same specified probability table. Added a
+numerical parameter update, a Gaussian interpretation of the quadratic loss,
+an attention-to-token example and an answer to the final foundations exercise.
+Connected the later objectives to VAE sampling, diffusion reverse transitions,
+flow-induced distributions and preference-trained completion probabilities.
+
+Checked the new numerical examples, including the 0.62 probability update and
+its 0.5759 average NLL. Confirmed that every existing display-math derivation
+and executable example remains present, and that worked-example counts did
+not decrease. Material and PDF freshness checks pass. Rebuilt all three PDFs
+(13, 18 and 13 pages), visually inspected their rendered pages, and checked
+worked-answer labels and page margins. Lab implementations were unchanged;
+this review concerns explanations and generated documents, not new lab runs.

@@ -6,25 +6,40 @@
 
 ## 1. What a generative model describes
 
-An **observation** is one item of data: a point, image or sequence of tokens. A **variable** represents a quantity that can take different values. A model uses **parameters**, usually written $`\theta`$, to determine its predictions. Learning adjusts those parameters using observations.
+Suppose we want to generate new records describing objects by their colour and size. One record might say “blue and large”; another might say “not blue and not large”. A useful generator should reproduce how often these combinations occur, including their dependence. Producing one plausible record is easy. Learning how often to produce each kind of record is the modelling problem.
 
-A discriminative model predicts a target from an input, such as a label given an image. A generative model describes a distribution of observations, possibly conditional on an input, and can produce new observations by sampling. Our running example is a cloud of points with two coordinates, drawn from eight clusters. The generative task is to learn the distribution of points, not to classify their cluster labels.
+A **generative model** describes a distribution of possible observations and provides a way to draw observations from it. An **observation**, written $`x`$, is one complete item we want to generate. Here it is a colour–size pair; in other applications it could be an image, a point or a sequence of tokens. A **variable** is an attribute that can take different values, such as colour or size. Learning changes the model's distribution using examples; sampling then uses that distribution to produce an output.
 
-### Notation as it appears
+### From observed records to a model
 
-We write $`x`$ for an observation and $`\theta`$ for adjustable model parameters. A subscript usually names a coordinate or a parameter choice. $`p(x\mid y)`$ means probability or density for $`x`$ **given** $`y`$. $`X\sim p`$ means draw a random value using distribution $`p`$.
+Our dataset contains 100 records: 40 are blue, 30 are large and 20 are both. These totals give four mutually exclusive possibilities:
 
-$`\sum`$ adds terms, while $`\prod`$ multiplies them: for values 2 and 3 their results are 5 and 6. The natural logarithm $`\log`$ and exponential $`\exp`$ are inverses; $`\log1=0`$ and $`\exp(0)=1`$. An integral accumulates continuously, like summing density times the widths of many thin intervals. These symbols describe operations, not extra assumptions about the data.
+| Complete observation | Count in the dataset | Probability in a frequency-fitted model |
+|---|---|---|
+| Blue and large | 20 | 0.20 |
+| Blue and not large | 20 | 0.20 |
+| Not blue and large | 10 | 0.10 |
+| Not blue and not large | 50 | 0.50 |
 
-A generative model describes possible observations and their relative plausibility. In a discrete setting, it assigns probability mass to each outcome; in a continuous setting, it assigns a density whose integral over a region gives that region's probability. Sampling draws new outcomes according to this description. Learning changes parameters so that the description agrees with the population that produced the data.
+The last column is already a small generative model. Its probabilities are nonnegative and add to one: every generated record must belong to exactly one row. The adjustable probabilities are the model's **parameters**, collectively written $`\theta`$. The notation $`p_\theta(x)`$ means “the probability this parameter choice assigns to observation $`x`$”. For example, this model assigns $`p_\theta(\text{blue and large})=0.20`$. A neural generator uses many weights to determine its distribution instead of storing four probabilities directly, but those weights serve the same role: changing them changes what the model is likely to generate.
 
-A **discrete** outcome comes from a finite or countable set, such as a word vocabulary; a **continuous** variable can range over an interval. The population is the distribution of possible observations we want to model, while a dataset is a finite sample from it. Sampling means making a random draw according to the assigned probabilities, rather than always choosing the most probable outcome.
+The dataset is a finite sample from a **population**, the source of observations we hope to model. Its unknown distribution is written $`p_{\mathrm{data}}`$. Matching these 100 records does not prove that the four fitted probabilities equal the population probabilities. We will need fresh observations to assess that claim.
 
-A **joint** probability describes outcomes together. Conditional probability is $`p(A\mid B)=p(A,B)/p(B)`$ when $`p(B)>0`$. For 100 records with 30 large items and 20 items that are both large and blue, $`p(\text{blue}\mid\text{large})=20/30`$. Independence means the joint factors into the product of the individual probabilities. The probability chain rule, $`p(A,B)=p(A)p(B\mid A)`$, holds without assuming independence. **Bayes' rule** follows by expressing the joint in both orders: $`p(A\mid B)=p(B\mid A)p(A)/p(B)`$.
+### What it means to generate from the model
 
-Write the unknown population distribution as $`p_{\mathrm{data}}`$ and the model as $`p_\theta`$. We never observe the entire population. We observe a finite dataset and usually replace population averages with sample averages. For independent observations, maximum likelihood chooses parameters that make the observed dataset probable. Taking a logarithm changes a product of probabilities into a sum; negating it turns maximization into minimization. The per-observation quantity $`-\log p_\theta(x)`$ is the negative log likelihood, or NLL. Assigning a tiny probability to an observed outcome creates a large penalty.
+**Sampling** means making a random draw according to the assigned probabilities. One way to sample our table is to draw a number uniformly between zero and one, so equal-length intervals are equally likely. Assign intervals of lengths 0.20, 0.20, 0.10 and 0.50 to the four rows. A draw of 0.34 selects the second row, producing “blue and not large”. The notation $`X\sim p_\theta`$ means that the random observation $`X`$ is drawn this way from the model.
 
-The **likelihood** treats the observed data as fixed and asks how their probability changes with the parameters. A **loss** is a scalar we minimize; here it is negative log likelihood. A **held-out** set is kept out of parameter fitting so that it can reveal errors on fresh observations. Training data fit parameters; validation data choose settings; a final test assesses the chosen procedure after those choices are fixed.
+Over many draws, about 20% of generated records should be blue and large; a finite batch need not have exactly those frequencies. Always choosing the most probable row would instead generate “not blue and not large” every time. That rule would discard the variability the model learned.
+
+**Exercise:** use intervals `[0, 0.20)`, `[0.20, 0.40)`, `[0.40, 0.50)` and `[0.50, 1)` in table order. What does a random draw of 0.47 generate, and does drawing again change the model?
+
+**Worked answer:** 0.47 lies in the third interval, so the generated record is “not blue and large”. Drawing again can change the output, but the four probabilities remain fixed. **Sampling changes the observation; learning changes the distribution used to sample it.**
+
+### Joint and conditional probabilities answer different generation requests
+
+Our table is a **joint distribution**: it describes colour and size together. An unconditional request is “generate a record”. A conditional request is “generate a record that is large”. The latter restricts the allowed group before sampling; it does not use the original colour frequencies unchanged.
+
+For events $`A`$ and $`B`$, the notation $`p(A,B)`$ means the probability that both occur, and $`p(A\mid B)`$ means the probability of $`A`$ within the group where $`B`$ holds. Thus $`p(A\mid B)=p(A,B)/p(B)`$, provided $`p(B)>0`$.
 
 **Exercise:** among 100 records, 40 are blue, 30 are large and 20 are both. What is the probability of blue given large, and is it the same as large given blue?
 
@@ -32,48 +47,104 @@ The **likelihood** treats the observed data as fixed and asks how their probabil
 
 **Worked answer:** restrict the denominator to the known group. The first is `20/30 = 2/3`; the second is `20/40 = 1/2`. Conditioning changes the question. Knowing either answer does not show that size causes colour.
 
+For generation, this means that about two thirds of samples conditioned on “large” should be blue, while about half of samples conditioned on “blue” should be large. The same idea appears in text-to-image generation: a prompt is supplied as context, and the model samples an image conditional on that context.
+
+The **probability chain rule**, $`p(A,B)=p(A)p(B\mid A)`$, also gives a way to generate a complete record in stages. First sample its colour, then sample its size conditional on that colour. For the blue-and-large row, $`0.40\times0.50=0.20`$ recovers the joint probability. Section 3 applies this same rule to successive tokens in a sequence.
+
+**Independence** would mean that learning the colour does not change the size probabilities, so the joint factors as $`p(A,B)=p(A)p(B)`$. Our fitted table is not independent: blue and large have joint probability 0.20, whereas $`0.40\times0.30=0.12`$. Generating the two attributes independently would therefore reproduce their separate totals but get their combinations wrong. **Bayes' rule** reverses a conditional using the same joint distribution: $`p(A\mid B)=p(B\mid A)p(A)/p(B)`$. Here $`p(\text{blue}\mid\text{large})=0.50\times0.40/0.30=2/3`$. Later, a latent-variable model uses this reversal to infer hidden variables from observed outputs.
+
+A **discriminative** model typically learns to predict a designated target from an input, such as size given colour. Our joint generative model describes complete records and can also answer conditional questions. A conditional generative model instead starts with a specified context and models the distribution of outputs, such as whole images given a prompt; the presence of a condition alone does not make a model discriminative.
+
+### How likelihood connects the examples to learning
+
+Why choose the table above instead of assigning 0.25 to every row? We need a rule for comparing candidate generators using the observed records. **Likelihood** supplies one such rule: hold the dataset fixed and ask how probable it is under each parameter choice.
+
+Assume the 100 records are independent draws from the same model distribution. If their four probabilities are $`a,b,c,d`$ in table order, the probability of the particular observed sequence is
+
+```math
+L(a,b,c,d)=a^{20}b^{20}c^{10}d^{50}.
+```
+
+There are 20 factors of $`a`$ because 20 observed records belong to the first row, and similarly for the other rows. A power abbreviates repeated multiplication. The parameters must remain nonnegative and sum to one. **Maximum likelihood** chooses parameters that make this observed sequence as probable as possible within the model family. For this unrestricted four-row table, that gives the sample frequencies above. The records stay fixed while we compare probability assignments; this is why likelihood is a function of the parameters.
+
+### Why the training objective uses a logarithm and a minus sign
+
+The likelihood multiplies many small numbers. We use natural logarithms throughout. A logarithm turns multiplication into addition: $`\log(ab)=\log a+\log b`$. It is increasing, so the parameter choice with the largest likelihood also has the largest log likelihood. A **loss** is a single number that training tries to minimize. Negating log likelihood turns that maximization into minimization, and dividing by the number of records gives the average **negative log likelihood**, or NLL:
+
+```math
+J(a,b,c,d)
+=-\frac{20\log a+20\log b+10\log c+50\log d}{100}.
+```
+
+**Worked comparison:** the equal-probability model has average NLL $`-\log0.25\approx1.3863`$. The frequency-fitted model has average NLL
+
+```math
+-0.20\log0.20-0.20\log0.20-0.10\log0.10-0.50\log0.50
+\approx1.2206.
+```
+
+The smaller value means that the fitted model assigns higher likelihood to these training observations. It also changes generation: the probability of producing a large record becomes $`0.20+0.10=0.30`$, compared with $`0.25+0.25=0.50`$ in the equal-probability model. This is the connection between an improved training objective and a changed generator.
+
+For one observation the contribution is $`-\log p_\theta(x)`$. Assigning a very small probability to something that actually occurred gives a large penalty. But increasing one probability leaves less probability for other outcomes: the model must fit the collection of examples, not make every observed outcome have probability one. Section 2 shows how a parameter update can reduce this loss.
+
+Likelihood is one training principle, not a requirement that every generative model can evaluate exact observation probabilities efficiently. Later models use bounds or other training objectives because direct likelihood calculations can be difficult. They still need an explicit account of how training changes the distribution of generated observations.
+
 ### Averages and variability
 
-An **expectation** is a probability-weighted average. If a variable takes value 2 with probability 0.75 and value 6 with probability 0.25, its expectation is $`0.75(2)+0.25(6)=3`$. The notation $`\mathbb{E}[f(X)]`$ means to average the quantity $`f(X)`$, rather than necessarily averaging $`X`$ itself. A dataset mean approximates a population expectation using observed examples.
+A generator produces a distribution of possible outputs, so one draw cannot tell us its typical behaviour. An **expectation** is a probability-weighted average. Suppose another simple generator outputs the numerical value 2 with probability 0.75 or 6 with probability 0.25. Its expected output is $`0.75(2)+0.25(6)=3`$. The mean is 3 even though the generator never outputs 3: describing a distribution by its mean loses information about its samples.
 
-**Variance** measures average squared deviation from the mean. In this example it is $`0.75(2-3)^2+0.25(6-3)^2=3`$. Standard deviation is the square root of variance. Independent noise variances add; their standard deviations generally do not.
+The notation $`\mathbb{E}[f(X)]`$ means average a quantity computed from the random output, rather than necessarily averaging the output itself. For generative-model training, the quantity can be the loss $`f(x)=-\log p_\theta(x)`$. Averaging that loss over observed records estimates how the model scores fresh observations from the same population. The symbol $`\sum`$ abbreviates adding contributions, while $`\prod`$ abbreviates multiplying them.
+
+**Variance** measures average squared deviation from the mean. In the numerical generator above it is $`0.75(2-3)^2+0.25(6-3)^2=3`$. Standard deviation is the square root of variance. These quantities describe how spread out generated values are. A model that always outputs 3 has the same mean but zero variance and the wrong distribution. Independent noise variances add; their standard deviations generally do not. This matters when we later construct a generator by adding or removing noise.
 
 ### A continuous example: the Gaussian
 
-For a continuous variable, a **density** gives probability per unit of the variable. Probability over a region is the integral of density over that region. An integral is the continuous analogue of adding contributions: approximate it by summing density times the width of many small intervals. A density value itself is not a probability and can exceed one. A uniform variable on an interval of width 0.1 has density 10 but total probability one.
+The record table has a finite set of possibilities. Such outcomes are **discrete**; more generally a discrete set can be countably infinite. A **continuous** variable can take values throughout an interval. The repository's point-generation labs use two continuous coordinates, with real observations concentrated around eight clusters. Their task is to generate a similar cloud of points, not predict a cluster label.
 
-A Gaussian or normal distribution is a bell-shaped density, written $`\mathcal{N}(\mu,\sigma^2)`$ in one dimension. Its mean $`\mu`$ sets the centre and its standard deviation $`\sigma`$ sets the spread. A standard normal has mean zero and variance one. If $`\epsilon\sim\mathcal{N}(0,1)`$, then $`z=\mu+\sigma\epsilon`$ has the desired mean and variance. With mean 1, standard deviation 2 and noise draw 0.5, the sample is 2.
+For continuous values, a model assigns a **density**, or probability per unit of the variable. A density at one exact value is not that value's probability; probability comes from a region. An **integral** accumulates density over that region, like adding density times the widths of many thin intervals. A uniform distribution on an interval of width 0.1 has density 10 and total probability $`10\times0.1=1`$. This is why a continuous generator can have density values greater than one without violating probability rules.
 
-For several coordinates, a **covariance matrix** records their variances on the diagonal and cross-coordinate dependence off the diagonal. An identity covariance $`I`$ gives each coordinate unit variance and zero covariance with the others. For a multivariate Gaussian, diagonal covariance also implies independent coordinates. The notation $`\mathrm{diag}(\sigma^2)`$ places the coordinate variances on the diagonal and zeros elsewhere.
+A **Gaussian**, or normal distribution, is a simple continuous generative model with a bell-shaped density, written $`\mathcal{N}(\mu,\sigma^2)`$. The mean $`\mu`$ sets its centre and the standard deviation $`\sigma`$ sets its spread. These can be learned parameters. To generate from it, first draw standard-normal noise $`\epsilon`$ with mean zero and variance one, then compute $`z=\mu+\sigma\epsilon`$. Shifting and scaling the noise turns a fixed source of randomness into the chosen output distribution. With mean 1, standard deviation 2 and noise draw 0.5, the sample is 2.
+
+The exponential $`\exp`$ is the inverse of the natural logarithm: $`\log1=0`$ and $`\exp(0)=1`$. Later an encoder predicts log variance, a number that can be positive or negative, and exponentiates it to obtain a positive variance. This lets a neural network control the spread of a sampling distribution without ever producing an invalid negative variance.
+
+For multiple coordinates, a **covariance matrix** is a table containing coordinate variances on its diagonal and their joint linear variability off the diagonal. It determines the shape and orientation of a Gaussian cloud. An identity covariance $`I`$ gives unit variance in every coordinate and zero covariance between different coordinates. For a multivariate Gaussian, diagonal covariance also implies independent coordinates. The notation $`\mathrm{diag}(\sigma^2)`$ places the coordinate variances on the diagonal and zeros elsewhere. A single Gaussian cannot represent arbitrary separated clusters; more expressive models learn transformations or combinations of simple distributions.
 
 **Exercise:** a normal variable has mean 1 and standard deviation 2. A standard-normal draw is 0.5. What sample does shifting and scaling produce?
 
-**Worked answer:** `1 + 2 × 0.5 = 2`. Holding that draw fixed, increasing the mean to 1.1 gives 2.1; increasing the standard deviation to 2.1 instead gives 2.05. The random draw and the distribution parameters have different roles.
+**Worked answer:** `1 + 2 × 0.5 = 2`. Holding that draw fixed, increasing the mean to 1.1 gives 2.1; increasing the standard deviation to 2.1 instead gives 2.05. The random draw and the distribution parameters have different roles. When the mean or scale changes during learning, the distribution of future generated samples changes with it.
 
 ## 2. How data changes a model
 
+Section 1 compared two candidate probability tables. Training needs a procedure for moving from the current table toward a better one. The connection is **parameters → probabilities of observed examples → loss → parameter update → a changed sampling distribution**. A derivative tells us which small parameter change would lower the loss; a gradient collects that information when there are many parameters. The purpose of the calculations below is to change what the generator will produce, not merely to make a number smaller.
+
 ### Why unlikely observations cost more
 
-A negative log likelihood turns an assigned probability into a penalty. An observed outcome assigned probability 0.5 costs $`-\log0.5\approx0.6931`$; at probability 0.1 it costs $`-\log0.1\approx2.3026`$. Smaller assigned probability gives larger loss. Natural-log units are called **nats**. Because $`\log(ab)=\log a+\log b`$, multiplying probabilities of independent observations becomes adding their log probabilities.
+For a generative model trained by likelihood, each observed example asks the model to reserve probability for that kind of outcome. A negative log likelihood turns the assigned probability into a penalty. An observed outcome assigned probability 0.5 costs $`-\log0.5\approx0.6931`$; at probability 0.1 it costs $`-\log0.1\approx2.3026`$. Smaller assigned probability gives larger loss. Natural-log units are called **nats**. Because $`\log(ab)=\log a+\log b`$, multiplying probabilities of independent observations becomes adding their log probabilities.
 
 ### Worked example: fitting frequencies
 
 A derivative, written $`J'(a)`$, measures the local rate at which the loss changes when $`a`$ changes. At an interior minimum it must be zero; positive second derivative means the curve bends upward. Here the rules are $`(\log a)'=1/a`$ and $`(\log(1-a))'=-1/(1-a)`$.
 
-Suppose ten independent observations contain eight A outcomes and two B outcomes. Let $`a=p_\theta(A)`$, so normalization requires $`p_\theta(B)=1-a`$. The average NLL is
+To calculate a complete learning step by hand, simplify the four-row generator to a generator of just two possible outputs, A and B. A sample from this model is one of those two outputs. Suppose ten independent observations contain eight A outcomes and two B outcomes. Let $`a=p_\theta(A)`$, so normalization requires $`p_\theta(B)=1-a`$. The average NLL is
 
 ```math
 J(a)=-0.8\log a-0.2\log(1-a),\qquad
 J'(a)=-\frac{0.8}{a}+\frac{0.2}{1-a}.
 ```
 
-Setting the derivative to zero gives $`a=0.8`$.
+Setting the derivative to zero gives $`a=0.8`$. The fitted generator will sample A with probability 0.8 and B with probability 0.2; fitting has changed the frequencies of its future outputs.
 
 The algebra is $`0.2a=0.8(1-a)`$, hence $`a=0.8`$. The second derivative is positive on the interior of the probability interval, so this is the minimum. At that solution the average NLL is about 0.5004 nats, compared with 0.6931 for equal probabilities. Assigning probability one to A would give infinite loss on the two B observations. Likelihood rewards fitting frequencies rather than just picking the most common outcome.
 
 These are fitted **sample** frequencies. With only ten observations they need not equal population frequencies. A model that memorizes an enormous set of training sequences may likewise have excellent training likelihood and poor likelihood on new sequences. Held-out data tests this distinction.
 
 ### What a parameter update does
+
+The two-outcome example has a closed-form optimum, but a neural generator usually has too many interacting parameters to solve for its optimum directly. Instead we evaluate the current loss and repeatedly take small steps that reduce it locally. We can see what such a step means for generation before introducing the general notation.
+
+**Worked update of the generator:** start with $`a=0.5`$ in the eight-A/two-B example. The loss derivative is $`J'(0.5)=-0.8/0.5+0.2/0.5=-1.2`$. With step size 0.1, subtract this derivative times the step size: $`a_{\mathrm{new}}=0.5-0.1(-1.2)=0.62`$. The probability of B becomes 0.38 so that the probabilities still sum to one. Average NLL falls from about 0.6931 to 0.5759. The next generated output is now more likely to be A. This update changes both a measurable loss and an interpretable sampling behaviour.
+
+This particular step stays within the valid probability interval. Arbitrary direct updates need not do so; neural models usually produce unconstrained scores and turn them into valid probabilities with a normalization such as the softmax introduced in Section 3.
 
 A **derivative** measures local rate of change. For $`f(w)=w^2`$, its derivative is $`2w`$: near $`w=3`$, a small increase in $`w`$ changes the output by approximately six times that increase. A **partial derivative** changes one input while holding the others fixed. A **gradient** collects all partial derivatives of a scalar function into a vector—an ordered list of numbers. It points in the direction of greatest local increase under the usual Euclidean geometry.
 
@@ -83,13 +154,15 @@ Gradient descent adjusts parameters in the opposite direction to reduce a loss:
 \theta_{\mathrm{new}}=\theta-\eta\nabla_\theta J(\theta).
 ```
 
-Here $`J`$ is the loss and $`\eta`$ is the positive step size, or learning rate. For $`J(w)=(w-3)^2`$, starting at $`w=0`$ gives derivative −6. With learning rate 0.1 the next value is 0.6, and the loss falls from 9 to 5.76. An overly large step can overshoot; a gradient step is not a guarantee of finding a global minimum.
+Here $`J`$ is the loss and $`\eta`$ is the positive step size, or learning rate. For a continuous generator, let $`w`$ be a Gaussian mean, fix its variance to 1/2 and observe the value 3. Its NLL, apart from a constant independent of $`w`$, is $`J(w)=(w-3)^2`$. Starting at $`w=0`$ gives derivative −6. With learning rate 0.1 the next value is 0.6, and the loss falls from 9 to 5.76. Generated values are now centred at 0.6 instead of zero, closer to the observed value 3. An overly large step can overshoot; a gradient step is not a guarantee of finding a global minimum.
 
-The **chain rule** differentiates a composition by multiplying local derivatives. If $`u=2w`$ and $`J=u^2`$, then $`\mathrm{d}J/\mathrm{d}w=(2u)(2)=8w`$. Backpropagation applies this rule through a computation graph. Automatic differentiation records those operations and computes their derivatives; it does not estimate them by trying random parameter changes.
+In a neural generator, a weight affects an intermediate computation, which affects predicted probabilities, which affect the loss. We need to carry the loss sensitivity back through that chain. The **chain rule** differentiates a composition by multiplying local derivatives. If $`u=2w`$ and $`J=u^2`$, then $`\mathrm{d}J/\mathrm{d}w=(2u)(2)=8w`$. Backpropagation applies this rule through a computation graph. Automatic differentiation records those operations and computes their derivatives; it does not estimate them by trying random parameter changes.
 
-A neural network composes simple parameterized operations. In one scalar operation, `w × x + b` multiplies input `x` by a learned **weight** `w` and adds a learned **bias** `b`. An **activation** applies a nonlinear function, such as replacing a negative result with zero. For `x = 2`, `w = 0.5` and `b = −0.2`, the result is 0.8 and this activation leaves it at 0.8; for `x = 0`, the result −0.2 becomes zero. Composing many such operations allows a model to represent relationships beyond a single straight line. The weights and biases are parameters adjusted by training. Training computes predictions, evaluates a loss, differentiates it and updates parameters. Minibatch training estimates gradients using a subset of observations at a time. An **epoch** traverses a dataset; the lab's `--steps` flag instead counts parameter updates.
+A neural network composes simple parameterized operations. In one scalar operation, `w × x + b` multiplies input `x` by a learned **weight** `w` and adds a learned **bias** `b`. An **activation** applies a nonlinear function, such as replacing a negative result with zero. For `x = 2`, `w = 0.5` and `b = −0.2`, the result is 0.8 and this activation leaves it at 0.8; for `x = 0`, the result −0.2 becomes zero. Composing many such operations allows a model to represent relationships beyond a single straight line. The weights and biases are parameters adjusted by training. In a generative model these network outputs determine quantities such as next-token probabilities, a Gaussian mean or a velocity used to move noise toward data. Training computes those outputs, evaluates the relevant loss, differentiates it and updates parameters. Sampling later uses the updated outputs with the weights held fixed. Minibatch training estimates gradients using a subset of observations at a time. An **epoch** traverses a dataset; the lab's `--steps` flag instead counts parameter updates.
 
 ### Entropy, cross-entropy and the direction of KL
+
+The fitted A/B generator still has average loss about 0.5004. This nonzero loss is expected: a model that correctly represents random A/B outcomes cannot assign probability one to whichever outcome happens to appear next. We need to separate uncertainty inherent in the source from the extra loss caused by wrong model probabilities. Entropy and KL make that distinction precise; cross-entropy is the total expected NLL we have been minimizing.
 
 Entropy is the average uncertainty of a distribution about its own outcomes. Cross-entropy is the average log-loss incurred when outcomes come from one distribution but probabilities are supplied by another. **Kullback–Leibler (KL) divergence** measures the extra log-loss relative to using the true distribution itself. It is nonnegative, but it is not a distance metric: exchanging its arguments usually changes its value.
 
@@ -117,11 +190,15 @@ Maximum likelihood minimizes $`\mathbb{E}_{x\sim p_{\mathrm{data}}}[-\log p_\the
 
 **Worked decomposition.** With population probabilities `(0.8, 0.2)` and model probabilities `(0.5, 0.5)`, entropy is $`-0.8\log0.8-0.2\log0.2\approx0.5004`$. Cross-entropy is $`-0.8\log0.5-0.2\log0.5\approx0.6931`$. KL is $`0.8\log(0.8/0.5)+0.2\log(0.2/0.5)\approx0.1927`$: the additional loss, with $`0.5004+0.1927\approx0.6931`$. In a continuous setting the entropy term is called **differential entropy**; the density and units qualifications below apply.
 
+If the true A/B probabilities were `(0.8, 0.2)`, changing the generator from `(0.5, 0.5)` to `(0.8, 0.2)` would remove the extra 0.1927 nats of loss, while preserving the source’s genuine randomness. It should still sometimes generate B. Always generating A would give B probability zero and infinite NLL whenever B occurs. This explains the direction $`D_{\mathrm{KL}}(p_{\mathrm{data}}\Vert p_\theta)`$: outcomes that occur under the data distribution must be accounted for by the model. Exchanging the two distributions changes which outcomes receive weight.
+
 The entropy term does not depend on $`\theta`$. Thus likelihood fits a distribution; it does not directly optimize a human quality score. For continuous observations, density values depend on units and can exceed one; negative log density can be negative. Comparing densities after rescaling coordinates requires a volume correction: stretching an interval spreads the same probability over more space. In several dimensions, stretching two coordinates by factors 2 and 3 enlarges area by a factor of 6, so density must be divided by 6 to preserve probability. This local volume correction is called a Jacobian correction.
 
 A concrete density example makes the units issue visible. A uniform distribution on an interval of width 0.1 has density 10 throughout that interval, yet its total probability is one. Its NLL is $`-\log 10`$, which is negative. If the same variable is expressed in units that stretch the interval to width one, the density becomes one. Nothing about the observations became more predictable; only the reference scale changed. Compare continuous likelihoods only after aligning transformations and units.
 
 ### Training fit is not a generalization result
+
+The probability table was fitted using the same observations on which its training loss was measured. A generator intended for new records must also assign sensible probabilities to observations it did not train on. This is why held-out evaluation belongs in the learning argument: it tests whether fitting the observed frequencies taught a distribution that transfers beyond those particular records.
 
 Training observations determine parameter updates. Validation observations help select settings such as learning rate or model size. A final test set is reserved to assess the selected procedure on observations not used for these decisions. Repeatedly choosing settings based on a test set turns it into part of the selection process.
 
@@ -133,11 +210,13 @@ Training observations determine parameter updates. Validation observations help 
 
 ## 3. Representations and sequences
 
+A four-row table can store the probability of every complete record. A table of complete sentences quickly becomes impractical: even fixed three-token sequences over a vocabulary of 1,000 tokens have a billion possibilities. A language generator instead computes a distribution for the next token from the available prefix and repeats that operation. The chain rule connects those smaller distributions to the probability of a complete sequence. Vectors and attention are tools for computing these conditional probabilities from shared learned parameters.
+
 A **vector** is an ordered list of numbers. A **matrix** is a rectangular table. A **tensor** extends this idea to any number of axes. Shape tells you the length of each axis, not what the numbers mean. In the labs, an array with shape `(256, 2)` represents 256 observations with two coordinates each.
 
 A dot product multiplies corresponding coordinates and sums them: the dot product of `(1, 2)` and `(3, 4)` is 11. Matrix multiplication takes a dot product between every row of the first matrix and every column of the second. Thus an $`m\times n`$ matrix times an $`n\times k`$ matrix produces an $`m\times k`$ matrix. The shared inner dimension must agree. Transposing a matrix exchanges rows and columns.
 
-A **reduction** combines values along an axis. For per-coordinate losses `(1, 2)` and `(3, 4)` in a batch of two observations, summing coordinates gives per-example losses 3 and 7. Averaging examples then gives 5. Averaging all four entries would give 2.5, which changes the scale of the objective. This is why the lessons distinguish event sums from batch means.
+A **reduction** combines values along an axis. For per-coordinate losses `(1, 2)` and `(3, 4)` in a batch of two observations, summing coordinates gives per-example losses 3 and 7. Averaging examples then gives 5. Averaging all four entries would give 2.5, which changes the scale of the objective. For independent coordinates under a chosen likelihood, the complete-observation log probability adds coordinate log probabilities; this is why summing their losses can be appropriate. Averaging across examples then estimates the loss for one observation. Changing that reduction changes the training scale and can change the balance between reconstruction and regularization. This is why the lessons distinguish event sums from batch means.
 
 ### Predict one token from the observed prefix
 
@@ -151,7 +230,7 @@ An autoregressive model uses
 p_\theta(x)=\prod_i p_\theta(x_i\mid x_{\lt i}).
 ```
 
-Teacher forcing evaluates observed prefixes during training. At generation time prefixes are sampled. Perplexity is $`\exp(\text{mean token NLL})`$, with natural logarithms, and depends on the tokenizer and evaluation text. Perplexities from different tokenizers are not automatically comparable.
+Training uses the NLL from Section 2, now applied to the conditional probability of each observed token. Taking the negative logarithm of the product above adds these token losses. **Teacher forcing** supplies the observed prefix when scoring each training token, allowing the model to learn from the actual sequence. Generation instead starts from a supplied or empty prefix, samples a token, appends it, and uses the enlarged prefix to predict the next one. Perplexity is $`\exp(\text{mean token NLL})`$, with natural logarithms, and depends on the tokenizer and evaluation text. Perplexities from different tokenizers are not automatically comparable.
 
 For the three-token sequence “the cat sleeps”, suppose the conditional probabilities of its observed tokens are 0.5, 0.2 and 0.1. Its joint probability is their product, 0.01. Its total NLL is about 4.6052 nats; dividing by three gives 1.5351 nats per token and perplexity about 4.64. Perplexity exponentiates average surprise: a predictor assigning probability one quarter to every observed token has perplexity four. It does not mean that every prediction literally has four equally likely alternatives.
 
@@ -170,6 +249,8 @@ p(\text{I},\text{like},\text{tea})
 The last training prefix is `I like` and its target is `tea`. The target is scored but must not be part of the input used to predict itself. A model-generated prefix may differ at generation time.
 
 ### What attention computes
+
+To predict “sleeps” after “the cat”, the network needs a numerical representation of that prefix. Attention helps build it by selecting and combining information from permitted positions. Its output is an intermediate representation, not a generated token. A later output map converts that representation into token probabilities, and NLL sends a learning signal back through both operations.
 
 A token initially receives an **embedding**, a learned vector looked up using its identity, together with information about its position. A vector is an ordered list of numbers; it is not yet a probability distribution. To predict in context, that representation needs information from other tokens: a pronoun may need a preceding noun, or a closing bracket may need an earlier opening bracket. Attention computes a content-dependent mixture of information from the available positions.
 
@@ -221,6 +302,10 @@ For batch size 2, sequence length 6, query/key width 8 and value width 4, the sc
 
 An **embedding** maps a token to a learned vector. Attention mixes information from allowed positions; it does not yet assign probabilities to vocabulary items. A later learned output map produces one real-valued score, or **logit**, for each candidate next token, and softmax turns these scores into probabilities. A full transformer combines several attention computations with additional learned transformations, positional information and stabilization operations.
 
+**Worked connection from attention to a generated token:** suppose the attention calculation above supplies the scalar representation 5. In a deliberately tiny two-token output vocabulary, let an output map give “sleeps” the score $`(\log3/5)\times5=\log3`$ and “runs” the score 0. Vocabulary softmax produces probabilities 0.75 and 0.25. If the observed next token is “sleeps”, its training loss is $`-\log0.75\approx0.2877`$. At generation time, a draw below 0.75 selects “sleeps”; otherwise it selects “runs”. The value 5 was a representation, 0.75 is an output probability, and the selected word is a sample. These are three different stages of one generator.
+
+In a real model, the output map and the attention projections are learned together. Backpropagation carries the next-token loss through the output map into the representation and its attention computations. This is how attention participates in learning the generative distribution.
+
 For input `[start, the, cat]`, score targets `[the, cat, sleeps]`. At input `cat`, attention may use `start`, `the` and `cat` itself; the target `sleeps` is not present in that prefix. This is why allowing the causal-mask diagonal does not leak the next-token target.
 
 **Discuss:** why is “future changes leave earlier outputs unchanged” insufficient by itself?
@@ -228,6 +313,8 @@ For input `[start, the, cat]`, score targets `[the, cat, sleeps]`. At input `cat
 **Worked answer:** an implementation returning zero for every input passes that test. In the example above, changing an allowed past value must change output 5 to 6. This positive control shows sensitivity to available information. Neither check establishes a complete or useful language model.
 
 ## 4. What can we conclude from an example?
+
+The learning loop has two distinct checks: does the model assign useful probabilities to fresh observations, and does its actual sampling procedure produce the intended distribution? In the record example, repeatedly returning the most probable row would produce individually valid records while missing every blue or large case. It would not sample the fitted table. Generation quality therefore depends on both the learned model and the procedure that uses it.
 
 A generator must do more than produce an attractive individual output. On the eight-cluster point distribution, a system that always produces points in one cluster may look locally realistic but miss seven clusters. That is a **coverage** failure. A system that reaches every cluster but scatters points far from them has a **fidelity** failure. A single picture or loss number may not distinguish these failures.
 
@@ -255,6 +342,8 @@ These are organizing ideas, not claims that one family is always best.
 | What should a research comparison hold fixed? | Factors that could otherwise explain the difference: data, measurement procedure, computation and available information. The appropriate controls depend on the claim. |
 
 **Exercise:** define a distribution, a loss, a sample and held-out evidence in one sentence each, using a numerical example from this lesson.
+
+**Worked answer:** the record model’s distribution assigns probabilities `(0.20, 0.20, 0.10, 0.50)` to the four complete records. Its loss is the average NLL on specified observations, about 1.2206 on the 100 fitting records. A sample is one generated record, such as “not blue and large” when the uniform draw is 0.47. Held-out evidence is a measurement on fresh records not used for fitting or selection; for example, a fresh set with counts `(18, 22, 12, 48)` in the same row order would give this fixed model average NLL about 1.2528, which should be compared with a baseline on that same set. The test counts here are illustrative, not an executed experiment.
 
 ## Further reading
 
