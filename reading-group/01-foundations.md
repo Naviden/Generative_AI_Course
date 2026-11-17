@@ -77,7 +77,7 @@ These are fitted **sample** frequencies. With only ten observations they need no
 
 ### What a parameter update does
 
-A **derivative** measures local rate of change. For $`f(w)=w^2`$, its derivative is $`2w`$: near $`w=3`$, a small increase in $`w`$ changes the output by approximately six times that increase. A **partial derivative** changes one input while holding the others fixed. A **gradient** collects all partial derivatives of a scalar function into a vector. It points in the direction of greatest local increase under the usual Euclidean geometry.
+A **derivative** measures local rate of change. For $`f(w)=w^2`$, its derivative is $`2w`$: near $`w=3`$, a small increase in $`w`$ changes the output by approximately six times that increase. A **partial derivative** changes one input while holding the others fixed. A **gradient** collects all partial derivatives of a scalar function into a vector—an ordered list of numbers. It points in the direction of greatest local increase under the usual Euclidean geometry.
 
 Gradient descent adjusts parameters in the opposite direction to reduce a loss:
 
@@ -138,8 +138,6 @@ Training observations determine parameter updates. Validation observations help 
 A **vector** is an ordered list of numbers. A **matrix** is a rectangular table. A **tensor** extends this idea to any number of axes. Shape tells you the length of each axis, not what the numbers mean. In the labs, an array with shape `(256, 2)` represents 256 observations with two coordinates each.
 
 A dot product multiplies corresponding coordinates and sums them: the dot product of `(1, 2)` and `(3, 4)` is 11. Matrix multiplication takes a dot product between every row of the first matrix and every column of the second. Thus an $`m\times n`$ matrix times an $`n\times k`$ matrix produces an $`m\times k`$ matrix. The shared inner dimension must agree. Transposing a matrix exchanges rows and columns.
-
-For attention, $`Q`$ and $`K`$ each have shape $`(B,T,d)`$: batch size, token count and feature width. Transpose the last two axes of $`K`$ and multiply. The result $`QK^\top`$ has shape $`(B,T,T)`$, with one score for each query–key pair in each example. A batch is a group of independent examples processed together; it is not another coordinate of one observation.
 
 A **reduction** combines values along an axis. For per-coordinate losses `(1, 2)` and `(3, 4)` in a batch of two observations, summing coordinates gives per-example losses 3 and 7. Averaging examples then gives 5. Averaging all four entries would give 2.5, which changes the scale of the objective. This is why the lessons distinguish event sums from batch means.
 
@@ -209,6 +207,8 @@ M_{ij}=\begin{cases}
 
 A padding mask excludes artificial filler positions used to make differently sized sequences fit one batch. Positional information distinguishes the order of real tokens. Neither is supplied by the causal mask itself.
 
+For attention, $`Q`$ and $`K`$ each have shape $`(B,T,d)`$: batch size, token count and feature width. Transpose the last two axes of $`K`$ and multiply. The result $`QK^\top`$ has shape $`(B,T,T)`$, with one score for each query–key pair in each example. A batch is a group of independent examples processed together; it is not another coordinate of one observation.
+
 ### Worked example: masking changes the distribution
 
 Suppose a query at the second position has scaled scores $`(0,\log 3,10)`$ for three source positions. The third source is in the future. Without masking, its large score would dominate the softmax, leaking information unavailable during generation. A causal mask replaces that score with negative infinity before softmax. The weights become $`(1/4,3/4,0)`$. For scalar values $`(2,6,100)`$, the output is 5, independently of the future value 100.
@@ -233,7 +233,7 @@ For input `[start, the, cat]`, score targets `[the, cat, sleeps]`. At input `cat
 
 A generator must do more than produce an attractive individual output. On the eight-cluster point distribution, a system that always produces points in one cluster may look locally realistic but miss seven clusters. That is a **coverage** failure. A system that reaches every cluster but scatters points far from them has a **fidelity** failure. A single picture or loss number may not distinguish these failures.
 
-The next meeting develops different ways to generate a distribution:
+This map locates the approaches used in the next meeting alongside related approaches:
 
 | Approach | Intuition | Question to carry forward |
 |---|---|---|

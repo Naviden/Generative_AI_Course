@@ -234,17 +234,13 @@ An **ordinary differential equation (ODE)** specifies a rate of change; a **stoc
 
 For the forward SDE
 
-```math
-\mathrm{d}x=f(x,t)\,\mathrm{d}t+g(t)\,\mathrm{d}W
-```
+$`\mathrm{d}x=f(x,t)\,\mathrm{d}t+g(t)\,\mathrm{d}W`$
 
 and marginal score $`s_t(x)=\nabla_x\log p_t(x)`$, the reverse-time SDE uses drift $`f-g^2s_t`$, with time integrated from $`T`$ down to $`0`$ and the associated reverse Brownian motion. The **probability-flow ODE** uses drift $`f-\tfrac12 g^2s_t`$ and shares marginals with the SDE under regularity and exact-score assumptions. Approximate scores and finite-step solvers break exact equivalence. Time direction and the factor $`\tfrac12`$ are common implementation errors.
 
 **Why the half appears.** In one spatial dimension, the forward SDE evolves its density by the Fokker–Planck equation, which balances transport and noise spreading:
 
-```math
-\partial_t p=-\partial_x(fp)+\tfrac12 g^2\partial_x^2p.
-```
+$`\partial_t p=-\partial_x(fp)+\tfrac12 g^2\partial_x^2p.`$
 
 Here $`\partial_t`$ means derivative in time at fixed position, $`\partial_x`$ derivative in position at fixed time, and $`\partial_x^2`$ a second position derivative. For time-only $`g`$, the identity $`p\,\partial_x\log p=\partial_xp`$ rewrites this as $`\partial_t p=-\partial_x[(f-\tfrac12g^2s)p]`$. That is the density-transport equation for an ODE with velocity $`f-\tfrac12g^2s`$. The reverse SDE still has random spreading and therefore needs the full score correction; simply deleting its noise would not give the same density evolution. This argument assumes differentiable densities, existence of the relevant dynamics, and boundary behaviour permitting conservation of probability.
 
