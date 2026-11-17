@@ -187,14 +187,6 @@ To distinguish fidelity from coverage visually, imagine a map of eight islands, 
 
 **Worked answer:** A puts `100/100 = 100%` of its points on land, compared with B's `80/100 = 80%`: A has better fidelity by this simple rule. A reaches only `1/8` islands; B reaches `8/8`: B has broader coverage. There is no overall winner without stating how these goals matter for the application. Both were given 100 draws, so we did not make B's coverage look better simply by drawing more samples from it. Repeating the comparison with new draws would show how stable these counts are. We would also compare how often each island appears with its frequency in real observations.
 
-**Exercise:** define a distribution, a loss, a sample and held-out evidence in one sentence each, using a numerical example from this lesson.
-
-**Worked answer:**
-
-- **Distribution:** our model assigns probabilities `(0.20, 0.20, 0.10, 0.50)` to the four colour–size combinations.
-- **Loss:** its average negative log likelihood is about 1.2206 on the 100 records used to fit it; this scores the probabilities assigned to those observations.
-- **Sample:** one random draw, such as 0.47, produces one record, “not blue and large”, without changing the probabilities.
-- **Held-out evidence:** on the illustrative fresh counts `(18, 22, 12, 48)`, the unchanged model scores about 1.2528 versus the equal-probability baseline's 1.3863, supporting better prediction on that batch.
 
 ## Further reading
 
