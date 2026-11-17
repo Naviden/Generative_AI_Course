@@ -13,6 +13,8 @@ Previous: [02 — How generative models work](02-generative-models.md) · [Readi
 
 The required discussion concerns these two papers. LoRA, quantization, reasoning benchmarks, tool use and solver experiments remain optional extensions in the reference explanations. Definitions needed for the equations are provided on this page; no code run is required beforehand.
 
+**Reading note:** before this meeting, submit one 200–300-word note on either DPO or RAG, identifying a specific claim, its supporting evidence and one justified question. Both excerpts above remain required reading. See the [assessment criteria](README.md#assessment--30-points). You do not need to submit written answers to the discussion questions below.
+
 ## Discussion of the papers
 
 ### 1. What observation supplies the DPO learning signal?

@@ -13,6 +13,8 @@ Previous: [01 — Shared foundations](01-foundations.md) · [Reading-group home]
 
 A difficult equation is a discussion point, not a reason to read the entire appendix. The explanations on this page unpack the required mathematics. Flow matching, continuous-time dynamics and the computational demonstrations are optional extensions, not additional preparation.
 
+**Reading note:** before this meeting, submit one 200–300-word note on either AEVB or DDPM, identifying a specific claim, its supporting evidence and one justified question. Both excerpts above remain required reading. See the [assessment criteria](README.md#assessment--30-points). You do not need to submit written answers to the discussion questions below.
+
 ## Discussion of the papers
 
 ### 1. Does a tighter bound mean a better generator?
