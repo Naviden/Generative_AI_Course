@@ -2,12 +2,6 @@
 
 [Reading-group home](README.md) · Next: [02 — How generative models work](02-generative-models.md)
 
-**No advance reading, installation or prior machine-learning course is assumed for this meeting.** Read the explanations together and work through the examples on this page. All questions have a worked answer here. A notebook or paper for notes is enough; nobody needs to run code.
-
-**Central question:** what does it mean to learn a distribution, and how is that different from producing a plausible example?
-
-The route is **probability → learning from data → representations and sequences → interpreting evidence**. Keep this page open throughout. The group can take turns explaining a calculation, questioning an assumption and recording the conclusion; no roles need to be assigned beforehand.
-
 ## 1. What a generative model describes
 
 An **observation** is one item of data: a point, image or sequence of tokens. A **variable** represents a quantity that can take different values. A model uses **parameters**, usually written $`\theta`$, to determine its predictions. Learning adjusts those parameters using observations.
@@ -30,7 +24,7 @@ Write the unknown population distribution as $`p_{\mathrm{data}}`$ and the model
 
 The **likelihood** treats the observed data as fixed and asks how their probability changes with the parameters. A **loss** is a scalar we minimize; here it is negative log likelihood. A **held-out** set is kept out of parameter fitting so that it can reveal errors on fresh observations. Training data fit parameters; validation data choose settings; a final test assesses the chosen procedure after those choices are fixed.
 
-**Try it together:** among 100 records, 40 are blue, 30 are large and 20 are both. What is the probability of blue given large, and is it the same as large given blue?
+**Exercise:** among 100 records, 40 are blue, 30 are large and 20 are both. What is the probability of blue given large, and is it the same as large given blue?
 
 **Worked answer:** restrict the denominator to the known group. The first is `20/30 = 2/3`; the second is `20/40 = 1/2`. Conditioning changes the question. Knowing either answer does not show that size causes colour.
 
@@ -48,7 +42,7 @@ A Gaussian or normal distribution is a bell-shaped density, written $`\mathcal{N
 
 For several coordinates, a **covariance matrix** records their variances on the diagonal and cross-coordinate dependence off the diagonal. An identity covariance $`I`$ gives each coordinate unit variance and zero covariance with the others. For a multivariate Gaussian, diagonal covariance also implies independent coordinates. The notation $`\mathrm{diag}(\sigma^2)`$ places the coordinate variances on the diagonal and zeros elsewhere.
 
-**Try it together:** a normal variable has mean 1 and standard deviation 2. A standard-normal draw is 0.5. What sample does shifting and scaling produce?
+**Exercise:** a normal variable has mean 1 and standard deviation 2. A standard-normal draw is 0.5. What sample does shifting and scaling produce?
 
 **Worked answer:** `1 + 2 × 0.5 = 2`. Holding that draw fixed, increasing the mean to 1.1 gives 2.1; increasing the standard deviation to 2.1 instead gives 2.05. The random draw and the distribution parameters have different roles.
 
@@ -129,7 +123,7 @@ Training observations determine parameter updates. Validation observations help 
 
 **Overfitting** means fitting peculiarities of the training data that do not transfer to the target population. A model might memorize training examples, lower its training loss and still perform poorly on new observations. Generalization asks whether performance transfers. Neither a lower training loss nor a visually attractive generated example establishes that transfer.
 
-**Try it together:** a model’s training NLL falls from 2.0 to 1.0 while NLL on the same held-out set rises from 2.1 to 2.4. Has learning improved?
+**Exercise:** a model’s training NLL falls from 2.0 to 1.0 while NLL on the same held-out set rises from 2.1 to 2.4. Has learning improved?
 
 **Worked answer:** fit to training data improved; the held-out evidence worsened. This does not support improved generalization. Check data splits and model-selection choices before attributing the difference to a particular mechanism. For a concrete split example, fit candidate settings on 60 observations, choose between them on 20 validation observations, and assess the selected procedure on 20 untouched test observations. These counts illustrate the roles, not an adequate sample size for every study.
 
@@ -159,7 +153,7 @@ For the three-token sequence “the cat sleeps”, suppose the conditional proba
 
 During teacher forcing, the prediction of “sleeps” receives the observed prefix “the cat”, even if the model would itself have sampled a different second token. During generation, an earlier sampled token becomes part of the later input. An early mistake can therefore change every subsequent conditional distribution. This explains why a token-level likelihood measurement and an evaluation of complete generated sequences answer different questions.
 
-**Try it together:** treat “I like tea” as exactly three tokens, with observed-token probabilities 0.4, 0.5 and 0.25. Write the factorization, compute the probability, and name the prefix used to predict the last token during training.
+**Exercise:** treat “I like tea” as exactly three tokens, with observed-token probabilities 0.4, 0.5 and 0.25. Write the factorization, compute the probability, and name the prefix used to predict the last token during training.
 
 **Worked answer:**
 
@@ -233,9 +227,9 @@ For input `[start, the, cat]`, score targets `[the, cat, sleeps]`. At input `cat
 
 A generator must do more than produce an attractive individual output. On the eight-cluster point distribution, a system that always produces points in one cluster may look locally realistic but miss seven clusters. That is a **coverage** failure. A system that reaches every cluster but scatters points far from them has a **fidelity** failure. A single picture or loss number may not distinguish these failures.
 
-This map locates the approaches used in the next meeting alongside related approaches:
+Generative approaches differ in how they construct and learn a distribution:
 
-| Approach | Intuition | Question to carry forward |
+| Approach | Intuition | Main question |
 |---|---|---|
 | Autoregressive model | Generate successive parts conditional on earlier parts | Which information is available at each prediction? |
 | Variational autoencoder (VAE) | Draw a hidden variable, then draw an observation conditional on it | How can we train when many hidden explanations could produce the same observation? |
@@ -246,7 +240,7 @@ This map locates the approaches used in the next meeting alongside related appro
 
 These are organizing ideas, not claims that one family is always best.
 
-**Closing discussion, with worked responses**
+**Questions and worked responses**
 
 | Question | Worked response |
 |---|---|
@@ -256,13 +250,9 @@ These are organizing ideas, not claims that one family is always best.
 | What does a smaller training loss establish? | Better fit to that objective on those training observations. Fresh-data performance and output usefulness require separate evidence. |
 | What should a research comparison hold fixed? | Factors that could otherwise explain the difference: data, measurement procedure, computation and available information. The appropriate controls depend on the claim. |
 
-Record one claim the group accepts, the assumption it needs, one unresolved objection, and the evidence that would resolve that objection. A disagreement is a useful outcome if its reason is explicit. The worked answers illustrate a defensible argument; they are not a required consensus.
+**Exercise:** define a distribution, a loss, a sample and held-out evidence in one sentence each, using a numerical example from this lesson.
 
-**First-meeting record:** write one sentence each defining a distribution, a loss, a sample and held-out evidence. Then record one concept the group wants clarified at the beginning of Lesson 02. This is the whole first-meeting activity; there is no installation exercise or advance-reading requirement.
-
-## Optional sources after the meeting
-
-The page above contains the material needed for the discussion. These links are for tracing ideas to their sources after the meeting, not preparation required to attend.
+## Further reading
 
 - [Attention Is All You Need — Vaswani et al., version 7](https://arxiv.org/abs/1706.03762v7): source for scaled attention and transformer architecture. Our scalar masking example is an explanatory calculation, not a replication of the paper’s translation results.
 - [Existing foundation reference](../docs/foundations.md): another presentation of the same vocabulary, available if useful.

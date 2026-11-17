@@ -2,10 +2,6 @@
 
 Previous: [02 — How generative models work](02-generative-models.md) · [Reading-group home](README.md)
 
-**Central question:** what does fitting a preference establish, and what would make a broader research claim credible?
-
-The route is **adaptation objectives → the DPO derivation → evaluating a system → a testable research proposal**. Every required explanation, example and discussion prompt is on this page. Paper links and computer experiments are optional extensions, not prerequisites.
-
 **Vocabulary reminder:** a model assigns a normalized distribution to outcomes. A loss is minimized during learning. A gradient gives local derivatives, and gradient descent moves opposite that gradient. Training observations fit parameters; validation selects settings; final test observations assess the chosen procedure. A seed fixes pseudorandom choices. A held-out result and a training result answer different questions.
 
 ## 1. What changes during post-training?
@@ -119,7 +115,7 @@ It does not demonstrate correctness, broader usefulness or generalization. Becau
 
 ### Discuss what the derivation guarantees
 
-**Paper question:** why can the two normalizers cancel, and does the resulting preference loss measure truth?
+**Question:** why can the two normalizers cancel, and does the resulting preference loss measure truth?
 
 **Worked response:** both responses belong to the same prompt, so their prompt-dependent $`\beta\log Z(x)`$ terms are identical. Responses to different prompts would not share that normalizer. The derivation uses a supported reference distribution and a statistical model of preference labels. Better pair fitting establishes agreement with those labels; truth, fairness and generalization to other prompts need separate measurements.
 
@@ -205,7 +201,7 @@ Write one additional control for one row. For example, give the same generator s
 
 **A claim to examine:** “Method B is a better reasoning model because it solves 75 of 100 problems, while A solves 60.” Assume A uses one attempt per problem and B uses five attempts plus a checker. These numbers are hypothetical and fully specified for discussion; they are not attributed to a paper.
 
-| Question for the group | Worked critique |
+| Question | Worked critique |
 |---|---|
 | What is observed? | B’s complete five-attempt system has higher measured success on these problems. |
 | What remains unidentified? | Whether its underlying model has higher per-attempt success under equal conditions. |
@@ -240,7 +236,7 @@ An ablation deliberately removes or changes one component to test an explanation
 
 ### Worked proposal: compare solvers at matched cost
 
-A research protocol states what you will compare, what evidence will be collected, and what result would challenge the hypothesis. The following fills every field in the discussion record below. It is a proposed experiment; its outcomes have not been measured. Heun predicts an endpoint with one velocity evaluation, evaluates velocity there, and advances using the average of the starting and predicted-endpoint velocities. It uses two network calls per step; Euler uses one.
+A research protocol states what you will compare, what evidence will be collected, and what result would challenge the hypothesis. It is a proposed experiment; its outcomes have not been measured. Heun predicts an endpoint with one velocity evaluation, evaluates velocity there, and advances using the average of the starting and predicted-endpoint velocities. It uses two network calls per step; Euler uses one.
 
 | Required item | Worked design and why it is chosen |
 |---|---|
@@ -258,13 +254,11 @@ A research protocol states what you will compare, what evidence will be collecte
 
 **Worked final reflection with hypothetical results.** Suppose the final mean difference is −0.02 but its uncertainty interval is `(−0.05, +0.01)`. The measurements show a lower sample mean for Heun, with uncertainty spanning no advantage. They do not establish a reliable population improvement, faster sampling or superiority on images. A next measurement could use more preplanned independent replications or test another distribution, depending on which uncertainty the claim needs to address. The interval numbers are illustrative, not an executed result.
 
-The required activity is to design and explain the experiment. Implementing Heun and executing the proposed study remain an optional extension.
+### Research design exercise
 
-### Your group’s discussion record
+Choose one concrete question: fixed-compute flow sampling, preference fitting with noisy labels, robustness to meaning-preserving wording changes, or retrieval with distracting evidence. Specify a testable proposal using the fields below and the worked solver comparison as an example.
 
-Choose one concrete question: fixed-compute flow sampling, preference fitting with noisy labels, robustness to meaning-preserving wording changes, or retrieval with distracting evidence. Fill the record below together. Designing the test is the activity; running a larger study is optional.
-
-| Item | Your group’s proposal |
+| Item | Proposed design |
 |---|---|
 | Falsifiable hypothesis and a contradicting result | |
 | Primary outcome and why it measures the claim | |
@@ -276,11 +270,9 @@ Choose one concrete question: fixed-compute flow sampling, preference fitting wi
 | One objection and a measurement that would address it | |
 | Supported conclusion, unsupported conclusion and next measurement | |
 
-Record one claim the group accepts, the assumption it needs, one unresolved objection, and the evidence that would resolve that objection. A disagreement is a useful outcome if its reason is explicit. The worked answers illustrate a defensible argument; they are not a required consensus.
-
 ## Optional demonstration — inspect preference updates
 
-**How to run an optional Python example:** use the installed repository environment and stay in the repository root. Create `runs/` if needed, save the whole block as `runs/reading_group_example.py`, then run `python runs/reading_group_example.py` in the terminal. Replace the file contents for the next example. Every block supplies its own imports and inputs. Blocks marked `bash` are terminal commands. Installation is needed only for these optional computations; all fixed worked answers and discussion cases are already on this page.
+**How to run an optional Python example:** use the installed repository environment and stay in the repository root. Create `runs/` if needed, save the whole block as `runs/reading_group_example.py`, then run `python runs/reading_group_example.py` in the terminal. Replace the file contents for the next example. Every block supplies its own imports and inputs. Blocks marked `bash` are terminal commands.
 
 **One update before a full run.** Use one context and three outcomes, with fixed uniform reference and a preference for outcome 0 over 1. Outcome 2 is unpaired. A logit is a real-valued score before softmax. At beta 1 and zero logits, expect loss 0.6931 and gradients `(-0.5, +0.5, 0)`. A step of size 0.5 gives logits `(0.25, -0.25, 0)`, probabilities approximately `(0.4192, 0.2543, 0.3265)` and new loss 0.4741. `.backward()` computes gradients; `no_grad` applies the explicit update without building another derivative graph.
 
@@ -324,9 +316,9 @@ Read these fields inside `metrics`. `loss_last` is evaluated before the final up
 
 **Worked interpretation:** after the single update above, the pair loss fell and the preferred outcome became more probable; the unpaired probability also changed. This says nothing about factual correctness or another prompt. For the 100-step comparison, report the measured probabilities and KL rather than assuming which beta must produce the larger divergence.
 
-## Optional primary sources
+## Further reading
 
 - [Direct Preference Optimization — Rafailov et al., v3](https://arxiv.org/abs/2305.18290v3): follow the connection between the regularized reward optimum and the preference objective. In an experimental result, distinguish the measured task from broader claims about alignment.
 - [Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks — Lewis et al., v4](https://arxiv.org/abs/2005.11401v4): inspect what information retrieval adds and which evidence would separate retrieval quality from generation quality. The handbook example here is an explanatory diagnostic, not a reported result from that paper.
 
-The required group record and worked response are above; no external worksheet or assessment page is needed. Return to the [reading-group home](README.md).
+[Reading-group home](README.md).

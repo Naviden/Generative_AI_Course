@@ -2,17 +2,11 @@
 
 Previous: [01 — Shared foundations](01-foundations.md) · [Reading-group home](README.md) · Next: [03 — Preferences and research evidence](03-preferences-and-evidence.md)
 
-**Central question:** when does the quantity we can optimize tell us what we want to know about a generator?
-
-This page contains the explanation, derivations, worked examples and discussion record. No separate theory or lab page is required. The group can work through the material together; full-paper reading is optional. The computational demonstration near the end is optional too.
-
-The route is **latent-variable inference → denoising → learned transport → testing claims**. In Lesson 01, a loss measured how well a model fitted observations. Here we distinguish a tractable bound, a prediction loss and a sample-distribution diagnostic.
-
 **Notation reminder:** $`x`$ is an observation, $`z`$ an unobserved variable, $`\theta`$ generative-model parameters and $`\phi`$ encoder parameters. Expectation is a probability-weighted average. A Gaussian’s mean gives its centre and its variance its squared spread; a standard normal has mean zero and variance one. KL is an expected log ratio comparing distributions and is generally asymmetric.
 
 ## 1. A latent variable makes generation easy and inference hard
 
-**Paper question:** a VAE replaces a hard likelihood calculation with an optimizable lower bound. Which approximation is being made, and what does a better bound establish?
+**Question:** a VAE replaces a hard likelihood calculation with an optimizable lower bound. Which approximation is being made, and what does a better bound establish?
 
 ### Why introduce an unobserved variable?
 
@@ -151,7 +145,7 @@ With unit variance, the variance terms in each coordinate cancel, leaving half t
 
 ## 2. Denoising learns a reverse process
 
-**Paper question:** the injected noise is known during training. Why can’t the predictor always recover that exact draw, and why is a noise-prediction loss not automatically exact likelihood?
+**Question:** the injected noise is known during training. Why can’t the predictor always recover that exact draw, and why is a noise-prediction loss not automatically exact likelihood?
 
 ### Learn to reverse a controlled corruption process
 
@@ -283,7 +277,7 @@ In latent diffusion, an encoder first maps images to a compressed representation
 
 ## 3. Flow matching learns motion without simulating training trajectories
 
-**Paper question:** conditional training paths can be straight even when the learned trajectories are not. What is the network actually predicting?
+**Question:** conditional training paths can be straight even when the learned trajectories are not. What is the network actually predicting?
 
 ### Prescribe a path, then learn how to move along its distribution
 
@@ -416,11 +410,9 @@ An ablation deliberately removes or changes one component to test an explanation
 
 **Worked interpretation of the three-seed comparison.** Suppose the matching checks pass and the differences are those given above. A valid conclusion is: “With training and evaluation randomness paired within each seed, changing 5 to 50 Euler steps reduced the average sample-distance estimate by 0.01 across these three runs, with one seed worsening by 0.02.” It would be unsupported to say every run improved or sampling became ten times faster. More independent runs would probe stability of the effect; sampler-only timing would address speed. This is a hypothetical worked answer, not a substitute for recording the lab's actual measurements.
 
-### Group discussion record
+### Worked comparison of claims
 
-Record one claim the group accepts, the assumption it needs, one unresolved objection, and the evidence that would resolve that objection. A disagreement is a useful outcome if its reason is explicit. The worked answers illustrate a defensible argument; they are not a required consensus.
-
-| Record | Worked example of the intended precision |
+| Claim type | Worked example |
 |---|---|
 | Mathematical claim | The ELBO is a lower bound under the stated support/integrability conditions; equality requires the true posterior almost everywhere. |
 | Implementation claim | Summing two latent KL contributions 0.5 and 2 gives 2.5; averaging coordinates instead changes the loss weighting. |
@@ -428,11 +420,11 @@ Record one claim the group accepts, the assumption it needs, one unresolved obje
 | Unsupported extrapolation | These toy outcomes do not establish superior image generation, faster sampling or universal superiority of a model family. |
 | Next measurement | Repeat matched comparisons across independently trained models; time the sampler separately if claiming speed. |
 
-Complete these five entries for the claim the group finds most interesting. You can use the supplied worked cases without running a computer experiment.
+**Exercise:** choose one claim about a generative model and identify its mathematical assumptions, implementation checks, empirical evidence, limits and next measurement, following the table above.
 
 ## Optional demonstration — run the comparisons
 
-**How to run an optional Python example:** use the installed repository environment and stay in the repository root. Create `runs/` if needed, save the whole block as `runs/reading_group_example.py`, then run `python runs/reading_group_example.py` in the terminal. Replace the file contents for the next example. Every block supplies its own imports and inputs. Blocks marked `bash` are terminal commands. Installation is needed only for these optional computations; all fixed worked answers and discussion cases are already on this page.
+**How to run an optional Python example:** use the installed repository environment and stay in the repository root. Create `runs/` if needed, save the whole block as `runs/reading_group_example.py`, then run `python runs/reading_group_example.py` in the terminal. Replace the file contents for the next example. Every block supplies its own imports and inputs. Blocks marked `bash` are terminal commands.
 
 The VAE and flow programs learn synthetic points: eight Gaussian clusters on a circle of radius 2, coordinate-noise standard deviation 0.15, 1,024 training points and 256 independent held-out points. `--steps` counts parameter updates, not epochs. VAE reconstruction uses fixed observation variance 0.1. The encoder’s latent variance is a separate, learned quantity.
 
@@ -542,11 +534,9 @@ For the prescribed commands in the same environment, expect only `{'sampling_ste
 | 5 | | | | | |
 | 50 | | | | | |
 
-The held-out error sums squared velocity error over coordinates and averages examples; it is not likelihood. This single pair does not measure training-run variability. If the group chooses to extend it, repeat both commands with `--seed 1`, then both with `--seed 2`, and rerun the same matching checks separately for each pair. Three seeds still provide weak uncertainty evidence. Keep measured results distinct from the hypothetical examples in the discussion.
+The held-out error sums squared velocity error over coordinates and averages examples; it is not likelihood. This single pair does not measure training-run variability. To measure variation across training runs, repeat both commands with `--seed 1`, then both with `--seed 2`, and rerun the same matching checks separately for each pair. Three seeds still provide weak uncertainty evidence. Keep measured results distinct from the hypothetical examples in the discussion.
 
-## Optional primary sources
-
-The local derivations and worked examples above are sufficient for the group discussion. To inspect the papers themselves, use the following focused questions; no page sends you back here to find a missing exercise.
+## Further reading
 
 | Source | Focus for a paper-based discussion |
 |---|---|
